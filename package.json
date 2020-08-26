@@ -6,8 +6,8 @@
     "email": "omegaatt36@gmail.com"
   },
   "scripts": {
-    "dev": "vuepress dev .",
-    "build": "vuepress build ."
+    "dev": "vuepress dev blog",
+    "build": "vuepress build blog"
   },
   "license": "MIT",
   "devDependencies": {
