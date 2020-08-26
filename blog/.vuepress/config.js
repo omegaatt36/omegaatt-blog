@@ -11,7 +11,7 @@ module.exports = {
         "hostname": "https://omegaatt.com/",
         "exclude": ['/404.html'],
         "dateFormatter": time => {
-            return time
+            return new Date(time).toISOString().slice(0,10);
         }
       }
     ]
