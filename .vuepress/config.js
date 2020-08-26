@@ -18,7 +18,7 @@ module.exports = {
       "link",
       {
         "rel": "icon",
-        "href": "favicon.png"
+        "href": "/assets/favicon.png"
       }
     ],
     [
@@ -116,7 +116,7 @@ module.exports = {
     searchMaxSuggestions: 10,
     lastUpdated: "Last Updated",
     author: "Raiven",
-    authorAvatar: "/avatar.jpg",
+    authorAvatar: "/assets/avatar.jpg",
     record: "xxxx",
     startYear: "2020"
   },
