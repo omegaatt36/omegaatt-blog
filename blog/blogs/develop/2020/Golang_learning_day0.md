@@ -35,7 +35,7 @@ categories:
 
 [![](https://cdn-media-1.freecodecamp.org/images/1*NDXd5I87VZG0Z74N7dog0g.png)](https://www.freecodecamp.org/news/here-are-some-amazing-advantages-of-go-that-you-dont-hear-much-about-1af99de3b23a/)
 
-[![](@assets/20200825/golang_download_page.png)](https://golang.org/dl/)
+[![](/assets/dev/20200825/golang_download_page.png)](https://golang.org/dl/)
 
 ## Install for windows
 
