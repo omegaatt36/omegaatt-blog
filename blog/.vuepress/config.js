@@ -1,12 +1,18 @@
 module.exports = {
-  sitemap: {
-    hostname: "https://omegaatt.com/"
-  },
   plugins: [
     [
       "@vuepress/google-analytics",
       {
         ga: 'UA-156654213-2',
+      }
+    ],
+    [
+      "sitemap", {
+        "hostname": "https://omegaatt.com/",
+        "exclude": ['/404.html'],
+        "dateFormatter": time => {
+            return time
+        }
       }
     ]
   ],
