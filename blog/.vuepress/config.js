@@ -37,6 +37,7 @@ module.exports = {
   ],
   theme: "reco",
   themeConfig: {
+    noFoundPageByTencent: false,
     "nav": [
       {
         "text": "Home",
