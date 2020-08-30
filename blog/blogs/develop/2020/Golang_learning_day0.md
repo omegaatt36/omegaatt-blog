@@ -43,13 +43,9 @@ Step.1 首先到[官網](https://golang.org/dl/)點擊 Featured downloads 中的
 
 Step.2 若安裝正常則 go 已經加進 windows 的環境變數中了。可以開啟 CMD 輸入 `go` 可以看到 go 的 cli 指令，而輸入 `go version` 則可查看目前安裝的版本。
 
-![](https://i.imgur.com/0q2ZPjm.png)
-
 Step.3 更改環境變數 GOPATH
 
-![](https://i.imgur.com/e3dIvZ0.png)
-
-而目錄空格有時候會搞出很多不必要的毛(在 python 被深深傷害)，於是去系統環境變數找到 GOPATH 並更改為一個沒有空格的目錄。也將做為未來撰寫 GO 時的 worksapce。
+而目錄空格有時候會搞出很多不必要的毛(在 python 被深深傷害)，於是去系統環境變數找到 GOPATH 並更改為一個沒有空格的目錄。也將做為未來撰寫 golang 時的 worksapce。
 
 ## Install for linux
 
@@ -88,4 +84,57 @@ export PATH=$PATH:$GOPATH/bin
 ``` bash
 # $ source .profile
 $ source .zshrc
+```
+
+最後測試一下，輸入 `go version` 確認一下是否能正常執行 golang 指令
+
+```bash
+$ go version
+'go version go1.14.4 linux/amd64
+```
+
+## Hello world!
+
+許多語言或許都在爭誰能夠「最快」印出 Hello world，我想 golang 在這方面絕對是沒有 python 來的「方便」呢。
+
+首先先創建一個 `hello-world`  資料夾，並在裡面建立一個 `main.go`，並複製貼上下面的程式碼。
+
+```golang
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	fmt.Println("Hello, playground")
+}
+```
+
+儲存後在 cmd 中輸入 `go run main.go` 就會看到字串 `Hello, playground` 被打印出來囉。同樣的程式也可以在 [playground](https://play.golang.org/) 中執行。
+
+## Hello world 步驟解析
+
+這段落給初學者們，若您是超級初心者，可以先落過這段落去看下一篇。
+
+golang 中一個資料夾就是一個 `package` (若不熟悉什麼是 `package` 的話日後會再詳細說明)，於是在程式碼第一行中一定要宣告這支檔案是什麼 `package`。由於 golang 中一個資料夾中只允許存在一個 `main package`，於是新建立一個 `hello-world` 資料夾是為了避免在同一個資料夾內有好幾個 `main package`。
+
+golang 中所有的程式碼檔案都是以 `.go` 做為副檔名，於是建立一個 `main.go` 做為 `main package` 的「入口」，換句話說，也可以命名成 `hello-world.go`，只要在執行時替換成 `go run hello-world.go` 就可以了。
+
+接著來看程式碼：
+
+```golang
+// 這支檔案是 main package
+package main
+
+// 我們要打印字串，於是需要使用到 fmt 這個 libary，於是在這裡「引用」
+import (
+	"fmt"
+)
+
+// 程式的「入口」會從 main() 「主函式」開始執行
+func main() {
+    // 透過 fmt 這個 libary 中的 Println 來打印字串
+	fmt.Println("Hello, playground")
+}
 ```
