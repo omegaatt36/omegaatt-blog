@@ -88,7 +88,7 @@ $ source .zshrc
 
 最後測試一下，輸入 `go version` 確認一下是否能正常執行 golang 指令
 
-```bash
+``` bash
 $ go version
 'go version go1.14.4 linux/amd64
 ```
@@ -97,9 +97,9 @@ $ go version
 
 許多語言或許都在爭誰能夠「最快」印出 Hello world，我想 golang 在這方面絕對是沒有 python 來的「方便」呢。
 
-首先先創建一個 `hello-world`  資料夾，並在裡面建立一個 `main.go`，並複製貼上下面的程式碼。
+首先先創建一個 `hello-world` 資料夾，並在裡面建立一個 `main.go` ，並複製貼上下面的程式碼。
 
-```golang
+``` go
 package main
 
 import (
@@ -117,13 +117,13 @@ func main() {
 
 這段落給初學者們，若您是超級初心者，可以先落過這段落去看下一篇。
 
-golang 中一個資料夾就是一個 `package` (若不熟悉什麼是 `package` 的話日後會再詳細說明)，於是在程式碼第一行中一定要宣告這支檔案是什麼 `package`。由於 golang 中一個資料夾中只允許存在一個 `main package`，於是新建立一個 `hello-world` 資料夾是為了避免在同一個資料夾內有好幾個 `main package`。
+golang 中一個資料夾就是一個 `package` (若不熟悉什麼是 `package` 的話日後會再詳細說明)，於是在程式碼第一行中一定要宣告這支檔案是什麼 `package` 。由於 golang 中一個資料夾中只允許存在一個 `main package` ，於是新建立一個 `hello-world` 資料夾是為了避免在同一個資料夾內有好幾個 `main package` 。
 
-golang 中所有的程式碼檔案都是以 `.go` 做為副檔名，於是建立一個 `main.go` 做為 `main package` 的「入口」，換句話說，也可以命名成 `hello-world.go`，只要在執行時替換成 `go run hello-world.go` 就可以了。
+golang 中所有的程式碼檔案都是以 `.go` 做為副檔名，於是建立一個 `main.go` 做為 `main package` 的「入口」，換句話說，也可以命名成 `hello-world.go` ，只要在執行時替換成 `go run hello-world.go` 就可以了。
 
 接著來看程式碼：
 
-```golang
+``` go
 // 這支檔案是 main package
 package main
 
