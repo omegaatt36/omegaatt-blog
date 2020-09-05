@@ -2,13 +2,13 @@
 title: Golang 學習筆記 Day 0 - Why Golang & 安裝篇
 date: 2020-08-25
 tags:
- - php
+ - golang
 categories:
  - develop
 ---
 
 ``` 
-免責聲明，此篇為個人學習筆記，非正式教學文，僅供參考感謝指教，有任何內容錯誤歡迎發 vssue。
+免責聲明，此篇為個人學習筆記，非正式教學文，僅供參考感謝指教，有任何內容錯誤歡迎發 issue。
 ```
 
 ![image source: https://medium.com/nordcloud-engineering/how-to-build-pluggable-golang-application-and-benefit-from-aws-lambda-layers-154c8117df9b](https://miro.medium.com/max/2946/1*TArmNwMaoXjR1MegmucwyQ.png)
