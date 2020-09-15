@@ -1179,15 +1179,15 @@
   optionalDependencies:
     prettier "^1.18.2"
 
-"@vuepress-reco/vuepress-plugin-back-to-top@^1.5.5":
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/@vuepress-reco/vuepress-plugin-back-to-top/-/vuepress-plugin-back-to-top-1.5.5.tgz#779e1f3ca22babe3568123760f53b0dc93869602"
-  integrity sha512-NT1kHMGcHf9i8fGjbcb1dD58EDzA9oz0aNCw0pOCuZpIFJstGHIGG8eUEHA0OdJiL/VxtspMUuYu2V124q0ijw==
+"@vuepress-reco/vuepress-plugin-back-to-top@^1.5.7":
+  version "1.5.7"
+  resolved "https://registry.yarnpkg.com/@vuepress-reco/vuepress-plugin-back-to-top/-/vuepress-plugin-back-to-top-1.5.7.tgz#ae65e3ba484d0873ad58591e939fe58a4e46e7de"
+  integrity sha512-wQwPch7chcbIUsIKJNQxirdmvV3RQE8pVGb1WWxJa2GA4EtrXLiwYTBZTjx6PpWU2pUH+5mYT+aRL92liyfWRQ==
 
-"@vuepress-reco/vuepress-plugin-comments@^1.4.6":
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/@vuepress-reco/vuepress-plugin-comments/-/vuepress-plugin-comments-1.4.6.tgz#a89cbd372815e8995049f34f8038b22d6414195e"
-  integrity sha512-T9Ny4EHVtIURxk+/m+QCCHshoDIRc6pn2tBkjpuStdbLunVijvOBQBBIz4g/uE0dBFXZnd4jtGpy/mOE+bHeyg==
+"@vuepress-reco/vuepress-plugin-comments@^1.5.7":
+  version "1.5.7"
+  resolved "https://registry.yarnpkg.com/@vuepress-reco/vuepress-plugin-comments/-/vuepress-plugin-comments-1.5.7.tgz#c1d9709c9d80bed79d860b2962b0be7d17a62d39"
+  integrity sha512-/z9SSDor9CBa/7jExPmvZSTvngcn2S2ILMvI707PJ4/rWe7NsqHPSq3neVL9mllxwy4v7CufRKBz5WSQBILlmQ==
   dependencies:
     "@vssue/api-bitbucket-v2" "^1.1.1"
     "@vssue/api-gitee-v5" "^1.4.4"
@@ -1197,15 +1197,15 @@
     valine "^1.4.14"
     vssue "^1.4.6"
 
-"@vuepress-reco/vuepress-plugin-loading-page@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@vuepress-reco/vuepress-plugin-loading-page/-/vuepress-plugin-loading-page-1.4.0.tgz#317202c9ef78825b3016c580a12791fc6e282511"
-  integrity sha512-wDXvtZLKPEiEISPJBVrZQ/Xva5zMyQtmuUuPQpkEj96M5lnVPpJiFWlgZ4T2T9ANe2A7at8t59SszzVnSY1whw==
+"@vuepress-reco/vuepress-plugin-loading-page@^1.5.7":
+  version "1.5.7"
+  resolved "https://registry.yarnpkg.com/@vuepress-reco/vuepress-plugin-loading-page/-/vuepress-plugin-loading-page-1.5.7.tgz#b673d10cb18a579008c3487d860984c81cffd340"
+  integrity sha512-1Ozzv3WfL/+cNaO9czY8gOW2DbZISe7XC5kQeKVhLlNhqqLYMMNVr+fRbafMCJA4AFWsz2N2QlBB/bASX+qKwA==
 
-"@vuepress-reco/vuepress-plugin-pagation@^1.4.7":
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/@vuepress-reco/vuepress-plugin-pagation/-/vuepress-plugin-pagation-1.4.7.tgz#59677a0abaf62b7a1095bbc0cb7bd12a88f782e9"
-  integrity sha512-mLzQvxr3rnPl7A/HwZAoV+VsFpQdPekN00A6pDUv+gcunUoOZT82qzbMT7UbEXkmksliaMsDuXJZWuH5n+FJbg==
+"@vuepress-reco/vuepress-plugin-pagation@^1.5.7":
+  version "1.5.7"
+  resolved "https://registry.yarnpkg.com/@vuepress-reco/vuepress-plugin-pagation/-/vuepress-plugin-pagation-1.5.7.tgz#f4b371744328bd5c3f979b7cd32547331fe52a94"
+  integrity sha512-P/0x4dgdMZrN/rwh5Z802EseCwp9osRv+KpV1Du2/YOY3OWKuPazGyywfjqiAmXdFWcV62jMU4b5AQ+nhVou2g==
 
 "@vuepress/core@1.5.4":
   version "1.5.4"
@@ -8277,15 +8277,15 @@ vuepress-plugin-smooth-scroll@^0.0.9:
   dependencies:
     smoothscroll-polyfill "^0.4.4"
 
-vuepress-theme-reco@1.5.5:
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/vuepress-theme-reco/-/vuepress-theme-reco-1.5.5.tgz#8ea5293991d0321e5f1e5e4dbbb6d94f4c8a7cc0"
-  integrity sha512-G/SfQIb9Z/ZoyQ9leeieZfbQ/qJE/uXlRTSo5KKdZ8MPVL2DM65LQy436BQyQRO0C4yr912MjYADLpFPK/mQ8g==
+vuepress-theme-reco@1.5.7:
+  version "1.5.7"
+  resolved "https://registry.yarnpkg.com/vuepress-theme-reco/-/vuepress-theme-reco-1.5.7.tgz#100c92b33dcd931874952ac4eb27e123cfbf87ce"
+  integrity sha512-EFhePs61GGrDNwM8Y3JF7/oxh2ffcxGZNkHPZk8LTEjdj+jOQrMtTSqAD3wnK+NY/xbhwsDo60ByJ9ItwSm54w==
   dependencies:
-    "@vuepress-reco/vuepress-plugin-back-to-top" "^1.5.5"
-    "@vuepress-reco/vuepress-plugin-comments" "^1.4.6"
-    "@vuepress-reco/vuepress-plugin-loading-page" "^1.4.0"
-    "@vuepress-reco/vuepress-plugin-pagation" "^1.4.7"
+    "@vuepress-reco/vuepress-plugin-back-to-top" "^1.5.7"
+    "@vuepress-reco/vuepress-plugin-comments" "^1.5.7"
+    "@vuepress-reco/vuepress-plugin-loading-page" "^1.5.7"
+    "@vuepress-reco/vuepress-plugin-pagation" "^1.5.7"
     "@vuepress/plugin-blog" "1.9.2"
     "@vuepress/plugin-medium-zoom" "1.5.0"
     docsearch.js "2.6.3"
