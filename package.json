@@ -16,7 +16,7 @@
     "@vuepress/plugin-google-analytics": "^1.2.0"
   },
   "dependencies": {
-    "vue-class-component": "^7.2.3"
+    "vue-class-component": "^7.2.6"
   },
   "description": ""
 }
