@@ -1294,10 +1294,10 @@
     vuepress-plugin-mailchimp "^1.4.1"
     vuepress-plugin-sitemap "^2.3.1"
 
-"@vuepress/plugin-google-analytics@^1.2.0":
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/@vuepress/plugin-google-analytics/-/plugin-google-analytics-1.5.4.tgz#43dff0a84b18b21ea597f3d97281c40d754a5083"
-  integrity sha512-JVmIPBqKNiOVvow+XAZE+jgGvIRMBVxZOpKb5HBQ0xwz/E81Opl7cxdX9VkPKX+i9VoRBPWEiD/874RivzbW1g==
+"@vuepress/plugin-google-analytics@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@vuepress/plugin-google-analytics/-/plugin-google-analytics-1.7.0.tgz#79d8356ae44713b38d32abc4a4cbae054622141d"
+  integrity sha512-bw+Z/HWJZxBQsLjZSS5vrnsG/04NId2MUcSKys2bQbFlvKk78gE0CPhRsZI9AngKMuWmG4WhUpdv15t9O9GwpA==
 
 "@vuepress/plugin-last-updated@1.5.4":
   version "1.5.4"
