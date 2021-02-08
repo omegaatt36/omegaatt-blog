@@ -12,7 +12,7 @@
   "license": "MIT",
   "devDependencies": {
     "vuepress": "1.5.4",
-    "vuepress-theme-reco": "1.5.5",
+    "vuepress-theme-reco": "1.6.4",
     "@vuepress/plugin-google-analytics": "^1.2.0"
   },
   "dependencies": {
