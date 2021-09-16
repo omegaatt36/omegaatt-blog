@@ -55,7 +55,7 @@ module.exports = {
         "items": [
           {
             "text": "攝影專欄",
-            "link": "/photo/column/"
+            "link": "/photo/gallery/"
           }
         ]
       },
@@ -88,9 +88,9 @@ module.exports = {
       }
     ],
     sidebar: {
-      '/photo/column/': [
+      '/photo/gallery/': [
         '',
-        'test_page'
+        'that'
       ],
     },
     type: "blog",
