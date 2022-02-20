@@ -1,5 +1,5 @@
 ---
-title: Kubernetes 學習筆記 - kubeamd 建置 cluster
+title: Kubernetes 學習筆記 - Ubuntu kubeamd 建置 cluster
 date: 2021-09-19
 tags:
  - kubernetes
