@@ -109,7 +109,7 @@ module.exports = {
         "title": "instagram",
         "desc": "chih.hong",
         "avatar":"",
-        "email": "1156743527@qq.com",
+        "email": "omegaatt36@gmail.com",
         "link": "https://www.instagram.com/chih.hong/"
       },
       {
@@ -124,7 +124,6 @@ module.exports = {
     lastUpdated: "Last Updated",
     author: "Raiven",
     authorAvatar: "/assets/avatar.jpg",
-    record: "xxxx",
     startYear: "2020"
   },
   "markdown": {
