@@ -115,6 +115,10 @@ categories:
   systemctl restart containerd
   systemctl status containerd
   ```
+  開機自動啟動
+  ```bash
+  systemctl enable containerd
+  ```
 9. 安裝 crictl
   ```bash
   wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.20.0/crictl-v1.20.0-linux-amd64.tar.gz
@@ -144,6 +148,8 @@ categories:
   repo_gpgcheck=1
   gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
   ```
+  > centos 7 目前可能會遇到 ["repomd.xml signature could not be verified for kubernetes"](https://github.com/kubernetes/kubernetes/issues/60134) 的問題，可將 `repo_gpgcheck` 改為 `0`
+
   完成後 `yum install -y kubeadm` 便會將 `kubelet`、`kubectl` 等依賴一併安裝
   開機自動啟動
   ```bash
@@ -200,7 +206,7 @@ categories:
   ```bash
   # 修改 CALICO_IPV4POOL_CIDR 與上面 kubeadm-init.yaml 中的 cidr 相同
   - name: CALICO_IPV4POOL_CIDR
-    value: "10.96.0.0/16"
+    value: "10.168.0.0/16"
   
   # (optional)
   # 新增 IP_AUTODETECTION_METHOD，讓他在 bird-check 時綁 host nic
