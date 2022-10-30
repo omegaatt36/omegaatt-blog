@@ -1,5 +1,5 @@
 module.exports = {
-  plugins: [
+  "plugins": [
     [
       "@vuepress/google-analytics",
       {
@@ -16,10 +16,10 @@ module.exports = {
       }
     ]
   ],
-  title: "omegaatt",
-  description: "",
-  dest: "public",
-  head: [
+  "title": "omegaatt",
+  "description": "",
+  "dest": "public",
+  "head": [
     [
       "link",
       {
@@ -35,9 +35,9 @@ module.exports = {
       }
     ]
   ],
-  theme: "reco",
-  themeConfig: {
-    noFoundPageByTencent: false,
+  "theme": "reco",
+  "themeConfig": {
+    "oFoundPageByTencent": false,
     "nav": [
       {
         "text": "Home",
@@ -87,14 +87,14 @@ module.exports = {
         ]
       }
     ],
-    sidebar: {
+    "sidebar": {
       '/photo/gallery/': [
         '',
         'that'
       ],
     },
-    type: "blog",
-    blogConfig: {
+    "type": "blog",
+    "blogConfig": {
       "category": {
         "location": 2,
         "text": "Category"
@@ -104,7 +104,7 @@ module.exports = {
         "text": "Tag"
       }
     },
-    friendLink: [
+    "friendLink": [
       {
         "title": "instagram",
         "desc": "chih.hong",
@@ -119,12 +119,12 @@ module.exports = {
         "link": "https://vuepress-theme-reco.recoluan.com"
       }
     ],
-    search: true,
-    searchMaxSuggestions: 10,
-    lastUpdated: "Last Updated",
-    author: "Raiven",
-    authorAvatar: "/assets/avatar.jpg",
-    startYear: "2020"
+    "search": true,
+    "searchMaxSuggestions": 10,
+    "lastUpdated": "Last Updated",
+    "author": "Raiven",
+    "authorAvatar": "/assets/avatar.jpg",
+    "startYear": "2020"
   },
   "markdown": {
     "lineNumbers": true
