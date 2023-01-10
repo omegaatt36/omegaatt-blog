@@ -18,7 +18,8 @@
     "lru-cache": "^7.14.1",
     "markdown-it-emoji": "^2.0.2",
     "vuepress": "^1.9.8",
-    "vuepress-theme-reco": "^1.6.16"
+    "vuepress-theme-reco": "^1.6.16",
+    "yarn-audit-fix": "^9.3.7"
   },
   "description": "",
   "packageManager": "yarn@3.3.1"
