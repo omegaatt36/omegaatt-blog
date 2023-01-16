@@ -4069,6 +4069,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "commander@npm:10.0.0"
+  checksum: 9f6495651f878213005ac744dd87a85fa3d9f2b8b90d1c19d0866d666bda7f735adfd7c2f10dfff345782e2f80ea258f98bb4efcef58e4e502f25f883940acfd
+  languageName: node
+  linkType: hard
+
 "commander@npm:^2.11.0, commander@npm:^2.20.0, commander@npm:^2.20.3":
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
@@ -4080,13 +4087,6 @@ __metadata:
   version: 7.2.0
   resolution: "commander@npm:7.2.0"
   checksum: 53501cbeee61d5157546c0bef0fedb6cdfc763a882136284bed9a07225f09a14b82d2a84e7637edfd1a679fb35ed9502fd58ef1d091e6287f60d790147f68ddc
-  languageName: node
-  linkType: hard
-
-"commander@npm:^9.4.0":
-  version: 9.5.0
-  resolution: "commander@npm:9.5.0"
-  checksum: c7a3e27aa59e913b54a1bafd366b88650bc41d6651f0cbe258d4ff09d43d6a7394232a4dadd0bf518b3e696fdf595db1028a0d82c785b88bd61f8a440cecfade
   languageName: node
   linkType: hard
 
@@ -9427,7 +9427,7 @@ __metadata:
     markdown-it-emoji: ^2.0.2
     vuepress: ^1.9.8
     vuepress-theme-reco: ^1.6.16
-    yarn-audit-fix: ^9.3.7
+    yarn-audit-fix: ^9.3.8
   languageName: unknown
   linkType: soft
 
@@ -13572,9 +13572,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:^9.3.7":
-  version: 9.3.7
-  resolution: "yarn-audit-fix@npm:9.3.7"
+"yarn-audit-fix@npm:^9.3.8":
+  version: 9.3.8
+  resolution: "yarn-audit-fix@npm:9.3.8"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -13583,7 +13583,7 @@ __metadata:
     "@types/yarnpkg__lockfile": ^1.1.5
     "@yarnpkg/lockfile": ^1.1.0
     chalk: ^5.0.1
-    commander: ^9.4.0
+    commander: ^10.0.0
     find-cache-dir: ^4.0.0
     find-up: ^6.3.0
     fs-extra: ^10.1.0
@@ -13596,7 +13596,7 @@ __metadata:
     tslib: ^2.4.0
   bin:
     yarn-audit-fix: target/es6/cli.js
-  checksum: f69c2f50873e9aa8a8885e9a8a69cde3f62074d29888422e6e44f2dfca34c3e21cfe46a80867023e1e5592a73b9ba25a67b69c6f290f04812a21ab592186935e
+  checksum: 3cb3bd97dd1bce18898b863cb7ff29944e55b7b6ac775386f75ab90e3170e678180eca04b2f762d2df80bf5a1696a2debad880c18612d28d69bd8ab67f7c2391
   languageName: node
   linkType: hard
 
