@@ -1,17 +1,19 @@
 ---
-title: zsh & oh-my-zsh install cheat sheet on ubuntu 22.04
+title: zsh & oh-my-zsh & tmux install cheat sheet on ubuntu 22.04
 date: 2022-10-30
 categories:
  - linux
 ---
 
+## oh my zsh & power lever 10k
+
 0. install deps
     ```shell
-    yes | sudo apt install git curl
+    sudo apt install git curl -y
     ```
 1. install zsh
     ```shell
-    yes | sudo apt install zsh
+    sudo apt install zsh -y
     ```
 2. check is installed
     ```shell
@@ -29,7 +31,10 @@ categories:
     ```shell
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     ```
-5. change login shell(must logout and login again)
+5. install meslo nerd font:
+    - windows: https://gist.githubusercontent.com/romkatv/aa7a70fe656d8b655e3c324eb10f6a8b/raw/install_meslo_wsl.sh
+    - linux: https://gist.github.com/matthewjberger/7dd7e079f282f8138a9dc3b045ebefa0
+6. change login shell(must logout and login again)
     ```shell
     chsh -s $(which zsh)
     logout
@@ -38,16 +43,16 @@ categories:
 
     login
     ```
-6. install plugins(recommended)
+7. install plugins(recommended)
     - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
         ```shell
         git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
         ```
     - [zsh-docker-aliases](https://github.com/akarzim/zsh-docker-aliases#with-oh-my-zsh)
         ```shell
-        git clone https://github.com/akarzim/zsh-docker-aliases.git  ~/.oh-my-zsh/custom/plugins/zsh-docker-aliases
+        git clone https://github.com/akarzim/zsh-docker-aliases.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-docker-aliases
         ```
-7. configure zsh  
+8. configure zsh  
     - [option 1] first use
         ```shell
         p10k configure
@@ -55,12 +60,31 @@ categories:
     - [option 2] have configured .zshrc  
         [my rc file](https://github.com/omegaatt36/lab/blob/main/rc/.zshrc)
         ```shell
-        curl https://raw.githubusercontent.com/omegaatt36/lab/main/rc/.zshrc -o .zshrc
+        curl https://raw.githubusercontent.com/omegaatt36/lab/main/rc/.zshrc -o $HOME/.zshrc
+        curl https://raw.githubusercontent.com/omegaatt36/lab/main/rc/.p10k.zsh -o $HOME/.p10k.zsh
         ```
 
         must modify .zshrc ```export ZSH="/home/raiven/.oh-my-zsh"``` to your home path
 
         then source rc file
         ```shell
-        source .zshrc
+        source $HOME/.zshrc
         ```
+
+## tmux
+1. install tmux
+    ```shell
+    sudo apt install tmux -y
+    ```
+2. install [tpm](https://github.com/tmux-plugins/tpm) (Tmux Plugin Manager)
+    ```shell
+    git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+    ```
+3. configure tmux
+    ```shell
+    curl https://raw.githubusercontent.com/omegaatt36/lab/main/rc/.tmux.conf -o $HOME/.tmux.conf
+    ```
+4. enjoy tmux
+    ```shell
+    tmux
+    ```
