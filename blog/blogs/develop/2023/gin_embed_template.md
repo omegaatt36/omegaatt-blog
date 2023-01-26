@@ -27,14 +27,14 @@ project/
 > project/templates/template.go
 
 - 在包內宣告私有變數，透過 Embedding Files 讀出目錄內的所有檔案。
-    ```golang
+    ```go
     package template
 
     //go:embed *
     var f embed.FS
     ```
 - 宣告需要被轉換成 HTML 模板的檔案名 `TemplateName`，可以用 [go-enum](https://github.com/abice/go-enum) 來自動生成變數。並將其註冊進陣列 `_TemplateNameNames` 內。
-    ```golang
+    ```go
     package template
 
     // ENUM(
@@ -65,7 +65,7 @@ project/
     )
     ```
 - 最終將 embed files 與檔案名丟給 `html/template` 包請他們我們轉換成 template。
-    ```golang
+    ```go
     package template
     
     var templates = template.Must(template.New("").ParseFS(f, TemplateNameNames()...))
@@ -92,7 +92,7 @@ project/
     ```
     所以我們需要填入使用者名稱 `Name` 與驗證碼 `VerifyToken`。
 - 在 `project/templates/template.go` 中新增公開方法，用以透過模板與填充物來產生 HTML 文件。
-    ```golang
+    ```go
     package template
     
     // GenerateHTML returns html with filler.
@@ -106,7 +106,7 @@ project/
     }
     ```
 - 呼叫 templates 中的 `GenerateHTML` 來產生文件
-    ```golang
+    ```go
     package main
 
     /* option 1: from struct
@@ -137,7 +137,7 @@ project/
 #### 讓 gin 幫我們直接透過模板回傳 HTML 文件
 
 - 在 `project/templates/template.go` 新增公開方法，提供讓 gin 註冊模板。
-    ```golang
+    ```go
     package template
 
     // SetHTMLTemplate set templates into gin engine.
@@ -146,7 +146,7 @@ project/
     }
     ```
 - 在 gin serve http server 前註冊模板
-    ```golang
+    ```go
     router := gin.Default()
 	templates.SetHTMLTemplate(router)
 
@@ -156,7 +156,7 @@ project/
 	}
     ```
 - handler 中可以透過 `gin.Context.HTML()` 來直接透過 gin 呼叫模板轉換
-    ```golang
+    ```go
 	c.HTML(
 		http.StatusOK,
 		templates.TemplateNameSuccessTmpl.String(),
