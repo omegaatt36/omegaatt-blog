@@ -74,7 +74,9 @@ project/
 ### gin
 > project/main.go
 
-在 API 中我們可以透過模板產生 HTML 文件(`string`)，也可以讓 gin 幫我們直接透過模板回傳 HTML 文件。golang 中的 `html/template` 包主要是透過 `map[string]any{"Var": var}` 來映射參數 `{{.Var}}`。
+在 API 中我們可以透過模板產生 HTML 文件(`string`)，也可以讓 gin 幫我們直接透過模板回傳 HTML 文件。golang 中的 `html/template` 包主要是透過 `map[string]any{"Var": var}` 來映射參數。
+
+> 模板部分可以參考[教學網站](https://gowebexamples.com/templates/)，此文章是基於 Vuepress，寫模板語言會被 parser 認為是模板而建置失敗 orZ。
 
 #### 透過模板產生 HTML 文件
 - 我們的成功驗證(`verify.tmpl`)長這樣:
