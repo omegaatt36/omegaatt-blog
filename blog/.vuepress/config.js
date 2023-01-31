@@ -1,9 +1,9 @@
 module.exports = {
   "plugins": [
     [
-      "@vuepress/google-analytics",
+      "@vuepress/plugin-google-analytics",
       {
-        ga: process.env.GA,
+        id: process.env.GA,
       }
     ],
     [

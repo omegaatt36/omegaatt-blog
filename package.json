@@ -12,7 +12,7 @@
   "license": "MIT",
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.3.0",
-    "@vuepress/plugin-google-analytics": "^1.9.8",
+    "@vuepress/plugin-google-analytics": "next",
     "@vuepress/shared-utils": "^1.9.8",
     "escape-html": "^1.0.3",
     "lru-cache": "^7.14.1",
