@@ -1,11 +1,11 @@
 ---
 title: VScode SFTP 快速同步文件到 Server
 date: 2020-01-20
+categories:
+ - develop
 tags:
  - linux
  - vscode
-categories:
- - develop
 ---
 
 當 Server 環境使用白名單搭配 Reverce-Proxy 時，或是 dev、test 環境不供外部使用時，或許會將部分 code 存在只能靠內網連線的主機上，並透過 OpenSSH 供內部遠端操作。

@@ -3,6 +3,10 @@ title: 改善 Proxmox VE/Debian 始終跑在最高頻率
 date: 2022-01-09
 categories:
  - develop
+tags:
+ - linux
+ - kubernetes
+ - proxmox
 ---
 
 這幾天把便宜撿到的 Threadripper 2950X 平台也上 Proxmox VE 玩玩了，裝完系統後才發現自己太習慣於 windows 下的電源管理，一直都沒發現 linux 下 CPU 頻率都是拉滿的狀態，找了[debian 下進行電源管理的電源計畫設定教學](https://forum.proxmox.com/threads/fix-always-high-cpu-frequency-in-proxmox-host.84270/)達到降溫省電，順便做做紀錄。

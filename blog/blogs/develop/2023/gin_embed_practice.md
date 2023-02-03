@@ -2,6 +2,8 @@
 title: gin 搭配 html/template 包實現動態生成 HTML 文件
 date: 2023-01-26
 categories:
+ - develop
+tags:
  - golang
 ---
 

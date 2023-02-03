@@ -2,6 +2,8 @@
 title: 解決 VM 關機時等待容器關閉
 date: 2023-01-11
 categories:
+ - develop
+tags:
  - linux
 ---
 

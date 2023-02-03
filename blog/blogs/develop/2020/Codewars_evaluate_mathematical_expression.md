@@ -1,11 +1,11 @@
 ---
 title: Evaluate mathematical expression in PHP
 date: 2020-01-16
-tags:
-  - php
-  - codewars
 categories:
  - develop
+tags:
+ - php
+ - codewars
 ---
 
 四則運算，不多，不就是加減乘除而已嗎，怎麼會在 [Codewars 中被標記為 2 kyu 的題目](https://www.codewars.com/kata/52a78825cdfc2cfc87000005)呢?

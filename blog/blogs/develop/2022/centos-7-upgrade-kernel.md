@@ -3,6 +3,8 @@ title: CentOS 7 upgrade kernel
 date: 2022-02-20
 categories:
  - develop
+tags:
+ - linux
 ---
 
 - 查看目前 kernel 版本

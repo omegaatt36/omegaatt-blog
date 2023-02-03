@@ -1,11 +1,11 @@
 ---
 title: logitech media server 搭配 docker 實現雙機分離
 date: 2021-12-04
-tags:
-  - docker
-  - piCorePlayer
 categories:
  - develop
+tags:
+ - docker
+ - raspberry_pi
 ---
 
 # 前言

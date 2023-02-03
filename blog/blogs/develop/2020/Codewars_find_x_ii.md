@@ -1,11 +1,11 @@
 ---
 title: Codewars Find X II in golang
 date: 2020-03-03
-tags:
-  - golang
-  - codewars
 categories:
  - develop
+tags:
+ - golang
+ - codewars
 ---
 
 想不到一眨眼半個月過去了，自從面試趨勢之後整個人彷彿被電到失去信心，在離職與等待面試消息期間，也只好振作補足不足的地方繼續向前。

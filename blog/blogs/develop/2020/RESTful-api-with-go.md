@@ -1,10 +1,10 @@
 ---
 title: RESTful server based on golang
 date: 2020-03-19
-tags:
- - golang
 categories:
  - develop
+tags:
+ - golang
 ---
 
 很高興有個機會製作面試前的測試作業，也就趁這個機會做個筆記以及學習紀錄。

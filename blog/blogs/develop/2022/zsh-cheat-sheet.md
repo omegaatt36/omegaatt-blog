@@ -2,7 +2,10 @@
 title: zsh & oh-my-zsh & tmux install cheat sheet on ubuntu 22.04
 date: 2022-10-30
 categories:
+ - develop
+tags:
  - linux
+ - cheat_sheet
 ---
 
 ## oh my zsh & power lever 10k

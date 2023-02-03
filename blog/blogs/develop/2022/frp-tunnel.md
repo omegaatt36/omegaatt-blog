@@ -3,6 +3,10 @@ title: 在 AWS 上使用 EC2 建立 FRP 玩玩內網穿透
 date: 2022-11-19
 categories:
  - develop
+tags:
+ - aws
+ - frp
+ - linux
 ---
 
 # 前言

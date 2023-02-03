@@ -1,10 +1,10 @@
 ---
 title: Golang 學習筆記 Day 1 - Getting started
 date: 2020-08-25
-tags:
- - golang
 categories:
  - develop
+tags:
+ - golang
 ---
 
 ``` 

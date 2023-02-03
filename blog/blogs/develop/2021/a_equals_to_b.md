@@ -3,6 +3,8 @@ title: A=B 遊完心得、解法
 date: 2021-10-13
 categories:
  - develop
+tags:
+ - game
 ---
 
 Steam 上推出了一款 [A=B](https://store.steampowered.com/app/1720850/AB/)，稍微玩了一下，下面提供自己的解法。

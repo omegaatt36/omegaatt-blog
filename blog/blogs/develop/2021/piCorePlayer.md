@@ -1,11 +1,10 @@
 ---
 title: Raspberry pi 4 + piCorePlayer 7.0.0 折騰筆記
 date: 2021-05-02
-tags:
-  - raspberry_pi
-  - piCorePlayer
 categories:
  - develop
+tags:
+  - raspberry_pi
 ---
 
 # 前言
@@ -48,7 +47,6 @@ categories:
 燒錄完成後，插上 pi 的 sd 卡座，插電~開機~輕鬆秒殺。
 
 在本機瀏覽器上輸入 http://pcp.local/ 後，便會看到歡迎畫面：
-![](/assets/dev/20210502/chrome_JeTbbPYCfT.png)
 
 # 透過 ssh 連進去
 

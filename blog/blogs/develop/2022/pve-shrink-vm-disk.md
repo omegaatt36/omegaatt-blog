@@ -3,7 +3,10 @@ title: proxmox ve shrink vm disk size
 date: 2022-09-04
 categories:
  - develop
+tags:
  - linux
+ - kubernetes
+ - proxmox
 ---
 
 由於 zpool 吃超過 80%，故將其中一個 VM(k8s-worker) 的硬碟縮小(200GB=>100GB)

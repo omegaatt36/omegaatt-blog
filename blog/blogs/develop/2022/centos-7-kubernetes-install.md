@@ -3,6 +3,9 @@ title: CentOS 7 kubernetes + containerd + calico basic installation tutorial
 date: 2022-02-20
 categories:
  - develop
+tags:
+ - linux
+ - kubernetes
 ---
 
 # 前言

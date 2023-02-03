@@ -1,10 +1,10 @@
 ---
 title: Golang 學習筆記 Day 0 - Why Golang & 安裝篇
 date: 2020-08-25
-tags:
- - golang
 categories:
  - develop
+tags:
+ - golang
 ---
 
 ``` 

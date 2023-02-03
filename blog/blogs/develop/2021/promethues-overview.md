@@ -1,10 +1,10 @@
 ---
 title: Prometheus 學習筆記 - 基本架構與資料結構
 date: 2021-09-18
-tags:
-  - prometheus
 categories:
  - develop
+tags:
+ - prometheus
 ---
 
 # Prometheus Overview
