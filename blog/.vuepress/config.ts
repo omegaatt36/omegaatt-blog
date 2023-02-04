@@ -1,8 +1,17 @@
 import { defineUserConfig } from 'vuepress'
-import type { DefaultThemeOptions } from 'vuepress'
+import { sitemapPlugin } from "vuepress-plugin-sitemap2";
+import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
 import recoTheme from 'vuepress-theme-reco'
 
 export default defineUserConfig({
+  plugins: [
+    sitemapPlugin({
+      hostname: process.env.HOST_NAME || ''
+    }),
+    googleAnalyticsPlugin({
+      id: process.env.GA || '',
+    }),
+  ],
   title: 'omegaatt',
   description: `Raiven Kao's Blog`,
   theme: recoTheme({
