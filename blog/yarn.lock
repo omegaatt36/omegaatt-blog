@@ -7287,7 +7287,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue@npm:^3.2.45":
+"vue@npm:^3.2.45, vue@npm:^3.2.47":
   version: 3.2.47
   resolution: "vue@npm:3.2.47"
   dependencies:
@@ -7300,17 +7300,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vuepress-plugin-sitemap2@npm:^2.0.0-beta.171":
-  version: 2.0.0-beta.171
-  resolution: "vuepress-plugin-sitemap2@npm:2.0.0-beta.171"
+"vuepress-plugin-sitemap2@npm:^2.0.0-beta.172":
+  version: 2.0.0-beta.172
+  resolution: "vuepress-plugin-sitemap2@npm:2.0.0-beta.172"
   dependencies:
     "@vuepress/shared": 2.0.0-beta.60
     "@vuepress/utils": 2.0.0-beta.60
     sitemap: ^7.1.1
-    vuepress-shared: 2.0.0-beta.171
+    vuepress-shared: 2.0.0-beta.172
   peerDependencies:
     vuepress: 2.0.0-beta.60
-    vuepress-shared: 2.0.0-beta.171
+    vuepress-shared: 2.0.0-beta.172
     vuepress-vite: 2.0.0-beta.60
     vuepress-webpack: 2.0.0-beta.60
   peerDependenciesMeta:
@@ -7322,13 +7322,13 @@ __metadata:
       optional: true
     vuepress-webpack:
       optional: true
-  checksum: af7e3c95078c37bb450bdc57254b8fb97586cd7eb292b9a15ab752fcc45d277303f63c9b23afd1ea9dbaf99b5a425c7a432e7d24fe4f42254d769d5add8c4443
+  checksum: b09430f837dc85cbe0688b9fbfc3c9f34fd4a5056a8b85c4575f30e32622837e52eef154583396a056677eccb5f92952975e487426b5aa37889c070020eb9de6
   languageName: node
   linkType: hard
 
-"vuepress-shared@npm:2.0.0-beta.171":
-  version: 2.0.0-beta.171
-  resolution: "vuepress-shared@npm:2.0.0-beta.171"
+"vuepress-shared@npm:2.0.0-beta.172":
+  version: 2.0.0-beta.172
+  resolution: "vuepress-shared@npm:2.0.0-beta.172"
   dependencies:
     "@vuepress/client": 2.0.0-beta.60
     "@vuepress/shared": 2.0.0-beta.60
@@ -7339,7 +7339,7 @@ __metadata:
     fflate: ^0.7.4
     gray-matter: ^4.0.3
     striptags: ^3.2.0
-    vue: ^3.2.45
+    vue: ^3.2.47
     vue-router: ^4.1.6
   peerDependencies:
     "@vuepress/client": 2.0.0-beta.60
@@ -7355,7 +7355,7 @@ __metadata:
       optional: true
     vuepress-webpack:
       optional: true
-  checksum: 32594b50ce63b0e1475f2ac8c70a349938a50896a308990c405fe2b8809bbc4673873f07299d805c0f2ad78710c4169db977718a0434c92d34d2b882fef39b62
+  checksum: c7116c2487b15b0ab2c95afd13e4a53cd964998d1175e4b804d940352189380b2fc962098887e054ca47ce22d394f27a78ae2801a94dbd6096c3932a0813ed8c
   languageName: node
   linkType: hard
 
@@ -7366,7 +7366,7 @@ __metadata:
     "@vicons/antd": ^0.12.0
     "@vuepress/plugin-google-analytics": next
     vuepress: 2.0.0-beta.60
-    vuepress-plugin-sitemap2: ^2.0.0-beta.171
+    vuepress-plugin-sitemap2: ^2.0.0-beta.172
     vuepress-theme-reco: 2.0.0-beta.48
   languageName: unknown
   linkType: soft
