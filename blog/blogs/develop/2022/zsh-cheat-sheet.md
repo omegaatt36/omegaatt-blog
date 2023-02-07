@@ -35,8 +35,8 @@ tags:
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     ```
 5. install meslo nerd font:
-    - windows: https://gist.githubusercontent.com/romkatv/aa7a70fe656d8b655e3c324eb10f6a8b/raw/install_meslo_wsl.sh
-    - linux: https://gist.github.com/matthewjberger/7dd7e079f282f8138a9dc3b045ebefa0
+    - [windows](https://gist.githubusercontent.com/romkatv/aa7a70fe656d8b655e3c324eb10f6a8b/raw/install_meslo_wsl.sh)
+    - [linux](https://gist.github.com/matthewjberger/7dd7e079f282f8138a9dc3b045ebefa0)
 6. change login shell(must logout and login again)
     ```shell
     chsh -s $(which zsh)
