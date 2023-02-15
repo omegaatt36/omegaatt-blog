@@ -133,6 +133,10 @@ ossyNMMMNyMMhsssssssssssssshmmmhssssssso   CPU: AMD Ryzen 9 5900X (24) @ 3.700GH
 
 雖然說 podman 可以使用介於 Docker 與 Kubernetes 之間的 [Pod](https://docs.podman.io/en/latest/markdown/podman-pod.1.html)，但那並不是此篇文章的重點，詳細可以參考紅帽的[教學](https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/8/html/building_running_and_managing_containers/proc_auto-generating-a-systemd-unit-file-using-podman_assembly_porting-containers-to-systemd-using-podman)。
 
+至於為何要用 systemd 來管理 podman? 是由於 podman 不像 docker 有 Docker Engine a.k.a. dockerd，重開機後不會自動重啟(是的，`--restart=always` 也不會)。
+
+但同時 podman 也帶來了 rootless container(中文翻譯「無根容器」？)，不用每個容器都給予 root 權限。
+
 舉例來說我需要在某台機器上部署 [drone-runner](https://docs.drone.io/runner/docker/installation/linux/):
 
 - 建立 podman container
@@ -152,19 +156,43 @@ ossyNMMMNyMMhsssssssssssssshmmmhssssssso   CPU: AMD Ryzen 9 5900X (24) @ 3.700GH
     podman generate systemd --new --files --name drone-runner
     ```
 - 複製 systemd service file
-    ```bash
-    sudo cp -Z container-drone-runner.service /etc/systemd/system
-    ```
+    - rootless container
+        如果沒有資料夾的話需要
+        ```bash
+        mkdir -p ~/.config/systemd/user
+        ```
+        接著複製
+        ```bash
+        cp -Z container-drone-runner.service ~/.config/systemd/user
+        ```
+    - root container
+        ```bash
+        sudo cp -Z container-drone-runner.service /etc/systemd/system
+        ```
 - 啟用
-    ```bash
-    sudo systemctl enable container-drone-runner.service
-    sudo systemctl start container-drone-runner.service
-    sudo systemctl status container-drone-runner.service
-    sudo journalctl -f -u container-drone-runner.service
-    ```
+    - rootless container
+        ```bash
+        systemctl --user enable container-drone-runner.service
+        systemctl --user start container-drone-runner.service
+        systemctl --user status container-drone-runner.service
+        ```
+    - root container
+        ```bash
+        sudo systemctl enable container-drone-runner.service
+        sudo systemctl start container-drone-runner.service
+        sudo systemctl status container-drone-runner.service
+        ```
+- 用 podman ps 查看
+    - rootless container
+        ```bash
+        podman ps
+        ```
+    - root container
+        ```bash
+        sudo podman ps
+        ```
 
 ## 檢查成果
-
 - 透過 `pstree` 來看 systemd 與 podman 的 container 的互動，可以看到 `systemd.conmon.drone-runner-do` 正是剛剛部署的 drone runner。
     ```bash
     ❯ pstree
