@@ -18,6 +18,6 @@
   "devDependencies": {
     "@vicons/antd": "^0.12.0",
     "@vuepress/plugin-google-analytics": "next",
-    "vuepress-plugin-sitemap2": "^2.0.0-beta.178"
+    "vuepress-plugin-sitemap2": "^2.0.0-beta.179"
   }
 }
