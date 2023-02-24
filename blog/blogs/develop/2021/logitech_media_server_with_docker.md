@@ -6,6 +6,7 @@ categories:
 tags:
  - docker
  - raspberry_pi
+ - logitechmediaserver
 ---
 
 # 前言

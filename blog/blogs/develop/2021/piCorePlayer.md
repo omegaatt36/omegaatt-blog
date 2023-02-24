@@ -5,6 +5,7 @@ categories:
  - develop
 tags:
   - raspberry_pi
+  - logitechmediaserver
 ---
 
 # 前言
