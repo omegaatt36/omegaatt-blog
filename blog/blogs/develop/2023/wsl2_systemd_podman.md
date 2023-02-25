@@ -48,9 +48,14 @@ ossyNMMMNyMMhsssssssssssssshmmmhssssssso   CPU: AMD Ryzen 9 5900X (24) @ 3.700GH
       NAME            STATE           VERSION
     * Ubuntu-22.04    Running         2
     ```
-- 在 wsl2 中修改 `/etc/wsl.conf`，確保 wsl2 重啟時
+- 在 wsl2 中修改 `/etc/wsl.conf`
     ```bash
     sudo vim /etc/wsl.conf
+    ```
+- 在 `/etc/wsl.conf` 中添加啟動選項，確保 wsl2 重啟時以 systemd 作為 pid 1
+    ```bash
+    [boot]
+    systemd=true
     ```
 - 在 cmd/powershell 中關閉 wsl 執行個體，會自己重啟
     ```bash
