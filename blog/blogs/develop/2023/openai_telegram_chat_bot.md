@@ -22,14 +22,14 @@ tags:
 
 在[這個 8931bf 版本](https://github.com/omegaatt36/chatelegram/tree/8931bfbf9e0e00891c07aaaf0c12aa730e34dd39)中，很明確定義對於 OpenAI 與 Telegram 的 usecase
 
-- `appmodule/chatgpt/usecase/chatgpt_usecase.go`
+- `chatgpt_usecase.go`
     ```go
     // ChatGPTUseCase defines ChatGPT send question use case.
     type ChatGPTUseCase interface {
     	Stream(ctx context.Context, question string) (<-chan string, <-chan error)
     }
     ```
-- `appmodule/telegram/usecase/telegram_usecase.go`
+- `telegram_usecase.go`
     ```go
     // TelegramUseCase defines telegram send message use case.
     type TelegramUseCase interface {
@@ -37,7 +37,7 @@ tags:
     }
     ```
 
-在 `appmodule/*/repository/*_repository.go` 進行實作。並在 `main.go` 中依賴反轉，將實作注入近 bot service。
+在 `*_repository.go` 進行實作。並在 `main.go` 中依賴反轉，將實作注入近 bot service。
 ```go
 func Main(ctx context.Context) {
 	bot, err := telebot.NewBot(telebot.Settings{
