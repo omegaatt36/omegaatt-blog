@@ -7406,14 +7406,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vuepress-plugin-sitemap2@npm:2.0.0-beta.201":
-  version: 2.0.0-beta.201
-  resolution: "vuepress-plugin-sitemap2@npm:2.0.0-beta.201"
+"vuepress-plugin-sitemap2@npm:2.0.0-beta.203":
+  version: 2.0.0-beta.203
+  resolution: "vuepress-plugin-sitemap2@npm:2.0.0-beta.203"
   dependencies:
     "@vuepress/shared": 2.0.0-beta.61
     "@vuepress/utils": 2.0.0-beta.61
     sitemap: ^7.1.1
-    vuepress-shared: 2.0.0-beta.201
+    vuepress-shared: 2.0.0-beta.203
   peerDependencies:
     vuepress: 2.0.0-beta.61
     vuepress-vite: 2.0.0-beta.61
@@ -7425,13 +7425,13 @@ __metadata:
       optional: true
     vuepress-webpack:
       optional: true
-  checksum: 4b8bd6abeff72aa1b5c168ef4e3c858e19cf80551fa1de476a4a5f18c88b04efdbf897a3cfaeb6f40d40b73375bed9897ac29c719fdb3a04887c6a2bf03f0ac7
+  checksum: b5bee170597016c55f9960970bd998262189495abe7245381a450f5ba993ebd1cfd6ddfddc5bf54e87d7d55087e036fbdf714a0916da8583088048662bba68ff
   languageName: node
   linkType: hard
 
-"vuepress-shared@npm:2.0.0-beta.201":
-  version: 2.0.0-beta.201
-  resolution: "vuepress-shared@npm:2.0.0-beta.201"
+"vuepress-shared@npm:2.0.0-beta.203":
+  version: 2.0.0-beta.203
+  resolution: "vuepress-shared@npm:2.0.0-beta.203"
   dependencies:
     "@vuepress/client": 2.0.0-beta.61
     "@vuepress/shared": 2.0.0-beta.61
@@ -7457,7 +7457,7 @@ __metadata:
       optional: true
     vuepress-webpack:
       optional: true
-  checksum: c5de19a92bdbbf401aca104201eb2f4599b33ed1b50ffcd639f627987142be0cb29752019932132cf4727b54048d1d19cc3e664f62bfb233b78e19ef72aea444
+  checksum: d951d152c1305cf62b4a2ad3af454ac0e2d3280d6ff3f259ba9eddf4504d4cb21c71096a8a410bec892c97e1566f87cdd12cb1f384bfb6463a227f5a1b9d41e3
   languageName: node
   linkType: hard
 
@@ -7468,7 +7468,7 @@ __metadata:
     "@vicons/antd": ^0.12.0
     "@vuepress/plugin-google-analytics": 2.0.0-beta.61
     vuepress: 2.0.0-beta.61
-    vuepress-plugin-sitemap2: 2.0.0-beta.201
+    vuepress-plugin-sitemap2: 2.0.0-beta.203
     vuepress-theme-reco: 2.0.0-beta.55
   languageName: unknown
   linkType: soft
