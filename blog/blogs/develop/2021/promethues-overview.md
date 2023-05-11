@@ -62,7 +62,7 @@ Operator 是集群中的 deployment，相當於 Kubernetes 直接去監控資源
 
 ## Exporter Sample
 
-使用 [client_golang](https://pkg.go.dev/github.com/prometheus/client_golang@v1.11.0/prometheus/promauto) 作為範例。
+使用 [client_golang](https://pkg.go.dev/github.com/prometheus/client_golang/prometheus) 作為範例。
 
 ### prometheus & promauto
 
