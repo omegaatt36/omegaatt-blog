@@ -86,7 +86,7 @@ func (m *Mutex) Lock() {
 
 golang 中主要是 atomic 包提供樂觀鎖，諸如 `atomic.AddXXX`、`atomic.CompareAndSwapXXX`。
 
-特別需要提到的是 CAP 操作，CAP 使用的是 cpu 提供的 atomic CAS
+特別需要提到的是 CAS 操作，CAS 使用的是 cpu 提供的 atomic CAS
 
 ```assembly
 go/src/runtime/internal/atomic/atomic_amd64.s
