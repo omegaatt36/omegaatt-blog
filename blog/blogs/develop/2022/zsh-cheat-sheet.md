@@ -97,6 +97,7 @@ tags:
     ```shell
     tmux
     ```
+5. Hit `prefix + I` to fetch the plugin and source it. You should now be able to use the plugin.
 
 #### ref
 - [install_meslo_wsl](https://gist.githubusercontent.com/romkatv/aa7a70fe656d8b655e3c324eb10f6a8b/raw/install_meslo_wsl.sh)
