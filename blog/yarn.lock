@@ -1561,55 +1561,55 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vuepress-reco/shared@npm:2.0.0-beta.63":
-  version: 2.0.0-beta.63
-  resolution: "@vuepress-reco/shared@npm:2.0.0-beta.63"
+"@vuepress-reco/shared@npm:2.0.0-beta.65":
+  version: 2.0.0-beta.65
+  resolution: "@vuepress-reco/shared@npm:2.0.0-beta.65"
   dependencies:
     "@vuepress/core": 2.0.0-beta.62
     vue: ^3.3.1
-  checksum: 5c967da7c669c37ad6413bdb9e0ffd1c1930d9437a51375d5952238ee15983b1baa16b26e5f7aee17b4f5f20e1eb2d596d9b4e9a2b9d0f2b374d6a566cf4cce0
+  checksum: bb3d5702497809228ae50420596f0f6c64a18b46a6715522533df09e6c6a1fcedbad6b5421cb4c3e0970d2001958db0f2720a23ec43627228df5c97cb48c7b59
   languageName: node
   linkType: hard
 
-"@vuepress-reco/tailwindcss-config@npm:2.0.0-beta.63":
-  version: 2.0.0-beta.63
-  resolution: "@vuepress-reco/tailwindcss-config@npm:2.0.0-beta.63"
-  checksum: e5c28a676f3f7647d733dab0da59aceb8b1aeade0b50e9fd9011ce996e0596672b27a9ac5bfc089978037064507305f15990b51d65c78ccb185ac7fdd0cb3109
+"@vuepress-reco/tailwindcss-config@npm:2.0.0-beta.65":
+  version: 2.0.0-beta.65
+  resolution: "@vuepress-reco/tailwindcss-config@npm:2.0.0-beta.65"
+  checksum: 7bb5938a7fd7d2825a856a980811007130b540dae75788c52362e77ab94876cf56b69e9ec671871e7ca1ae64925028113f749aa625308dfbf4ee407962d0628c
   languageName: node
   linkType: hard
 
-"@vuepress-reco/vuepress-plugin-bulletin-popover@npm:2.0.0-beta.63":
-  version: 2.0.0-beta.63
-  resolution: "@vuepress-reco/vuepress-plugin-bulletin-popover@npm:2.0.0-beta.63"
+"@vuepress-reco/vuepress-plugin-bulletin-popover@npm:2.0.0-beta.65":
+  version: 2.0.0-beta.65
+  resolution: "@vuepress-reco/vuepress-plugin-bulletin-popover@npm:2.0.0-beta.65"
   dependencies:
-    "@vuepress-reco/tailwindcss-config": 2.0.0-beta.63
+    "@vuepress-reco/tailwindcss-config": 2.0.0-beta.65
     "@vuepress/client": 2.0.0-beta.62
     "@vuepress/core": 2.0.0-beta.62
     "@vuepress/plugin-theme-data": 2.0.0-beta.62
     "@vuepress/utils": 2.0.0-beta.62
     vue: ^3.3.1
-  checksum: 288fd809f264a5abd172ac58d63589ed7e7631304fd418d1bd6d7604176b5add04abdd40bca58ea724a99263aaefa57dbf0515f6cb95d5d898348600e0fc6032
+  checksum: 6c074441a0d9ac4c4ceeafd54af1c1e6b6ac23220e3b99276c9da7e77c85dabfd88edb2f253ba3af4daf6f41deb9253ffb6df8b96d60045d9ac58f001be7e97b
   languageName: node
   linkType: hard
 
-"@vuepress-reco/vuepress-plugin-code-copy@npm:2.0.0-beta.63":
-  version: 2.0.0-beta.63
-  resolution: "@vuepress-reco/vuepress-plugin-code-copy@npm:2.0.0-beta.63"
+"@vuepress-reco/vuepress-plugin-code-copy@npm:2.0.0-beta.65":
+  version: 2.0.0-beta.65
+  resolution: "@vuepress-reco/vuepress-plugin-code-copy@npm:2.0.0-beta.65"
   dependencies:
     "@vuepress/client": 2.0.0-beta.62
     "@vuepress/core": 2.0.0-beta.62
     "@vuepress/utils": 2.0.0-beta.62
     vue-router: ^4.2.0
-  checksum: 029db9b1da342fda362f6c23b01309ee92aa383c1ea1767fa8f6bd025a055e07281d376e35a3b5c7aaabe3c2adba528da257b1be3e3fc7508425617377e3df9e
+  checksum: 974c66c9b137e63c8ae81a671c9ebb583337b0153f52a83082f7a21a4bf072485bcc23224fad25e168732fbb381caf97b4a7913262c8f61d561cb165711aeb5f
   languageName: node
   linkType: hard
 
-"@vuepress-reco/vuepress-plugin-comments@npm:2.0.0-beta.63":
-  version: 2.0.0-beta.63
-  resolution: "@vuepress-reco/vuepress-plugin-comments@npm:2.0.0-beta.63"
+"@vuepress-reco/vuepress-plugin-comments@npm:2.0.0-beta.65":
+  version: 2.0.0-beta.65
+  resolution: "@vuepress-reco/vuepress-plugin-comments@npm:2.0.0-beta.65"
   dependencies:
     "@giscus/vue": ^2.2.8
-    "@vuepress-reco/tailwindcss-config": 2.0.0-beta.63
+    "@vuepress-reco/tailwindcss-config": 2.0.0-beta.65
     "@vuepress/client": 2.0.0-beta.62
     "@vuepress/core": 2.0.0-beta.62
     "@vuepress/plugin-theme-data": 2.0.0-beta.62
@@ -1618,37 +1618,37 @@ __metadata:
     valine: 1.4.18
     vue: ^3.3.1
     vue-router: ^4.2.0
-  checksum: ea7100c3a4613f1a060ada89ff358d69e184d2c71d84872d2e77c6e90efd8cff724dbb7056050492d63fd646490181cb117bc37fcb1d166b3edca5760d74fd59
+  checksum: 272dc25002843287a049e4a9de4ca7448dfc8b001d9cb61729df01993f1f4b5aeff0d259ccecd9249c5164b10144ae2de1ce5d359a6c73142cd789970aa6e1f1
   languageName: node
   linkType: hard
 
-"@vuepress-reco/vuepress-plugin-markdown-task@npm:2.0.0-beta.63":
-  version: 2.0.0-beta.63
-  resolution: "@vuepress-reco/vuepress-plugin-markdown-task@npm:2.0.0-beta.63"
+"@vuepress-reco/vuepress-plugin-markdown-task@npm:2.0.0-beta.65":
+  version: 2.0.0-beta.65
+  resolution: "@vuepress-reco/vuepress-plugin-markdown-task@npm:2.0.0-beta.65"
   dependencies:
     "@vuepress/core": 2.0.0-beta.62
     markdown-it-task-lists: 2.1.1
-  checksum: de1375b1be5571384f9dfa545de2bb1a76c786e3465f821b0759d3f26cfe767d7e04af49cf3ed3995f4c322c20f5e15bf450e8cfd2321eb7fee8b5a7e9c84319
+  checksum: 06bf543d1dbd2074cf2e9e1990ee42e870b212164aa5a28e5f87e649855ef0e506e894c7c378374b77e501ba8bf27de831e0f3048877c0d79f45b40d131ea796
   languageName: node
   linkType: hard
 
-"@vuepress-reco/vuepress-plugin-page@npm:2.0.0-beta.63":
-  version: 2.0.0-beta.63
-  resolution: "@vuepress-reco/vuepress-plugin-page@npm:2.0.0-beta.63"
+"@vuepress-reco/vuepress-plugin-page@npm:2.0.0-beta.65":
+  version: 2.0.0-beta.65
+  resolution: "@vuepress-reco/vuepress-plugin-page@npm:2.0.0-beta.65"
   dependencies:
-    "@vuepress-reco/shared": 2.0.0-beta.63
+    "@vuepress-reco/shared": 2.0.0-beta.65
     "@vuepress/client": 2.0.0-beta.62
     "@vuepress/core": 2.0.0-beta.62
     "@vuepress/utils": 2.0.0-beta.62
     vue: ^3.3.1
     vue-router: ^4.2.0
-  checksum: 9ce47b0ec6884fcc0e85a83ad9c0b240a2abbde311663d09f8c8055633b925d41c8fed040d0a8ccbd7f3182aceb2fc8422255049f3982100812ffb3c50d4e472
+  checksum: d2520c3ecdb76c77f3766e2acf9118a3de9325cce8c6f78420be6566ce74e350798768766b580fadd74f14705ef4135113e7865c84994faa9a44101d2a5cf295
   languageName: node
   linkType: hard
 
-"@vuepress-reco/vuepress-plugin-vue-preview@npm:2.0.0-beta.63":
-  version: 2.0.0-beta.63
-  resolution: "@vuepress-reco/vuepress-plugin-vue-preview@npm:2.0.0-beta.63"
+"@vuepress-reco/vuepress-plugin-vue-preview@npm:2.0.0-beta.65":
+  version: 2.0.0-beta.65
+  resolution: "@vuepress-reco/vuepress-plugin-vue-preview@npm:2.0.0-beta.65"
   dependencies:
     "@babel/core": ^7.16.12
     "@babel/plugin-syntax-jsx": ^7.16.7
@@ -1661,7 +1661,7 @@ __metadata:
     "@vuepress/utils": 2.0.0-beta.62
     enhanced-resolve: ^5.8.3
     slash2: ^2.0.0
-  checksum: 5245a4fd0ef705df70b236654e0b0c86a8ab8eecfea2ddc7508f82bd9eb43a879fc94519de3342adeda4f1ea9b69f3abf1d3320e42e1a8753cc91fd594da88a3
+  checksum: 8b8433801bd9ddb2b74abbd5a531172cae3c826f207351a152a805c5a859c8afe2b730a7c41c28b11db0d5a0ecdb4fffcb213133bf213cff83650815155b61ce
   languageName: node
   linkType: hard
 
@@ -7942,23 +7942,23 @@ __metadata:
     "@vuepress/plugin-google-analytics": 2.0.0-beta.62
     vuepress: 2.0.0-beta.62
     vuepress-plugin-sitemap2: 2.0.0-beta.216
-    vuepress-theme-reco: 2.0.0-beta.63
+    vuepress-theme-reco: 2.0.0-beta.65
   languageName: unknown
   linkType: soft
 
-"vuepress-theme-reco@npm:2.0.0-beta.63":
-  version: 2.0.0-beta.63
-  resolution: "vuepress-theme-reco@npm:2.0.0-beta.63"
+"vuepress-theme-reco@npm:2.0.0-beta.65":
+  version: 2.0.0-beta.65
+  resolution: "vuepress-theme-reco@npm:2.0.0-beta.65"
   dependencies:
     "@vicons/carbon": ^0.12.0
-    "@vuepress-reco/shared": 2.0.0-beta.63
-    "@vuepress-reco/tailwindcss-config": 2.0.0-beta.63
-    "@vuepress-reco/vuepress-plugin-bulletin-popover": 2.0.0-beta.63
-    "@vuepress-reco/vuepress-plugin-code-copy": 2.0.0-beta.63
-    "@vuepress-reco/vuepress-plugin-comments": 2.0.0-beta.63
-    "@vuepress-reco/vuepress-plugin-markdown-task": 2.0.0-beta.63
-    "@vuepress-reco/vuepress-plugin-page": 2.0.0-beta.63
-    "@vuepress-reco/vuepress-plugin-vue-preview": 2.0.0-beta.63
+    "@vuepress-reco/shared": 2.0.0-beta.65
+    "@vuepress-reco/tailwindcss-config": 2.0.0-beta.65
+    "@vuepress-reco/vuepress-plugin-bulletin-popover": 2.0.0-beta.65
+    "@vuepress-reco/vuepress-plugin-code-copy": 2.0.0-beta.65
+    "@vuepress-reco/vuepress-plugin-comments": 2.0.0-beta.65
+    "@vuepress-reco/vuepress-plugin-markdown-task": 2.0.0-beta.65
+    "@vuepress-reco/vuepress-plugin-page": 2.0.0-beta.65
+    "@vuepress-reco/vuepress-plugin-vue-preview": 2.0.0-beta.65
     "@vuepress/bundler-vite": 2.0.0-beta.62
     "@vuepress/bundler-webpack": 2.0.0-beta.62
     "@vuepress/client": 2.0.0-beta.62
@@ -7985,7 +7985,7 @@ __metadata:
     tailwindcss: 3.1.6
     vue: ^3.3.1
     vue-router: ^4.2.0
-  checksum: eca080c10d26682b5cdede95026cd8cc8b2f0be17f8ff50730a788f12f2b41a6929741b6ea9267a7823331233116fd1eb14e1ae52736ad971e2a9cacf8335554
+  checksum: d11943e93aebb9eb1f30d0e1be1a0fd41f126225127fe7cc6e1fac7796459d77be4b7b74ce068cd6286a3aca4fbc708be4c6254a492cfebe77eb6049e33b26f1
   languageName: node
   linkType: hard
 
