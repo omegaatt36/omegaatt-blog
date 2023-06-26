@@ -7,7 +7,7 @@ modules:
   - Footer
 blog: # blog 模块的配置
   socialLinks: # 社交地址
-    - { icon: 'Email', link: 'mailto://omegaatt36@gmail.com' }
+    - { icon: 'Email', link: 'mailto://raiven.kao@gmail.com' }
     - { icon: 'LogoGithub', link: 'https://github.com/omegaatt36' }
     - { icon: 'LogoInstagram', link: 'https://www.instagram.com/chih.hong/' }
     - { icon: 'LogoFacebook', link: 'https://www.facebook.com/Raiven.Kao/' }
