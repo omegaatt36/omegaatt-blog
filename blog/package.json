@@ -12,12 +12,12 @@
   },
   "dependencies": {
     "vuepress": "2.0.0-beta.62",
-    "vuepress-theme-reco": "2.0.0-beta.63"
+    "vuepress-theme-reco": "2.0.0-beta.65"
   },
   "packageManager": "yarn@3.4.1",
   "devDependencies": {
     "@vicons/antd": "^0.12.0",
     "@vuepress/plugin-google-analytics": "2.0.0-beta.62",
-    "vuepress-plugin-sitemap2": "2.0.0-beta.216"
+    "vuepress-plugin-sitemap2": "2.0.0-beta.228"
   }
 }
