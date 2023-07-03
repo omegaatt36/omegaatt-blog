@@ -2092,15 +2092,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/core@npm:^10.2.0":
-  version: 10.2.0
-  resolution: "@vueuse/core@npm:10.2.0"
+"@vueuse/core@npm:^10.2.1":
+  version: 10.2.1
+  resolution: "@vueuse/core@npm:10.2.1"
   dependencies:
     "@types/web-bluetooth": ^0.0.17
-    "@vueuse/metadata": 10.2.0
-    "@vueuse/shared": 10.2.0
+    "@vueuse/metadata": 10.2.1
+    "@vueuse/shared": 10.2.1
     vue-demi: ">=0.14.5"
-  checksum: 022b07ca097ca32eb8995ff17a8855d1ac641194aa89956a2f3bf62b7861caa72df39750e885e9b67e4a55ee9cb98ca54554450ee62b56445c6d587dc065c88f
+  checksum: 1a7a7ad8372a2ff87ceddee2663a29a911dcd8a1a40b0e63436bc3b0f0786598f70e40e02e69d3cacfb634e35fdcd98136e049431a73516109ff062d8004cd54
   languageName: node
   linkType: hard
 
@@ -2123,10 +2123,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/metadata@npm:10.2.0":
-  version: 10.2.0
-  resolution: "@vueuse/metadata@npm:10.2.0"
-  checksum: 01d98a3f6918442a919c6c875a0e467429e84db997eb4c74b8da5c524072969684e5443b938cace6a51f632ed328834ac1685fa4d8fc67d506f5373ef4829275
+"@vueuse/metadata@npm:10.2.1":
+  version: 10.2.1
+  resolution: "@vueuse/metadata@npm:10.2.1"
+  checksum: 1672c0e6e6a54fe397c04b83bf4b78a8db410df272010f5db829e9f72ed285d526ca8bb4d7a3373b17aac2fb37c83d866f6077e667f54afc1ae20bf1ab1a5478
   languageName: node
   linkType: hard
 
@@ -2146,12 +2146,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/shared@npm:10.2.0":
-  version: 10.2.0
-  resolution: "@vueuse/shared@npm:10.2.0"
+"@vueuse/shared@npm:10.2.1":
+  version: 10.2.1
+  resolution: "@vueuse/shared@npm:10.2.1"
   dependencies:
     vue-demi: ">=0.14.5"
-  checksum: b96884b82f315622639cbb186f6989d08527e2aa43236e91d6d454afb9a599b23e32af326351c8c9db9c7d7cc4a0797d44e4644d31de9615bba4f8371838e0e1
+  checksum: eeb19c0448d3f238615e24c738d2a6ebdc8b7d840405dd8704b5d0a3cd84ac3a8d5ec87856b501fac89f0f3bb868e7339d46e5fc3ece02c07160aedd41e507b2
   languageName: node
   linkType: hard
 
@@ -3510,10 +3510,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.8":
-  version: 1.11.8
-  resolution: "dayjs@npm:1.11.8"
-  checksum: 4fe04b6df98ba6e5f89b49d80bba603cbf01e21a1b4a24ecb163c94c0ba5324a32ac234a139cee654f89d5277a2bcebca5347e6676c28a0a6d1a90f1d34a42b8
+"dayjs@npm:^1.11.9":
+  version: 1.11.9
+  resolution: "dayjs@npm:1.11.9"
+  checksum: a4844d83dc87f921348bb9b1b93af851c51e6f71fa259604809cfe1b49d1230e6b0212dab44d1cb01994c096ad3a77ea1cf18fa55154da6efcc9d3610526ac38
   languageName: node
   linkType: hard
 
@@ -7019,7 +7019,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.5.2":
+"semver@npm:^7.5.3":
   version: 7.5.3
   resolution: "semver@npm:7.5.3"
   dependencies:
@@ -7984,14 +7984,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vuepress-plugin-sitemap2@npm:2.0.0-beta.228":
-  version: 2.0.0-beta.228
-  resolution: "vuepress-plugin-sitemap2@npm:2.0.0-beta.228"
+"vuepress-plugin-sitemap2@npm:2.0.0-beta.229":
+  version: 2.0.0-beta.229
+  resolution: "vuepress-plugin-sitemap2@npm:2.0.0-beta.229"
   dependencies:
     "@vuepress/shared": 2.0.0-beta.63
     "@vuepress/utils": 2.0.0-beta.63
     sitemap: ^7.1.1
-    vuepress-shared: 2.0.0-beta.228
+    vuepress-shared: 2.0.0-beta.229
   peerDependencies:
     vuepress: 2.0.0-beta.63
     vuepress-vite: 2.0.0-beta.63
@@ -8003,24 +8003,24 @@ __metadata:
       optional: true
     vuepress-webpack:
       optional: true
-  checksum: 8f052b3d051efe53f983f12e7327bbb17b3ef041706db522dec974f2df8f02fcb0616f7d78e9ab3028e8350de8dae1024cfc10d9f3c2134155719b118f355644
+  checksum: 6313c33eb67724e1572cb7b5a41ad63fa65bc9ffad13665acc5234a060e150408401afbf174e292ca8395b0e3898d069d4b3c91c3bb6615c4c17d2ad183e97c5
   languageName: node
   linkType: hard
 
-"vuepress-shared@npm:2.0.0-beta.228":
-  version: 2.0.0-beta.228
-  resolution: "vuepress-shared@npm:2.0.0-beta.228"
+"vuepress-shared@npm:2.0.0-beta.229":
+  version: 2.0.0-beta.229
+  resolution: "vuepress-shared@npm:2.0.0-beta.229"
   dependencies:
     "@vuepress/client": 2.0.0-beta.63
     "@vuepress/shared": 2.0.0-beta.63
     "@vuepress/utils": 2.0.0-beta.63
-    "@vueuse/core": ^10.2.0
+    "@vueuse/core": ^10.2.1
     cheerio: 1.0.0-rc.12
-    dayjs: ^1.11.8
+    dayjs: ^1.11.9
     execa: ^7.1.1
     fflate: ^0.8.0
     gray-matter: ^4.0.3
-    semver: ^7.5.2
+    semver: ^7.5.3
     striptags: ^3.2.0
     vue: ^3.3.4
     vue-router: ^4.2.2
@@ -8035,7 +8035,7 @@ __metadata:
       optional: true
     vuepress-webpack:
       optional: true
-  checksum: 8b49ec17425d6b3463d32c598762a7aee7b38ff96f140c095577bd3ebbda7ee5fcff4fe9aa9370136197828975f542782ba8b9628e5d3d0ebe46e960682d0e58
+  checksum: e582274b1cdb0d84edbd1d84ec8ca0329af7665164ab2c50396ea89255dd60321ce1bf68b30d9d9b257404714cde75ba9e58195e374732df63289178488e07e0
   languageName: node
   linkType: hard
 
@@ -8046,7 +8046,7 @@ __metadata:
     "@vicons/antd": ^0.12.0
     "@vuepress/plugin-google-analytics": 2.0.0-beta.62
     vuepress: 2.0.0-beta.62
-    vuepress-plugin-sitemap2: 2.0.0-beta.228
+    vuepress-plugin-sitemap2: 2.0.0-beta.229
     vuepress-theme-reco: 2.0.0-beta.65
   languageName: unknown
   linkType: soft
