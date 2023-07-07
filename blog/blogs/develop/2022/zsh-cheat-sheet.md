@@ -57,16 +57,16 @@ tags:
         ```shell
         git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
         ```
-    - [zsh-docker-aliases](https://github.com/akarzim/zsh-docker-aliases#with-oh-my-zsh)
+    - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
         ```shell
-        git clone https://github.com/akarzim/zsh-docker-aliases.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-docker-aliases
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
         ```
-8. configure zsh  
+8. configure zsh
     - [option 1] first use
         ```shell
         p10k configure
         ```
-    - [option 2] have configured .zshrc  
+    - [option 2] have configured .zshrc
         [my rc file](https://github.com/omegaatt36/lab/blob/main/rc/.zshrc)
         ```shell
         curl https://raw.githubusercontent.com/omegaatt36/lab/main/rc/.zshrc -o $HOME/.zshrc
