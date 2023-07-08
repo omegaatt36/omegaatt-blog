@@ -1783,6 +1783,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vuepress/core@npm:2.0.0-beta.64":
+  version: 2.0.0-beta.64
+  resolution: "@vuepress/core@npm:2.0.0-beta.64"
+  dependencies:
+    "@vuepress/client": 2.0.0-beta.64
+    "@vuepress/markdown": 2.0.0-beta.64
+    "@vuepress/shared": 2.0.0-beta.64
+    "@vuepress/utils": 2.0.0-beta.64
+    vue: ^3.3.4
+  checksum: 63fefba5a9413008b44eb27b0397231fc3efc20fbe03528161079e4c2a8408be5c96d7a7cc4821bd75d25f8aa60a2c9966b9ec4a454daa5570452000e79f17de
+  languageName: node
+  linkType: hard
+
 "@vuepress/markdown@npm:2.0.0-beta.62":
   version: 2.0.0-beta.62
   resolution: "@vuepress/markdown@npm:2.0.0-beta.62"
@@ -1804,6 +1817,30 @@ __metadata:
     markdown-it-emoji: ^2.0.2
     mdurl: ^1.0.1
   checksum: 528534ed0c52f88cb3c382df7d11c616aeb11b6a3609d2f6c8ba3d0ef2738f615446cb56863a5de7fd106fca2065843906cb56776ca82baf25f0d56d3a519572
+  languageName: node
+  linkType: hard
+
+"@vuepress/markdown@npm:2.0.0-beta.64":
+  version: 2.0.0-beta.64
+  resolution: "@vuepress/markdown@npm:2.0.0-beta.64"
+  dependencies:
+    "@mdit-vue/plugin-component": ^0.12.0
+    "@mdit-vue/plugin-frontmatter": ^0.12.0
+    "@mdit-vue/plugin-headers": ^0.12.0
+    "@mdit-vue/plugin-sfc": ^0.12.0
+    "@mdit-vue/plugin-title": ^0.12.0
+    "@mdit-vue/plugin-toc": ^0.12.0
+    "@mdit-vue/shared": ^0.12.0
+    "@mdit-vue/types": ^0.12.0
+    "@types/markdown-it": ^12.2.3
+    "@types/markdown-it-emoji": ^2.0.2
+    "@vuepress/shared": 2.0.0-beta.64
+    "@vuepress/utils": 2.0.0-beta.64
+    markdown-it: ^13.0.1
+    markdown-it-anchor: ^8.6.7
+    markdown-it-emoji: ^2.0.2
+    mdurl: ^1.0.1
+  checksum: 9c97f1188c21ec95e172f44887fceab466d4a61ae7e2d73accc41fc397948ace10b62fdec972c2b31067bdbb4799035b0227f7aefe5ff4d3a234183fe9c418e5
   languageName: node
   linkType: hard
 
@@ -1893,14 +1930,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vuepress/plugin-google-analytics@npm:2.0.0-beta.62":
-  version: 2.0.0-beta.62
-  resolution: "@vuepress/plugin-google-analytics@npm:2.0.0-beta.62"
+"@vuepress/plugin-google-analytics@npm:2.0.0-beta.64":
+  version: 2.0.0-beta.64
+  resolution: "@vuepress/plugin-google-analytics@npm:2.0.0-beta.64"
   dependencies:
-    "@vuepress/client": 2.0.0-beta.62
-    "@vuepress/core": 2.0.0-beta.62
-    "@vuepress/utils": 2.0.0-beta.62
-  checksum: 83b9dd99eb56dbf8371fa9fcf36c77c78a8c4d729bf9f1b6d76f3cbec3c718766d30adfc666d3e936557cc555b80f32a3b851b276e5a4fd3a32c3f969e07e884
+    "@vuepress/client": 2.0.0-beta.64
+    "@vuepress/core": 2.0.0-beta.64
+    "@vuepress/utils": 2.0.0-beta.64
+  checksum: b62a624de25423a8b3da6e18b078921653f7a610dbf770f6c82ef420b22049935150489dce8d8a1252040cab8e05ffa37ba5a2a7143237aba4d280ab47f0ff12
   languageName: node
   linkType: hard
 
@@ -8071,7 +8108,7 @@ __metadata:
   resolution: "vuepress-theme-reco-demo@workspace:."
   dependencies:
     "@vicons/antd": ^0.12.0
-    "@vuepress/plugin-google-analytics": 2.0.0-beta.62
+    "@vuepress/plugin-google-analytics": 2.0.0-beta.64
     vuepress: 2.0.0-beta.62
     vuepress-plugin-sitemap2: 2.0.0-beta.230
     vuepress-theme-reco: 2.0.0-beta.65
