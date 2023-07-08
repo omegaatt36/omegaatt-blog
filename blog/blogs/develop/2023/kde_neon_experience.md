@@ -28,25 +28,25 @@ tags:
 
 ```shell
 ❯ neofetch
-             `..---+/---..`                raiven@um560 
-         `---.``   ``   `.---.`            ------------ 
-      .--.`        ``        `-:-.         OS: KDE neon 5.27 x86_64 
-    `:/:     `.----//----.`     :/-        Host: UM560 
-   .:.    `---`          `--.`    .:`      Kernel: 5.19.0-43-generic 
-  .:`   `--`                .:-    `:.     Uptime: 1 hour, 2 mins 
- `/    `:.      `.-::-.`      -:`   `/`    Packages: 1924 (dpkg), 4 (snap) 
- /.    /.     `:++++++++:`     .:    .:    Shell: zsh 5.8.1 
-`/    .:     `+++++++++++/      /`   `+`   Resolution: 2560x1440 
-/+`   --     .++++++++++++`     :.   .+:   DE: Plasma 5.27.5 
-`/    .:     `+++++++++++/      /`   `+`   WM: kwin 
- /`    /.     `:++++++++:`     .:    .:    Theme: [Plasma], Colloid-Dark [GTK2/3] 
- ./    `:.      `.:::-.`      -:`   `/`    Icons: Cupertino-Ventura [Plasma], Cupertino-Ventura [GTK2/3] 
-  .:`   `--`                .:-    `:.     Terminal: konsole 
-   .:.    `---`          `--.`    .:`      CPU: AMD Ryzen 5 5625U with Radeon Graphics (12) @ 2.300GHz 
-    `:/:     `.----//----.`     :/-        GPU: AMD ATI 04:00.0 Barcelo 
-      .-:.`        ``        `-:-.         Memory: 6265MiB / 31519MiB 
+             `..---+/---..`                raiven@um560
+         `---.``   ``   `.---.`            ------------
+      .--.`        ``        `-:-.         OS: KDE neon 5.27 x86_64
+    `:/:     `.----//----.`     :/-        Host: UM560
+   .:.    `---`          `--.`    .:`      Kernel: 5.19.0-43-generic
+  .:`   `--`                .:-    `:.     Uptime: 1 hour, 2 mins
+ `/    `:.      `.-::-.`      -:`   `/`    Packages: 1924 (dpkg), 4 (snap)
+ /.    /.     `:++++++++:`     .:    .:    Shell: zsh 5.8.1
+`/    .:     `+++++++++++/      /`   `+`   Resolution: 2560x1440
+/+`   --     .++++++++++++`     :.   .+:   DE: Plasma 5.27.5
+`/    .:     `+++++++++++/      /`   `+`   WM: kwin
+ /`    /.     `:++++++++:`     .:    .:    Theme: [Plasma], Colloid-Dark [GTK2/3]
+ ./    `:.      `.:::-.`      -:`   `/`    Icons: Cupertino-Ventura [Plasma], Cupertino-Ventura [GTK2/3]
+  .:`   `--`                .:-    `:.     Terminal: konsole
+   .:.    `---`          `--.`    .:`      CPU: AMD Ryzen 5 5625U with Radeon Graphics (12) @ 2.300GHz
+    `:/:     `.----//----.`     :/-        GPU: AMD ATI 04:00.0 Barcelo
+      .-:.`        ``        `-:-.         Memory: 6265MiB / 31519MiB
          `---.``   ``   `.---.`
-             `..---+/---..`                                        
+             `..---+/---..`
 ```
 
 ## Post Install KDE Neon
@@ -107,14 +107,14 @@ for KEY in $(apt-key --keyring /etc/apt/trusted.gpg list | grep -E "(([ ]{1,2}((
           VAProfileNone                   : VAEntrypointVideoProc
     ```
 - 觀察 gpu 使用率
-    - nvidia 透過 `nvtop` 
+    - nvidia 透過 `nvtop`
     - amd 透過 `radeontop` 觀察 gpu 使用率
 
 ### 安裝輸入法
 我習慣用正體中文，選擇使用新酷音，詳細流程可以到[官方文件](https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland)上查看
 
 ![](https://www.csslayer.info/wordpress/wp-content/uploads/2022/02/Fcitx-5-Wayland-input-method-under-KDE-1.png)
- 
+
 - 先安裝字形框架
     ```shell
     sudo apt install fcitx5 -y # also im-config
@@ -129,13 +129,20 @@ for KEY in $(apt-key --keyring /etc/apt/trusted.gpg list | grep -E "(([ ]{1,2}((
     ![](/assets/dev/20230604/Screenshot_20230604_160624.png)
 - 由於我們的 x server 是使用 wayland，可以透過[虛擬鍵盤來切換輸入法](https://www.csslayer.info/wordpress/linux/use-plasma-5-24-to-type-in-alacritty-or-any-other-text-input-v3-client-with-fcitx-5-on-wayland/)，設定 => 輸入裝置 => 虛擬鍵盤
     ![](/assets/dev/20230604/Screenshot_20230604_161100.png)
-- 嘗試與 wayland 和平共處，舉例來說，當我使用 vscode 會無法切換輸入法，若我需要使用中文的話，會需要透過指令開啟 code，但當我關閉視窗後便無法再次開啟，目前仍在尋找最佳解。
-    ```shell
-    code omegaatt-blog --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime
-    Warning: 'enable-features' is not in the list of known options, but still passed to Electron/Chromium.
-    Warning: 'ozone-platform' is not in the list of known options, but still passed to Electron/Chromium.
-    Warning: 'enable-wayland-ime' is not in the list of known options, but still passed to Electron/Chromium.
-    ```
+- 嘗試與 wayland 和平共處。
+    > 舉例來說，當我使用 vscode 會無法切換輸入法，若我需要使用中文的話，會需要透過指令開啟 code，但當我關閉視窗後便無法再次開啟，目前仍在尋找最佳解。
+        ```shell
+        code omegaatt-blog --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime
+        Warning: 'enable-features' is not in the list of known options, but still passed to Electron/Chromium.
+        Warning: 'ozone-platform' is not in the list of known options, but still passed to Electron/Chromium.
+        Warning: 'enable-wayland-ime' is not in the list of known options, but still passed to Electron/Chromium.
+        ```
+    > 目前已經找到一個和平共處的方式：僅設定環境變數。
+        網路上查到許多方法，實驗的結果是某些會讓 slack 無法切換，某些又會讓 firefox 無法切換，目前僅使用 `XMODIFIERS`，讓 slack 與 firefox 與 vscode 均能輸入中文了。
+        ```bash
+        sudo vim /etc/environment
+        export XMODIFIERS=@im=fcitx5
+        ```
 
 ### 安裝 logiops 讓 mx Master 3S 可以正常工作
 
@@ -148,6 +155,10 @@ for KEY in $(apt-key --keyring /etc/apt/trusted.gpg list | grep -E "(([ ]{1,2}((
 ### 遠端桌面
 
 若需要遠端到其他桌面環境，除了自架 guacamole 服務外可以使用 `sudo apt install remmina` 安裝 `remmina` 來懷念 windows 桌面環境。
+
+### chromecast 進行螢幕投放
+
+直接安裝 `google-chrome-stable` 並從漢堡中點擊投放，目前這個方法最高效/方便。
 
 ## 結語
 
