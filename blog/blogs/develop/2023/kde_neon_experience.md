@@ -156,6 +156,14 @@ for KEY in $(apt-key --keyring /etc/apt/trusted.gpg list | grep -E "(([ ]{1,2}((
 
 若需要遠端到其他桌面環境，除了自架 guacamole 服務外可以使用 `sudo apt install remmina` 安裝 `remmina` 來懷念 windows 桌面環境。
 
+### apt update
+
+遇到 `apt-key is deprecated Key is stored in legacy trusted.gpg keyring`
+採取 [解決方案](https://askubuntu.com/a/1415702)
+```bash
+for KEY in $(apt-key --keyring /etc/apt/trusted.gpg list | grep -E "(([ ]{1,2}(([0-9A-F]{4}))){10})" | tr -d " " | grep -E "([0-9A-F]){8}\b" ); do K=${KEY:(-8)}; apt-key export $K | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/imported-from-trusted-gpg-$K.gpg; done
+```
+
 ### chromecast 進行螢幕投放
 
 直接安裝 `google-chrome-stable` 並從漢堡中點擊投放，目前這個方法最高效/方便。
