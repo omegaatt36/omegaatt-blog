@@ -61,6 +61,10 @@ tags:
         ```shell
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
         ```
+    - [wakatime-zsh-plugin](https://github.com/sobolevn/wakatime-zsh-plugin#manual)
+        ```shell
+        git clone https://github.com/sobolevn/wakatime-zsh-plugin.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/wakatime
+        ```
 8. configure zsh
     - [option 1] first use
         ```shell
