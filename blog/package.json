@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "vuepress": "2.0.0-beta.62",
-    "vuepress-theme-reco": "2.0.0-beta.65"
+    "vuepress-theme-reco": "2.0.0-beta.67"
   },
   "packageManager": "yarn@3.4.1",
   "devDependencies": {
