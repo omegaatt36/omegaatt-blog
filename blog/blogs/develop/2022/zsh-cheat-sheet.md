@@ -103,6 +103,12 @@ tags:
     ```
 5. Hit `prefix + I` to fetch the plugin and source it. You should now be able to use the plugin.
 
+## git lg
+```shell
+git config --global alias.lg "log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
+```
+
 #### ref
 - [install_meslo_wsl](https://gist.githubusercontent.com/romkatv/aa7a70fe656d8b655e3c324eb10f6a8b/raw/install_meslo_wsl.sh)
 - [install nerd fonts](https://gist.github.com/matthewjberger/7dd7e079f282f8138a9dc3b045ebefa0)
+- [gitlg.sh](https://gist.github.com/PinLin/d24e11b8dc9e804f795d14ddca85fc5d)
