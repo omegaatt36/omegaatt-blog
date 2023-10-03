@@ -848,16 +848,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdit-vue/plugin-component@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "@mdit-vue/plugin-component@npm:0.12.0"
-  dependencies:
-    "@types/markdown-it": ^12.2.3
-    markdown-it: ^13.0.1
-  checksum: c748463e02a872347714672f8ae737b7dc42ad19071a4be48552d0a28d170ff834f15dc610f4caba7c727eae9f19ca0093541bcddb5558428c196df2f8be8fa7
-  languageName: node
-  linkType: hard
-
 "@mdit-vue/plugin-component@npm:^0.12.1":
   version: 0.12.1
   resolution: "@mdit-vue/plugin-component@npm:0.12.1"
@@ -865,18 +855,6 @@ __metadata:
     "@types/markdown-it": ^13.0.0
     markdown-it: ^13.0.1
   checksum: 3c112e6725dce1ec00977ffde539d932eb0df58d72ef85c676f21d236d002377e9f0a7ea49a4e6021319cac345a966cf5074a182e40fedc3ac1b724d2de1c6d9
-  languageName: node
-  linkType: hard
-
-"@mdit-vue/plugin-frontmatter@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "@mdit-vue/plugin-frontmatter@npm:0.12.0"
-  dependencies:
-    "@mdit-vue/types": 0.12.0
-    "@types/markdown-it": ^12.2.3
-    gray-matter: ^4.0.3
-    markdown-it: ^13.0.1
-  checksum: 167fdab9478f8ed136d4eba76fff04c307c4f9b9f7ca4fa3bbb25e1af10c805b26509c1e28c22f9ee0e482bfaab7b4450d496c16e2d07947c83ab4170cae23a8
   languageName: node
   linkType: hard
 
@@ -892,18 +870,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdit-vue/plugin-headers@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "@mdit-vue/plugin-headers@npm:0.12.0"
-  dependencies:
-    "@mdit-vue/shared": 0.12.0
-    "@mdit-vue/types": 0.12.0
-    "@types/markdown-it": ^12.2.3
-    markdown-it: ^13.0.1
-  checksum: 967db1b2985042417d6163fee4a747c9d16f4eea3ae875db02bdc710944b51a9848c2b5696a3bf9ca59a56d7896d3a1c48a8d8d5da98ab3d42eaa448218edd7e
-  languageName: node
-  linkType: hard
-
 "@mdit-vue/plugin-headers@npm:^0.12.1":
   version: 0.12.1
   resolution: "@mdit-vue/plugin-headers@npm:0.12.1"
@@ -916,17 +882,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdit-vue/plugin-sfc@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "@mdit-vue/plugin-sfc@npm:0.12.0"
-  dependencies:
-    "@mdit-vue/types": 0.12.0
-    "@types/markdown-it": ^12.2.3
-    markdown-it: ^13.0.1
-  checksum: 9825c32cabbe72d300efde682c4b119ebb3224e4a28834c7942b2b1d0ee786d59bd4f9cc3b42161c44d665bb40f8ba905c67745f1c66138b1e4f1c856987f076
-  languageName: node
-  linkType: hard
-
 "@mdit-vue/plugin-sfc@npm:^0.12.1":
   version: 0.12.1
   resolution: "@mdit-vue/plugin-sfc@npm:0.12.1"
@@ -935,18 +890,6 @@ __metadata:
     "@types/markdown-it": ^13.0.0
     markdown-it: ^13.0.1
   checksum: 6cbadeb33383006013b4b81be50020397f91d998d29a130efebd5ee7bda3b27f886009c490274dc47dd7bfcf7e71784e61e46017f85de6fc2b0fa1de169cb790
-  languageName: node
-  linkType: hard
-
-"@mdit-vue/plugin-title@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "@mdit-vue/plugin-title@npm:0.12.0"
-  dependencies:
-    "@mdit-vue/shared": 0.12.0
-    "@mdit-vue/types": 0.12.0
-    "@types/markdown-it": ^12.2.3
-    markdown-it: ^13.0.1
-  checksum: 9007576134355c8a0a4d206e99846c4cdf854356c4061bf678981dc7073c2e5795168bbdac57eb814a7c782fb3ce419a103bc812d50a4e8bd6e9d56ea22c45db
   languageName: node
   linkType: hard
 
@@ -962,18 +905,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdit-vue/plugin-toc@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "@mdit-vue/plugin-toc@npm:0.12.0"
-  dependencies:
-    "@mdit-vue/shared": 0.12.0
-    "@mdit-vue/types": 0.12.0
-    "@types/markdown-it": ^12.2.3
-    markdown-it: ^13.0.1
-  checksum: f6bdb3da2353740f2f00eb27f052d4967fa3a3287019369bab8ece20f1975cd26ae52bbd9a768dd4493bafbd74b501f6c73363a4215ca047b890fb245582e611
-  languageName: node
-  linkType: hard
-
 "@mdit-vue/plugin-toc@npm:^0.12.1":
   version: 0.12.1
   resolution: "@mdit-vue/plugin-toc@npm:0.12.1"
@@ -983,17 +914,6 @@ __metadata:
     "@types/markdown-it": ^13.0.0
     markdown-it: ^13.0.1
   checksum: 1b6ddff098ef8f90c5ed82ea2daa536c71545c4efe3686338a40e88f03795301d3dd05abb31cef35a7142096c0bc62cffb6bb1b06a6023fbd66a327fbcb338fb
-  languageName: node
-  linkType: hard
-
-"@mdit-vue/shared@npm:0.12.0, @mdit-vue/shared@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "@mdit-vue/shared@npm:0.12.0"
-  dependencies:
-    "@mdit-vue/types": 0.12.0
-    "@types/markdown-it": ^12.2.3
-    markdown-it: ^13.0.1
-  checksum: f5fee50fef3b376a3ccf67bde7355a0c613a9b43c297ed62e1d596670f1d41e6de5ef68569da77d286a2b2c1da4f5530b84194121f105585694b8072fd39b56a
   languageName: node
   linkType: hard
 
@@ -1245,7 +1165,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/markdown-it@npm:*, @types/markdown-it@npm:^12.2.3":
+"@types/markdown-it@npm:*":
   version: 12.2.3
   resolution: "@types/markdown-it@npm:12.2.3"
   dependencies:
@@ -1870,19 +1790,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vuepress/core@npm:2.0.0-beta.66":
-  version: 2.0.0-beta.66
-  resolution: "@vuepress/core@npm:2.0.0-beta.66"
-  dependencies:
-    "@vuepress/client": 2.0.0-beta.66
-    "@vuepress/markdown": 2.0.0-beta.66
-    "@vuepress/shared": 2.0.0-beta.66
-    "@vuepress/utils": 2.0.0-beta.66
-    vue: ^3.3.4
-  checksum: 8c75ec1ba8ddd799653e177337fe1c73f6ec40f8c49ba80df680579ab1e71d81b9566d68ce208924f3e02caeb36d5b91bc9a10924ff614327bc717c0bc634701
-  languageName: node
-  linkType: hard
-
 "@vuepress/core@npm:2.0.0-beta.67":
   version: 2.0.0-beta.67
   resolution: "@vuepress/core@npm:2.0.0-beta.67"
@@ -1893,30 +1800,6 @@ __metadata:
     "@vuepress/utils": 2.0.0-beta.67
     vue: ^3.3.4
   checksum: fbf2842f0bd23273da15257be9959e80943b8720cfc17b8527d4528c3d58e5c50e52deecf05352b2946924842a2e465a96d02e385595d4910befe45ae0952a55
-  languageName: node
-  linkType: hard
-
-"@vuepress/markdown@npm:2.0.0-beta.66":
-  version: 2.0.0-beta.66
-  resolution: "@vuepress/markdown@npm:2.0.0-beta.66"
-  dependencies:
-    "@mdit-vue/plugin-component": ^0.12.0
-    "@mdit-vue/plugin-frontmatter": ^0.12.0
-    "@mdit-vue/plugin-headers": ^0.12.0
-    "@mdit-vue/plugin-sfc": ^0.12.0
-    "@mdit-vue/plugin-title": ^0.12.0
-    "@mdit-vue/plugin-toc": ^0.12.0
-    "@mdit-vue/shared": ^0.12.0
-    "@mdit-vue/types": ^0.12.0
-    "@types/markdown-it": ^12.2.3
-    "@types/markdown-it-emoji": ^2.0.2
-    "@vuepress/shared": 2.0.0-beta.66
-    "@vuepress/utils": 2.0.0-beta.66
-    markdown-it: ^13.0.1
-    markdown-it-anchor: ^8.6.7
-    markdown-it-emoji: ^2.0.2
-    mdurl: ^1.0.1
-  checksum: a721210c7b1e5dacf2cd9146ab78f7443e150ed3402c359b69ef8c2d41d74cd7c61821c25acc3aa5d9c8d06412f6cc384cfb17b8c28567081cead14cd1001c72
   languageName: node
   linkType: hard
 
@@ -2030,14 +1913,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vuepress/plugin-google-analytics@npm:2.0.0-beta.66":
-  version: 2.0.0-beta.66
-  resolution: "@vuepress/plugin-google-analytics@npm:2.0.0-beta.66"
+"@vuepress/plugin-google-analytics@npm:2.0.0-beta.67":
+  version: 2.0.0-beta.67
+  resolution: "@vuepress/plugin-google-analytics@npm:2.0.0-beta.67"
   dependencies:
-    "@vuepress/client": 2.0.0-beta.66
-    "@vuepress/core": 2.0.0-beta.66
-    "@vuepress/utils": 2.0.0-beta.66
-  checksum: e08cd699b40c1c4e18a65f9e3d6cc7993ff8e0f618ffa0413b0ae6f299e0d3366bbd91895b7e14914ee7166f274c0e7c505aebad7007cdf4ce7a338b0b0aa7db
+    "@vuepress/client": 2.0.0-beta.67
+    "@vuepress/core": 2.0.0-beta.67
+    "@vuepress/utils": 2.0.0-beta.67
+  checksum: 9fe01d0d53b8b041e15770951b2bf882fe6a7b5c1db9e4f6224f0629103e0d3ab9a524b627fb9e8d495100e6d4606d0ec22fce06dbf8f1bbc182eee4ce074129
   languageName: node
   linkType: hard
 
@@ -8334,7 +8217,7 @@ __metadata:
   resolution: "vuepress-theme-reco-demo@workspace:."
   dependencies:
     "@vicons/antd": ^0.12.0
-    "@vuepress/plugin-google-analytics": 2.0.0-beta.66
+    "@vuepress/plugin-google-analytics": 2.0.0-beta.67
     vuepress: 2.0.0-beta.67
     vuepress-plugin-sitemap2: 2.0.0-beta.235
     vuepress-theme-reco: 2.0.0-beta.68
