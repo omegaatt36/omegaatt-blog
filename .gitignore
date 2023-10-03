@@ -1,5 +1,6 @@
 blog/node_modules/
 blog/.vuepress/.cache
+blog/.vuepress/dist
 blog/.vuepress/.temp
 blog/public
 blog/.pnp.*
