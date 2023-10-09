@@ -37,11 +37,11 @@ tags:
 5. install fonts:
     - wsl:
         ```sh
-        bash -c "$(curl -fsSL https://raw.githubusercontent.com/omegaatt36/lab/main/wsl/install_fonts.sh)" --windows
+        bash -c "$(curl -fsSL https://raw.githubusercontent.com/omegaatt36/dotfiles/main/install_fonts.sh)" --windows
         ```
     - linux:
         ```sh
-        bash -c "$(curl -fsSL https://raw.githubusercontent.com/omegaatt36/lab/main/wsl/install_fonts.sh)"
+        bash -c "$(curl -fsSL https://raw.githubusercontent.com/omegaatt36/dotfiles/main/install_fonts.sh)"
         ```
 6. change login shell(must logout and login again)
     ```shell
@@ -71,10 +71,10 @@ tags:
         p10k configure
         ```
     - [option 2] have configured .zshrc
-        [my rc file](https://github.com/omegaatt36/lab/blob/main/rc/.zshrc)
+        [my rc file](https://raw.githubusercontent.com/omegaatt36/dotfiles/main/.zshrc)
         ```shell
-        curl https://raw.githubusercontent.com/omegaatt36/lab/main/rc/.zshrc -o $HOME/.zshrc
-        curl https://raw.githubusercontent.com/omegaatt36/lab/main/rc/.p10k.zsh -o $HOME/.p10k.zsh
+        curl https://raw.githubusercontent.com/omegaatt36/dotfiles/main/.zshrc -o $HOME/.zshrc
+        curl https://raw.githubusercontent.com/omegaatt36/dotfiles/main/.p10k.zsh -o $HOME/.p10k.zsh
         ```
 
         must modify .zshrc ```export ZSH="/home/raiven/.oh-my-zsh"``` to your home path
@@ -95,7 +95,7 @@ tags:
     ```
 3. configure tmux
     ```shell
-    curl https://raw.githubusercontent.com/omegaatt36/lab/main/rc/.tmux.conf -o $HOME/.tmux.conf
+    curl https://raw.githubusercontent.com/omegaatt36/dotfiles/main/.tmux.conf -o $HOME/.tmux.conf
     ```
 4. enjoy tmux
     ```shell

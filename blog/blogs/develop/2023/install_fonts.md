@@ -127,7 +127,7 @@ function main() {
   fi
 }
 
-main 
+main
 
 echo -e '\033[0;32m'
 echo 'Fonts successfully installed.'
@@ -137,11 +137,11 @@ echo -e '\033[0m'
 若沒有要改目標字型也可以直接透過 github 上的檔案來安裝
 - wsl:
     ```sh
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/omegaatt36/lab/main/wsl/install_fonts.sh)" --windows
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/omegaatt36/dotfiles/main/install_fonts.sh)" --windows
     ```
 - linux:
     ```sh
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/omegaatt36/lab/main/wsl/install_fonts.sh)"
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/omegaatt36/dotfiles/main/install_fonts.sh)"
     ```
 
 #### ref
