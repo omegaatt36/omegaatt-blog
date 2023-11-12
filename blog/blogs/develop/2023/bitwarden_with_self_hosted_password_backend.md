@@ -3,9 +3,9 @@ title: 使用 Bitwarden 與自架後端 Vaultwarden 來管理密碼
 date: 2023-11-12
 categories:
  - develop
- - self-hosted
 tags:
  - linux
+ - self-hosted
 ---
 
 在尋覓有哪些 self-hosted 專案好玩時，偶然發現了 1password、LastPass 的開源替代方案，甚至後端資料庫能自架，決定架來用用看。
