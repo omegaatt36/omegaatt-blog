@@ -46,7 +46,7 @@ vaultwarden 的 wiki 頁十分完整，smtp 等設定都是透過環境變數控
 在您的設備上安裝 Bitwarden 客戶端後，您需要配置它連接到您自己的 Vaultwarden 服務器。
 
 1. 在 Bitwarden 客戶端中，這邊以 firefox extension 為例，點擊「正在登入到」，並選擇 self-hosted。
-    ![](/assets/dev/20231112/Screenshot_20231112_125439.png)
+    ![](/assets/dev/20231112/Screenshot_20231112_125439.webp)
 2. 在 "服務器 URL" 中輸入您的 Vaultwarden 服務器地址。
 3. 登錄或創建一個新的帳戶。
 

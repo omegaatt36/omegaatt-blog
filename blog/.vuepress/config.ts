@@ -16,9 +16,9 @@ export default defineUserConfig({
   description: `Raiven Kao's Blog`,
   theme: recoTheme({
     style: '@vuepress-reco/style-default',
-    logo: '/favicon.png',
+    logo: '/favicon.ico',
     author: 'Raiven Kao',
-    authorAvatar: '/assets/avatar.jpg',
+    authorAvatar: '/assets/avatar.webp',
     startYear: 2020,
     docsRepo: 'https://github.com/omegaatt36/omegaatt36-blog',
     docsBranch: 'main',
