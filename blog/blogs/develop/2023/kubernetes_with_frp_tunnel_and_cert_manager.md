@@ -317,6 +317,10 @@ cluster issuer 是 cert-manager 的一個組件，用於發行證書。我們會
 1. **訪問應用**：
     在瀏覽器中輸入 `https://xxx.demo.app`，檢查是否能成功訪問應用。如果一切配置正確，您應該能看到您的應用首頁，且地址欄顯示安全的 HTTPS 連接。
 
+
+完整架構如下：
+![](/assets/dev/20231112/mermaid-diagram-2023-11-13-174327.svg)
+
 ## 結論
 
 在本文中，我們詳細介紹了如何在 Google Cloud Platform (GCP) 的虛擬機器 (VM) 上建立 FRP（Fast Reverse Proxy）服務器，以及如何在家中的 kubernetes cluster 上配置 FRP 客戶端。此設置使得家用 kubernetes cluster 可以作為一個高效且安全的服務部署環境，同時利用 GCP VM 的公共 IP 作為連接點。
