@@ -1,5 +1,5 @@
 ---
-title: golnag 樂觀鎖、悲觀鎖 學習筆記與實驗
+title: golang 樂觀鎖、悲觀鎖 學習筆記與實驗
 date: 2023-05-14
 categories:
  - develop
