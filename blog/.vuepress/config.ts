@@ -68,6 +68,11 @@ export default defineUserConfig({
             "link": "https://www.linkedin.com/in/raiven/",
             "icon": "LogoLinkedin"
           },
+          {
+            "text": "littlelink",
+            "link": "https://link.omegaatt.com",
+            "icon": "ExternalLink"
+          },
         ]
       },
     ],
