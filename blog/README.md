@@ -12,6 +12,7 @@ blog: # blog 模块的配置
     - { icon: 'LogoInstagram', link: 'https://www.instagram.com/chih.hong/' }
     - { icon: 'LogoFacebook', link: 'https://www.facebook.com/Raiven.Kao/' }
     - { icon: 'LogoLinkedin', link: 'https://www.linkedin.com/in/raiven/' }
+    - { icon: 'Link', link: 'https://link.omegaatt.com' }
   buttons:
     - { text: Blogs, link: '/categories/develop/1/' }
 banner:

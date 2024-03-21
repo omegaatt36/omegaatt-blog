@@ -71,7 +71,7 @@ export default defineUserConfig({
           {
             "text": "littlelink",
             "link": "https://link.omegaatt.com",
-            "icon": "ExternalLink"
+            "icon": "Link"
           },
         ]
       },
