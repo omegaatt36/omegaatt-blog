@@ -14,24 +14,28 @@ tags:
 因緣際會，在 Ubuntu 24.04 LTS 發布之際，我決定從 KDE Neon distro hopping 到 OpenSUSE Tumbleweed，這是一個由 SUSE 公司推出的滾動式發行版，軟體包在 SUSE 測試過後便會推送到 OpenSUSE 的 Repo（其他 OpenSUSE 的功能省略）。這次的轉換主要是為了獲得最前沿的 Linux 體驗。OpenSUSE Tumbleweed 的滾動更新模式能確保我始終使用最新的軟體和技術，這對我來說是一個有趣的選擇，即便有可能收到有問題的 xz 更新 XD。
 
 ```shell
-❯ neofetch
-                                     ......            raiven@raiven-suse
-     .,cdxxxoc,.               .:kKMMMNWMMMNk:.        ------------------
-    cKMMN0OOOKWMMXo. A        ;0MWk:'      ':OMMk.     OS: openSUSE Tumbleweed x86_64
-  ;WMK;'       'lKMMNM,     :NMK'             'OMW;    Host: FMV UH-X
- cMW;             WMMMN   ,XMK'                 oMM.   Kernel: 6.8.9-1-default
-.MMc             ''^*~l. xMN:                    KM0   Uptime: 3 hours, 41 mins
-'MM.                   .NMO                      oMM   Packages: 3204 (rpm), 32 (flatpak)
-.MM,                 .kMMl                       xMN   Shell: zsh 5.9
- KM0               .kMM0' .dl>~,.               .WMd   Resolution: 2560x1440
- 'XM0.           ,OMMK'    OMMM7'              .XMK    DE: Plasma 6.0.4
-   *WMO:.    .;xNMMk'       NNNMKl.          .xWMx     WM: kwin
-     ^ONMMNXMMMKx;          V  'xNMWKkxllox0NMWk'      Theme: Breeze-Dark [GTK2], Breeze [GTK3]
-         '''''                    ':dOOXXKOxl'         Icons: Zafiro-Nord-Dark-Black [GTK2/3]
-                                                       Terminal: tmux
-                                                       CPU: 13th Gen Intel i5-1335U (12) @ 4.600GHz
-                                                       GPU: Intel Raptor Lake-P [Iris Xe Graphics]
-                                                       Memory: 8548MiB / 15634MiB
+❯ fastfetch
+                                     ......             raiven@raiven-suse
+     .,cdxxxoc,.               .:kKMMMNWMMMNk:.         ------------------
+    cKMMN0OOOKWMMXo. A        ;0MWk:'      ':OMMk.      OS: openSUSE Tumbleweed 20240517 x86_64
+  ;WMK;'       'lKMMNM,     :NMK'             'OMW;     Host: FMV UH-X
+ cMW;             WMMMN   ,XMK'                 oMM.    Kernel: 6.8.9-1-default
+.MMc             ''^*~l. xMN:                    KM0    Uptime: 1 hour, 14 mins
+'MM.                   .NMO                      oMM    Packages: 3211 (rpm), 37 (flatpak)
+.MM,                 .kMMl                       xMN    Shell: zsh 5.9
+ KM0               .kMM0' .dl>~,.               .WMd    DE: KDE Plasma 6.0.4
+ 'XM0.           ,OMMK'    OMMM7'              .XMK     WM: KWin (Wayland)
+   *WMO:.    .;xNMMk'       NNNMKl.          .xWMx      WM Theme: Nordic
+     ^ONMMNXMMMKx;          V  'xNMWKkxllox0NMWk'       Theme: Breeze (NordicDarker) [QT], Breeze-Dark [GTK2], Breeze [GTK3]
+         '''''                    ':dOOXXKOxl'          Icons: Zafiro-Nord-Dark-Black [QT], Zafiro-Nord-Dark-Black [GTK2/3/4]
+                                                        Font: Noto Sans (10pt) [QT], Noto Sans (10pt) [GTK2/3/4]
+                                                        Cursor: Nordic (24px)
+                                                        Terminal: tmux 3.4
+                                                        CPU: 13th Gen Intel(R) Core(TM) i5-1335U (12) @ 4.60 GHz
+                                                        GPU: Intel Iris Xe Graphics @ 1.25 GHz [Integrated]
+                                                        Memory: 9.86 GiB / 15.27 GiB (65%)
+                                                        Swap: 677.00 MiB / 2.00 GiB (33%)
+                                                        Disk (/): 88.81 GiB / 1.82 TiB (5%) - btrfs
 ```
 
 即便是已經足夠穩定的 OpenSUSE，也是可以很輕易的被搞的不穩定，正如 debian 在 [DontBreakDebian](https://wiki.debian.org/DontBreakDebian) 一文中提到的：
