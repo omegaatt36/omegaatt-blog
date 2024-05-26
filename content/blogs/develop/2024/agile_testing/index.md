@@ -9,9 +9,7 @@ aliases:
  - "/blogs/develop/2024/agile_testing.html"
 ---
 
-Slide: <iframe src="https://gamma.app/embed/8r0jqfc8k78lads" style="width: 100%; max-width: 100%; height: 450px" allow="fullscreen" title="何謂敏捷測試"></iframe>
-
----
+{{< gamma "8r0jqfc8k78lads" >}}
 
 ## 鋪墊：敏捷開發價值觀、原則與實踐
 

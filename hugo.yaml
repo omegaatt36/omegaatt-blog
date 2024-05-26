@@ -1,4 +1,4 @@
-baseURL: https://www.omegaatt.com
+baseURL: https://staging-omegaatt.netlify.app
 languageCode: zh-TW
 title: omegaatt
 author: "Raiven Kao"
@@ -6,14 +6,21 @@ theme: ["PaperMod"]
 copyright: "© Raiven Kao 2020 - 2024"
 enableRobotsTXT: true
 
-# googleAnalytics: UA-123-45
+googleAnalytics: G-5ZBLJ2BSQN
+
+# permalinks:
+#   page:
+#     blogs: /blogs/develop/:year/:filename
 
 params:
   env: production
   defaultTheme: auto
   DateFormat: "2006-01-02"
+  description: "Raiven Kao's blog, linux, golang, docker, kubernetes, etc."
   homeInfoParams:
-    Title: omegaatt
+    Avatar: "avatar.webp"
+    AvatarTitle: ""
+    Title: Raiven Kao
     Content: a piece of me
   socialIcons:
     - name: "email"
@@ -54,27 +61,27 @@ params:
 menu:
   main:
     - identifier: search
-      name: 🔍Search
+      name: Search
       url: search
       weight: 1
     - identifier: blogs
-      name: 📚Blogs
+      name: Blogs
       url: blogs
       weight: 2
     - identifier: archives
-      name: ⏱Archives
+      name: Archives
       url: archives/
       weight: 20
     - identifier: tags
-      name: 🔖Tags
+      name: Tags
       url: tags
       weight: 40
     - identifier: about
-      name: 🙋🏻‍♂️About
+      name: About
       url: about/
       weight: 50
     - identifier: links
-      name: 🤝Links
+      name: Links
       url: https://link.omegaatt.com
       weight: 60
 
