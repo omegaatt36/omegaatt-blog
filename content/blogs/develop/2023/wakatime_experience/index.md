@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - github
-aliases:
- - "/blogs/develop/2023/wakatime_experience.html"
 ---
 
 ## WakaTime 介紹

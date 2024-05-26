@@ -6,8 +6,6 @@ categories:
 tags:
  - golang
  - fyne
-aliases:
- - "/blogs/develop/2023/golang_gui_fyne_bme280.html"
 ---
 
 由於先前將 raspberry pi 4b 給賣掉了，[bmx280](https://github.com/omegaatt36/bmx280/tree/main/raspberrypi) 中基於 bme280 而產生的 exporter 因此失去戰鬥能力，藉此玩玩 [tinygo](https://tinygo.org/)，透過 serial port 透過 raspberry pi pico 對 bme280 讀取溫溼度。在開發過程中發現，WSL 中，command line 輸入:

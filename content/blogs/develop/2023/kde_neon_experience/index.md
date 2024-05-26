@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - linux
-aliases:
- - "/blogs/develop/2023/kde_neon_experience.html"
 ---
 
 ## 前言

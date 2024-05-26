@@ -6,8 +6,6 @@ categories:
 tags:
  - linux
  - kubernetes
-aliases:
- - "/blogs/develop/2022/centos-7-kubernetes-install.html"
 ---
 
 # 前言

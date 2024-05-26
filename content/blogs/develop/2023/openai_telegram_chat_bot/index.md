@@ -6,8 +6,6 @@ categories:
 tags:
  - golang
  - telegram
-aliases:
- - "/blogs/develop/2023/openai_telegram_chat_bot.html"
 ---
 
 # 前言

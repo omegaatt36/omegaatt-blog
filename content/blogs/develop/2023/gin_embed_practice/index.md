@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - golang
-aliases:
- - "/blogs/develop/2023/gin_embed_practice.html"
 ---
 
 ## 起因

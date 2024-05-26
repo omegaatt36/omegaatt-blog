@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - game
-aliases:
- - "/blogs/develop/2021/a_equals_to_b.html"
 ---
 
 Steam 上推出了一款 [A=B](https://store.steampowered.com/app/1720850/AB/)，稍微玩了一下，下面提供自己的解法。

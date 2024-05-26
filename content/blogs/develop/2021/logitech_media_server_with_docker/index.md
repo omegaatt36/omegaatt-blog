@@ -7,8 +7,6 @@ tags:
  - docker
  - raspberry_pi
  - logitechmediaserver
-aliases:
- - "/blogs/develop/2021/logitech_media_server_with_docker.html"
 ---
 
 # 前言

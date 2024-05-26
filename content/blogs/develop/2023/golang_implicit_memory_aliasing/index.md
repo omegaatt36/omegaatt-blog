@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - golang
-aliases:
- - "/blogs/develop/2023/golang_implicit_memory_aliasing.html"
 ---
 
 在使用 Golang 時，我們可能會遇到一種稱為隱式記憶體別名（Implicit Memory Aliasing）的問題。這篇文章將探討這個問題以及如何使用工具和語言特性來解決它。

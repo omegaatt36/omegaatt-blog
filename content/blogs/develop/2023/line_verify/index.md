@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - golang
-aliases:
- - "/blogs/develop/2023/line_verify.html"
 ---
 
 文章中的程式碼放在[https://github.com/omegaatt36/line-verify-id-token](https://github.com/omegaatt36/line-verify-id-token)中。

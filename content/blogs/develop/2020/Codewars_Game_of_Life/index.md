@@ -6,8 +6,6 @@ categories:
 tags:
  - php
  - codewars
-aliases:
- - "/blogs/develop/2020/Codewars_Game_of_Life.html"
 ---
 
 # 威康生命遊戲 in PHP

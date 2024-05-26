@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - golang
-aliases:
- - "/blogs/develop/2020/Golang_learning_day0.html"
 ---
 
 ```

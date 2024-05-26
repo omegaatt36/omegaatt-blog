@@ -5,8 +5,6 @@ categories:
  - develope
 tags:
  - golang
-aliases:
- - "/blogs/develop/2024/testcontainers_with_go.html"
 ---
 
 ## 介紹

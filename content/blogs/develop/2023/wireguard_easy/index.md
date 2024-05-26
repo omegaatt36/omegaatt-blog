@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - linux
-aliases:
- - "/blogs/develop/2023/wireguard_easy.html"
 ---
 
 先前在「[在 AWS 上使用 EC2 建立 FRP 玩玩內網穿透](/blogs/develop/2022/frp-tunnel)」一文中敘述了如何透過 AWS 實現虛擬穿透，也在內文中提到或許可以使用 wireguard 搭建內網，其原因也很簡單：每更新一個 port 都要重新設定 server side 實在是太麻煩了，拖更了進一年終於要開始寫 wireguard 的使用了。（AWS 免費也快到期了）

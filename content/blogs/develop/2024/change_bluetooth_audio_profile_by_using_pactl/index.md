@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - linux
-aliases:
- - "/blogs/develop/2024/change_bluetooth_audio_profile_by_using_pactl.html"
 ---
 
 接續著 [KDE neon / Ubuntu 啟用 PipeWire 與 LDAC/AAC/AptX 藍芽編碼](/blogs/develop/2023/kde_neon_pipewire_and_more_bluetooth_kde_neon_pipe_wire_and_more_bluetooth_codec)，每當連線到藍芽耳機時，語音設定檔在使用 LDAC 後，就無法同時使用麥克風，這樣一來在開會時，就需要手動到設定裡面去調整語音設定檔。

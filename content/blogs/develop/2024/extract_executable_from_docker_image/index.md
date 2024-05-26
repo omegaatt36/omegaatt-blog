@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - docker
-aliases:
- - "/blogs/develop/2024/extract_executable_from_docker_image.html"
 ---
 
 ::: info

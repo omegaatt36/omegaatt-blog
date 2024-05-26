@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - kubernetes
-aliases:
- - "/blogs/develop/2021/kubeadm-init.html"
 ---
 
 ## 環境

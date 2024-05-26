@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - prometheus
-aliases:
- - "/blogs/develop/2021/promethues-overview.html"
 ---
 
 # Prometheus Overview

@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - reading
-aliases:
- - "/blogs/develop/2024/agile_testing.html"
 ---
 
 {{< gamma "8r0jqfc8k78lads" >}}

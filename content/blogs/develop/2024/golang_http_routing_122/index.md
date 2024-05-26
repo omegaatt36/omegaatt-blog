@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - golang
-aliases:
- - "/blogs/develop/2024/golang_http_routing_122.html"
 ---
 
 Golang 作為一個偏向 server 應用的程式語言，一般的 web server 並不會直接使用原生的 package `net/http`，而更多的使用 `gin-gonic/gin` 或是 `gorilla/mux`，後來也有 `labstack/echo` 以及 `go-chi/chi` 等等選擇，在效能、輕量、好維護、好擴充中，都能找到對應的 third party package，其中的原因不外乎是原生的 package 提供的功能過於簡潔。

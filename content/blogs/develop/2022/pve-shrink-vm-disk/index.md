@@ -7,8 +7,6 @@ tags:
  - linux
  - kubernetes
  - proxmox
-aliases:
- - "/blogs/develop/2022/pve-shrink-vm-disk.html"
 ---
 
 由於 zpool 吃超過 80%，故將其中一個 VM(k8s-worker) 的硬碟縮小(200GB=>100GB)

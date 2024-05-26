@@ -5,8 +5,6 @@ categories:
  - develope
 tags:
  - linux
-aliases:
- - "/blogs/develop/2024/two_distrobox_use_case.html"
 ---
 
 ## 前言

@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - linux
-aliases:
- - "/blogs/develop/2022/centos-7-upgrade-kernel.html"
 ---
 
 - 查看目前 kernel 版本

@@ -7,8 +7,6 @@ tags:
  - aws
  - frp
  - linux
-aliases:
- - "/blogs/develop/2022/frp-tunnel.html"
 ---
 
 # 前言

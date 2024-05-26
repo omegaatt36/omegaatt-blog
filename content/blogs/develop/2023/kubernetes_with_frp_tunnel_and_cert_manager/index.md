@@ -7,8 +7,6 @@ tags:
  - GCP
  - frp
  - linux
-aliases:
- - "/blogs/develop/2023/kubernetes_with_frp_tunnel_and_cert_manager.html"
 ---
 
 ## 概述

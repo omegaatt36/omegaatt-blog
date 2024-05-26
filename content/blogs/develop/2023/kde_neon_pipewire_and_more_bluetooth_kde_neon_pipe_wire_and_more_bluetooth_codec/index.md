@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - linux
-aliases:
- - "/blogs/develop/2023/kde_neon_pipewire_and_more_bluetooth_kde_neon_pipe_wire_and_more_bluetooth_codec.html"
 ---
 
 [Ubuntu 22.10 將 Audio Server 從 PulseAudio 切換成 PipeWire](https://www.ghacks.net/2022/05/23/ubuntu-22-10-dropping-pulseaudio/)

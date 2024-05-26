@@ -6,8 +6,6 @@ categories:
 tags:
  - linux
  - wsl
-aliases:
- - "/blogs/develop/2023/install_fonts.html"
 ---
 
 [fonts repo](https://github.com/ryanoasis/nerd-fonts)

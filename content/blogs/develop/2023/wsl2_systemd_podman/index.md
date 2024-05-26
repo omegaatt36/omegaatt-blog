@@ -6,8 +6,6 @@ categories:
 tags:
  - linux
  - wsl
-aliases:
- - "/blogs/develop/2023/wsl2_systemd_podman.html"
 ---
 
 原本使用 [wsl-distrod](https://github.com/nullpo-head/wsl-distrod) 來作為 wsl 中 systemd 的實現方式，後來 [microsoft 宣布 wsl 支持 systemd](https://devblogs.microsoft.com/commandline/systemd-support-is-now-available-in-wsl/) 後，distrod 等等 repo 就沒有在更新了呢，是巧合嗎?我不這麼認為。

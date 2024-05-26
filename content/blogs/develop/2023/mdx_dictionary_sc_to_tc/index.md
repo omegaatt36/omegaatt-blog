@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - personal
-aliases:
- - "/blogs/develop/2023/mdx_dictionary_sc_to_tc.html"
 ---
 
 由於最近讀原文書讀得挺辛苦，邊用電子閱讀器看書，騰不出手用手機查字典，內建的辭典又只有英文翻譯簡體中文，在網上衝浪也找不到繁體中文的 mdx 英漢辭典可以直接使用。

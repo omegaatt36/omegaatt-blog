@@ -6,8 +6,6 @@ categories:
 tags:
  - golang
  - codewars
-aliases:
- - "/blogs/develop/2020/Codewars_find_x_ii.html"
 ---
 
 想不到一眨眼半個月過去了，自從面試趨勢之後整個人彷彿被電到失去信心，在離職與等待面試消息期間，也只好振作補足不足的地方繼續向前。

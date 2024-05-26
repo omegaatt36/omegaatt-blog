@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - php
-aliases:
- - "/blogs/develop/2020/PHP_enum.html"
 ---
 
 `Enumerations` 又可簡稱為 `Enum` ，在眾多語言中都可以讓程式碼更高效簡潔，例如我們可以在 python 中這麼宣告，並且用 `requests` 模組打一個 request，即可透過 `Enum` 來模組化 Response

@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - golang
-aliases:
- - "/blogs/develop/2023/golang_lock_practice.html"
 ---
 
 ## 介紹

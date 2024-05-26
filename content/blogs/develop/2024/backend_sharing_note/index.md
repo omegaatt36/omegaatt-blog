@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - personal
-aliases:
- - "/blogs/develop/2024/backend_sharing_note.html"
 ---
 
 《最高學以致用法》、《最高學習法》這兩本書是我在 2023 年上半年讀了覺得挺有意思的書，核心概念就是「產出」，例如唸書時能夠回答同學問題的，肯定都已經精通該知識點了。

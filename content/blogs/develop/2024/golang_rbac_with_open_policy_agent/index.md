@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - golang
-aliases:
- - "/blogs/develop/2024/golang_rbac_with_open_policy_agent.html"
 ---
 
 ## RBAC 概念簡介

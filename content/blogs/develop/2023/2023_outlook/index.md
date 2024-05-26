@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - personal
-aliases:
- - "/blogs/develop/2023/2023_outlook.html"
 ---
 
 TL;DR

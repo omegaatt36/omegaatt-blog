@@ -7,8 +7,6 @@ tags:
  - logitechmediaserver
  - docker
  - podman
-aliases:
- - "/blogs/develop/2023/logitech_media_server_migration.html"
 ---
 
 2021 年公司開始實施 322 WFH，少了通勤的時間，在家的時間也多了，就想在上班時也能好好對待自己，雖然是木耳但始終會想知道，網路上說的獨立訊源減少雜訊是有多重要，亦或只是玄學?於是誕生了[Raspberry pi 4 + piCorePlayer 7.0.0 折騰筆記](/blogs/develop/2021/piCorePlayer)這篇筆記，到現在這個部落格的累積曝光最高的也是因為這篇吧。

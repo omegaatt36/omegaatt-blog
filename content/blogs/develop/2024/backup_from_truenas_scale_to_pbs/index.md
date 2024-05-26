@@ -5,9 +5,6 @@ categories:
  - develope
 tags:
  - linux
-aliases:
- - "/blogs/develop/2024/backup_from_truenas_scale_to_pbs.html"
-ShowToc: true
 ---
 
 ## 前言

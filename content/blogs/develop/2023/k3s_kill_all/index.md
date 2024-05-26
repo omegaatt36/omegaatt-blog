@@ -5,8 +5,6 @@ categories:
  - develop
 tags:
  - linux
-aliases:
- - "/blogs/develop/2023/k3s_kill_all.html"
 ---
 
 ```

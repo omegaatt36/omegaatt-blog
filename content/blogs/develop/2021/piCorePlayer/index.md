@@ -6,8 +6,6 @@ categories:
 tags:
   - raspberry_pi
   - logitechmediaserver
-aliases:
- - "/blogs/develop/2021/piCorePlayer.html"
 ---
 
 # 前言

@@ -6,8 +6,6 @@ categories:
 tags:
  - linux
  - self-hosted
-aliases:
- - "/blogs/develop/2023/bitwarden_with_self_hosted_password_backend.html"
 ---
 
 在尋覓有哪些 self-hosted 專案好玩時，偶然發現了 1password、LastPass 的開源替代方案，甚至後端資料庫能自架，決定架來用用看。

@@ -6,8 +6,6 @@ categories:
 tags:
  - linux
  - cheat_sheet
-aliases:
- - "/blogs/develop/2022/zsh-cheat-sheet.html"
 ---
 
 ## oh my zsh & power lever 10k
