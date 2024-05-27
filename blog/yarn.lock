@@ -2278,14 +2278,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vuepress/plugin-google-analytics@npm:2.0.0-rc.0":
-  version: 2.0.0-rc.0
-  resolution: "@vuepress/plugin-google-analytics@npm:2.0.0-rc.0"
-  dependencies:
-    "@vuepress/client": "npm:2.0.0-rc.0"
-    "@vuepress/core": "npm:2.0.0-rc.0"
-    "@vuepress/utils": "npm:2.0.0-rc.0"
-  checksum: 10c0/fdef534e53acdf80cb2bdd336e739dc75141c6804de402e0791d9a1c7263a98d91e81ffc096974fb2baae1d9a2b0a3b81652b2700edcd702b7e9eeb539c20810
+"@vuepress/plugin-google-analytics@npm:2.0.0-rc.31":
+  version: 2.0.0-rc.31
+  resolution: "@vuepress/plugin-google-analytics@npm:2.0.0-rc.31"
+  peerDependencies:
+    vuepress: 2.0.0-rc.12
+  checksum: 10c0/4d8042e8548c064e194a9038b4f9521f43ad6697c5063d88be50b66ff6b53ef2c9774e05bdbfa90b9f4b9a0e4503e00c274a6dd65c35068b058a40e4be64b70e
   languageName: node
   linkType: hard
 
@@ -8626,7 +8624,7 @@ __metadata:
   resolution: "vuepress-theme-reco-demo@workspace:."
   dependencies:
     "@vicons/antd": "npm:^0.12.0"
-    "@vuepress/plugin-google-analytics": "npm:2.0.0-rc.0"
+    "@vuepress/plugin-google-analytics": "npm:2.0.0-rc.31"
     vuepress: "npm:2.0.0-rc.0"
     vuepress-plugin-sitemap2: "npm:2.0.0-rc.11"
     vuepress-theme-reco: "npm:2.0.0-rc.6"
