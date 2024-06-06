@@ -131,18 +131,22 @@ func main() {
 ```go
 package main
 
-import "net/http"
+import (
+    "net/http"
+
+    "github.com/gin-gonic/gin"
+)
 
 func main() {
-    mux := http.NewServeMux()
+    router := gin.Default()
 
-    mux.HandleFunc("GET /hello", func(w http.ResponseWriter, r *http.Request) {
-        w.WriteHeader(http.StatusOK)
-        w.Write([]byte("Hello, World!"))
+    router.GET("/hello", func(c *gin.Context) {
+        c.JSON(http.StatusOK, "Hello, World!")
     })
 
-    http.ListenAndServe(":8080", mux)
+    http.ListenAndServe(":8080", router)
 }
+
 ```
 
 - `go-chi/chi`
