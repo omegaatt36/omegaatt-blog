@@ -1,0 +1,92 @@
+baseURL: https://www.omegaatt.com
+languageCode: zh-TW
+title: omegaatt
+author: "Raiven Kao"
+theme: ["PaperMod"]
+copyright: "© Raiven Kao 2020 - 2024"
+enableRobotsTXT: true
+
+googleAnalytics: G-5ZBLJ2BSQN
+
+# permalinks:
+#   page:
+#     blogs: /blogs/develop/:year/:filename
+
+params:
+  env: production
+  defaultTheme: auto
+  DateFormat: "2006-01-02"
+  description: "Raiven Kao's blog, linux, golang, docker, kubernetes, etc."
+  homeInfoParams:
+    Avatar: "avatar.webp"
+    AvatarTitle: ""
+    Title: Raiven Kao
+    Content: a piece of me
+  socialIcons:
+    - name: "email"
+      url: "mailto://raiven.kao@gmail.com"
+    - name: "github"
+      url: "https://github.com/omegaatt36"
+    - name: "instagram"
+      url: "https://www.instagram.com/chih.hong/"
+    - name: "facebook"
+      url: "https://www.facebook.com/Raiven.Kao/"
+    - name: "linkedin"
+      url: "https://www.linkedin.com/in/raiven/"
+    - name: "other"
+      url: "https://link.omegaatt.com"
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    # limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
+    keys: ["title", "permalink", "summary", "content"]
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowWordCount: true
+  showtoc: true
+
+  assets:
+    favicon: "favicon.ico"
+    favicon32x32: "favicon.ico"
+    apple_touch_icon: "favicon.png"
+    safari_pinned_tab: "favicon.png"
+
+menu:
+  main:
+    - identifier: search
+      name: Search
+      url: search
+      weight: 1
+    - identifier: blogs
+      name: Blogs
+      url: blogs
+      weight: 2
+    - identifier: archives
+      name: Archives
+      url: archives/
+      weight: 20
+    - identifier: tags
+      name: Tags
+      url: tags
+      weight: 40
+    - identifier: about
+      name: About
+      url: about/
+      weight: 50
+    - identifier: links
+      name: Links
+      url: https://link.omegaatt.com
+      weight: 60
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
