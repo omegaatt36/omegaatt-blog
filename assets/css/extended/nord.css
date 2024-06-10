@@ -1,10 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
+@font-face {
+  font-family: "Iansui";
+  font-style: normal;
+  src: url("/fonts/Iansui-Regular.ttf") format("truetype");
+}
+
 body {
   display: flex;
   flex-direction: column;
   background-color: #2E3440;
   color: #D8DEE9;
-  font-family: "Fira Code", monospace;
+  font-family: "Fira Code", "Iansui", monospace;
   line-height: 1.725;
 }
 
@@ -114,7 +120,7 @@ table td {
 }
 
 code {
-  font-family: "Fira Code", monospace;
+  font-family: "Fira Code", "Iansui", monospace;
   font-weight: 500;
   font-size: 0.85em;
   padding: 0.2em 0.4em;
