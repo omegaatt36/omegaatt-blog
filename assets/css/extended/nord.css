@@ -1,25 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
 body {
-  display: flex;
-  flex-direction: column;
   background-color: #2E3440;
   color: #D8DEE9;
   font-family: "Fira Code", monospace;
-  line-height: 1.725;
-}
-
-header {
-  margin: 0 auto 1rem;
-  width: 100%;
-}
-
-footer {
-  margin: 2rem auto 0;
-  width: 100%;
-}
-
-.max-width {
-  max-width: 48rem;
+  font-size: 18px;
+  line-height: 1.6;
+  word-break: break-word;
 }
 
 .px3 {
