@@ -211,6 +211,7 @@ JWT (JSON Web Token) 是一種開放標準，用於在不同系統之間安全�
 - `input` 用於選擇起始和結束日期，以及輸入組織 ID。
 - `button` 用於觸發加載儀表板的操作。
 - `iframe` 用於嵌入並顯示 Grafana 儀表板。
+- `kiosk` 詳細差異可以參考[官方部落格](https://grafana.com/blog/2019/05/02/grafana-tutorial-how-to-create-kiosks-to-display-dashboards-on-a-tv/)，由於我僅需要查看 Dashboard 所以採用什麼參數都沒有攜帶的 `kiosk`。
 
 ### JavaScript 部分
 
@@ -334,3 +335,5 @@ func generateJWT(w http.ResponseWriter, r *http.Request) {
 這邊需要強調的是**務必使用無痕模式來驗證**，否則 iframe 會使用已經登入的 session 來開啟，故可能無法驗證嵌入的效果。
 
 照著 [How to use](https://github.com/omegaatt36/grafana-embed-example?tab=readme-ov-file#how-to-use) 段落一步一步往下做，就能夠在 iframe 內看到透過 JWT 進行登入的 Grafana Dashboard。
+
+![Grafana Dashboard](embed.png)
