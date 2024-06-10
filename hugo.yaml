@@ -14,7 +14,7 @@ googleAnalytics: G-5ZBLJ2BSQN
 
 params:
   env: production
-  defaultTheme: auto
+  defaultTheme: dark
   DateFormat: "2006-01-02"
   description: "Raiven Kao's blog, linux, golang, docker, kubernetes, etc."
   homeInfoParams:
