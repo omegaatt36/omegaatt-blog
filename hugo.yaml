@@ -18,7 +18,7 @@ params:
   DateFormat: "2006-01-02"
   description: "Raiven Kao's blog, linux, golang, docker, kubernetes, etc."
   homeInfoParams:
-    Avatar: "avatar.webp"
+    Avatar: "avatar.jpeg"
     AvatarTitle: ""
     Title: Raiven Kao
     Content: a piece of me
