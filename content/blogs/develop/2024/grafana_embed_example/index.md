@@ -11,6 +11,8 @@ tags:
 
 這篇文章的範例可以在 [omegaatt36/grafana-embed-example](https://github.com/omegaatt36/grafana-embed-example) 中找到所有的 source code
 
+我的 Use Case 為已經有一組 SHA512 產生的 Key，以下的內容為使用 HS512 進行簽名與認證。
+
 ## 流程
 
 ```mermaid
@@ -53,21 +55,22 @@ sequenceDiagram
 
 - `enabled = true`：啟用 JWT 認證。
 - `header_name = X-JWT-Assertion`：指定用於攜帶 JWT 的 HTTP 標頭名稱。
-- `enable_login_token = true：允許使用 JWT 進行登入。
-- `username_claim = user 和 email_claim = email：指定 JWT 中對應使用者名稱和電子郵件的字段。
-- `key_file = /etc/grafana/rsa_pub.pem`：指定用於驗證 JWT 簽名的公鑰文件路徑。
-- `cache_ttl = 60m`：指定 JWT 快取的有效期。
+- `enable_login_token = true`：允許使用 JWT 進行登入。
+- `email_claim = sub`：指定 JWT 中對應電子郵件的字段。
+- `jwk_set_file = /etc/grafana/jwks.json`：指定用於驗證 JWT 簽名的 JWKs 路徑。
 - `expect_claims = {}`：設定期望的 JWT 權限。
 - `role_attribute_path = role`：指定 JWT 中對應角色的字段。
 - `role_attribute_strict = false`：是否嚴格匹配角色屬性。
-- `auto_sign_up = true`：允許自動註冊新用戶。
+- `username_attribute_path = user.name`：指定 JWT 中對應使用者名稱的字段（非用於驗證）。
+- `email_attribute_path = user.email`：指定 JWT 中對應電子郵件的字段（非用於驗證）。
+- `auto_sign_up = true`：允許自動註冊新用戶，搭配 `username_attribute_path` 與 `email_attribute_path` 可以實現自動註冊。
 - `url_login = true`：允許通過 URL 進行登入。
 - `allow_assign_grafana_admin = false`：不允許自動分配 Grafana 管理員角色。
 - `skip_org_role_sync = false`：不跳過組織角色同步。
 
 #### [auth.anonymous]
 
-- `enabled = false`：禁用匿名訪問，確保所有訪問都需要經過認證。這點對於後續驗證十分重要，有很多其他部落格的這個區域都是設成 `true`，根本沒有經過 auth，相對的就是沒有安全性可言。
+- `enabled = true`：啟用匿名訪問，允許未經認證的用戶查看儀表板，將這個設定打開才會進行 jwt 驗證，否則上方的設定都白設定了。
 
 {{< details title="完整 config：" >}}
 
@@ -84,21 +87,21 @@ whitelisted_domains = localhost
 enabled = true
 header_name = X-JWT-Assertion
 enable_login_token = true
-username_claim = user
-email_claim = email
-key_file = /etc/grafana/rsa_pub.pem
-cache_ttl = 60m
+email_claim = sub
+jwk_set_file = /etc/grafana/jwks.json
+key_id = grafana-embed-example
 expect_claims = {}
-; key_id =
 role_attribute_path = role
 role_attribute_strict = false
+username_attribute_path = user.name
+email_attribute_path = user.email
 auto_sign_up = true
 url_login = true
 allow_assign_grafana_admin = false
 skip_org_role_sync = false
 
 [auth.anonymous]
-enabled = false
+enabled = true
 
 [log.console]
 level = info
@@ -109,8 +112,6 @@ level = info
 ### JWT
 
 JWT (JSON Web Token) 是一種開放標準，用於在不同系統之間安全地傳輸訊息。在這個實作中，我們使用 JWT 來認證和授權使用者訪問嵌入的 Grafana 儀表板。
-
-我們可以產生一組 Public Key 與 Private Key 的 Pair，簽署用的私鑰放在後端，驗證用的公鑰放在 grafana 伺服器內。
 
 後端會生成 JWT，前端（由於是 iframe）透過 URL query string 將其傳遞給 Grafana，Grafana 會使用公鑰驗證 JWT 的有效性。
 
@@ -137,6 +138,61 @@ JWT (JSON Web Token) 是一種開放標準，用於在不同系統之間安全�
 ### Dashboard Embed link
 
 嵌入鏈接允許將 Grafana 儀表板嵌入到其他網頁或應用中。配置嵌入鏈接時，需要確保允許嵌入並使用合適的 JWT 進行認證，以確保安全性和數據隱私。
+
+## 簽署 JWKs
+
+由於我是使用對稱加密的 SHA512，於是使用 `gopkg.in/square/go-jose.v2` 來協助產生用於 HS512 簽名的 JWKs。
+
+需要注意，由於是對稱加密，JWKs 中的 `k` 僅僅是 secret 做 base64url without padding，若是需要將 JWKs 公開，請使用非對稱式加密。
+
+{{< details title="完整 code:" >}}
+
+```go
+var secretKey *string = flag.String("secret-key", "", "secret key")
+var keyID *string = flag.String("key-id", "", "key-id")
+
+func main() {
+    flag.Parse()
+    if secretKey == nil || *secretKey == "" {
+        log.Fatal("secret-key is required")
+    }
+
+    if keyID == nil || *keyID == "" {
+        log.Fatal("key-id is required")
+    }
+
+    rawKey := []byte(*secretKey)
+
+    symKey := jose.JSONWebKey{
+        Key:       rawKey,
+        KeyID:     *keyID,
+        Algorithm: string(jose.HS512),
+        Use:       "sig",
+    }
+
+    jwkJSON, err := json.MarshalIndent(jose.JSONWebKeySet{Keys: []jose.JSONWebKey{symKey}}, "", "  ")
+    if err != nil {
+        fmt.Printf("Failed to marshal JWK: %s\n", err)
+        return
+    }
+
+    file, err := os.Create("jwks.json")
+    if err != nil {
+        fmt.Printf("Failed to create file: %s\n", err)
+        return
+    }
+    defer file.Close()
+
+    if _, err := file.Write(jwkJSON); err != nil {
+        fmt.Printf("Failed to write JWK to file: %s\n", err)
+        return
+    }
+
+    fmt.Println("JWK successfully written to jwks.json")
+}
+```
+
+{{< /details >}}
 
 ## 前端
 
@@ -287,38 +343,23 @@ func serveIndex(w http.ResponseWriter, r *http.Request) {
 一樣透過 embed 的方式讀取私鑰，並且在每個請求都能夠使用我們設計好的 claim 來將 user 與 email 給簽進 JWT 內。
 
 ```go
-//go:embed rsa.pem
-var privateKey string
-
-func getPrivateKey() (*rsa.PrivateKey, error) {
-    block, _ := pem.Decode([]byte(privateKey))
-    if block == nil || block.Type != "RSA PRIVATE KEY" {
-        panic("Failed to decode PEM block containing private key")
-    }
-
-    pk, err := x509.ParsePKCS1PrivateKey(block.Bytes)
-    if err != nil {
-        panic(err)
-    }
-
-    return pk, nil
-}
+var secretKey *string = flag.String("secret-key", "", "secret key")
 
 func generateJWT(w http.ResponseWriter, r *http.Request) {
-    token := jwt.NewWithClaims(jwt.SigningMethodRS256, jwt.MapClaims{
-        "user":  "demo",
-        "email": "user@demo.com",
-        "iat":   time.Now().Unix(),
-        "exp":   time.Now().Add(time.Hour * 1).Unix(),
+    token := jwt.NewWithClaims(jwt.SigningMethodHS512, jwt.MapClaims{
+        "user": jwt.MapClaims{
+            "email": "viewer@kryptogo.com",
+            "name":  "viewer",
+        },
+        "sub":  "viewer@kryptogo.com",
+        "role": "Viewer",
+        "iat":  time.Now().Unix(),
+        "exp":  time.Now().Add(time.Hour * 1).Unix(),
     })
 
-    pk, err := getPrivateKey()
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
+    token.Header["kid"] = *keyID
 
-    tokenString, err := token.SignedString(pk)
+    tokenString, err := token.SignedString([]byte(*secretKey))
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         return
@@ -337,3 +378,10 @@ func generateJWT(w http.ResponseWriter, r *http.Request) {
 照著 [How to use](https://github.com/omegaatt36/grafana-embed-example?tab=readme-ov-file#how-to-use) 段落一步一步往下做，就能夠在 iframe 內看到透過 JWT 進行登入的 Grafana Dashboard。
 
 ![Grafana Dashboard](embed.png)
+
+## Trouble shooting
+
+任何驗證失敗的發生，都可以直接查看 grafana 的 log，例如：
+
+- JWT 的 `kid` 是寫在 Header 而非 Body
+- JWKs 有一個固定的格式，為一個 `{"keys":[]}`。
