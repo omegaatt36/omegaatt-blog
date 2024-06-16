@@ -24,7 +24,7 @@ sequenceDiagram
     participant S as Server
     participant G as Grafana
 
-    rect rgb(245, 245, 245)
+    rect rgb(236,239,244)
     U->>B: Open Web Page
     B->>S: Request JWT Token
     S->>B: Return JWT Token
