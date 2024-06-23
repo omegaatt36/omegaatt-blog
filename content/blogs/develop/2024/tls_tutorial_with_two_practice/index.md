@@ -9,7 +9,7 @@ tags:
 
 因為[工作需要部署 grafana](./../grafana_embed_example)，重新認識了 TLS 的流程，藉此機會把學習過程紀錄下來。
 
-主要分為理論與案例分享兩個大章節，理論章節主要是在講「應該要知道但學過就會忘」的內行，案例分享則為這一次部署 grafana 時的經驗分享。
+主要分為理論與案例分享兩個大章節，[理論章節](#理論)主要是在講「應該要知道但學過就會忘」的內行，[案例分享](#案例分享)則為這一次部署 grafana 時的經驗分享。
 
 ## 理論
 
@@ -98,6 +98,103 @@ TLS 支持多種加密協議和算法，包括：
 
 在 TLS 握手過程中，客戶端會驗證伺服器的數位證書，以確保其身份的真實性。這個過程包括檢查證書的有效性、確認 CA 的信任鏈以及驗證伺服器的公鑰。
 
+至於伺服器是如何驗證 TLS 的有效性，雖然不常直接建立一個 https server，較常使用 TLS Termination（或稱 SSL Termination），我們仍可以透過這個案例來理解伺服器端的 TLS 流程。
+
+- 當我們呼叫 [`http.ListenAndServeTLS(xxx, xxx)`]((https://pkg.go.dev/net/http#Server.ServeTLS))
+
+   ```go
+   func (srv *Server) ServeTLS(l net.Listener, certFile, keyFile string) error {
+      // Setup HTTP/2 before srv.Serve, to initialize srv.TLSConfig
+      // before we clone it and create the TLS Listener.
+      if err := srv.setupHTTP2_ServeTLS(); err != nil {
+         return err
+      }
+
+      config := cloneTLSConfig(srv.TLSConfig)
+      if !strSliceContains(config.NextProtos, "http/1.1") {
+         config.NextProtos = append(config.NextProtos, "http/1.1")
+      }
+
+      configHasCert := len(config.Certificates) > 0 || config.GetCertificate != nil
+      if !configHasCert || certFile != "" || keyFile != "" {
+         var err error
+         config.Certificates = make([]tls.Certificate, 1)
+         config.Certificates[0], err = tls.LoadX509KeyPair(certFile, keyFile)
+         if err != nil {
+            return err
+         }
+      }
+
+      tlsListener := tls.NewListener(l, config)
+      return srv.Serve(tlsListener)
+   }
+   ```
+
+- 會建立一個 [`tls.Listener`](https://pkg.go.dev/crypto/tls#Server)
+
+   ```go
+   func NewListener(inner net.Listener, config *Config) net.Listener {
+      l := new(listener)
+      l.Listener = inner
+      l.config = config
+      return l
+   }
+   ```
+
+- 由這個 Listener 實做的 `Accept()` 會呼叫 `Serve()` 並指定 `handshakeFn`
+
+```go
+func (l *listener) Accept() (net.Conn, error) {
+    c, err := l.Listener.Accept()
+    if err != nil {
+        return nil, err
+    }
+    return Server(c, l.config), nil
+}
+
+func Server(conn net.Conn, config *Config) *Conn {
+    c := &Conn{
+        conn:   conn,
+        config: config,
+    }
+    c.handshakeFn = c.serverHandshake
+    return c
+}
+```
+
+- 並在裡面進行上述的握手流程
+
+```go
+// serverHandshakeState contains details of a server handshake in progress. It's discarded once the handshake has completed.
+type serverHandshakeState struct {
+    c            *Conn
+    ctx          context.Context
+    clientHello  *clientHelloMsg
+    hello        *serverHelloMsg
+    suite        *cipherSuite
+    ecdheOk      bool
+    ecSignOk     bool
+    rsaDecryptOk bool
+    rsaSignOk    bool
+    sessionState *SessionState
+    finishedHash finishedHash
+    masterSecret []byte
+    cert         *Certificate
+}
+
+func (hs *serverHandshakeState) checkForResumption() error
+func (hs *serverHandshakeState) cipherSuiteOk(c *cipherSuite) bool
+func (hs *serverHandshakeState) doFullHandshake() error
+func (hs *serverHandshakeState) doResumeHandshake() error
+func (hs *serverHandshakeState) establishKeys() error
+func (hs *serverHandshakeState) handshake() error
+func (hs *serverHandshakeState) pickCipherSuite() error
+func (hs *serverHandshakeState) processClientHello() error
+func (hs *serverHandshakeState) readFinished(out []byte) error
+func (hs *serverHandshakeState) sendFinished(out []byte) error
+func (hs *serverHandshakeState) sendSessionTicket() error
+```
+
 #### CA Chain（證書授權鏈）
 
 證書授權鏈（CA Chain）是指從伺服器證書到根證書之間的一系列中間證書。這些中間證書由不同的證書授權機構（CA）簽發，形成一條信任鏈，最終由根證書（由受信任的根 CA 簽發）作為信任的起點。
@@ -116,6 +213,30 @@ TLS 支持多種加密協議和算法，包括：
 1. **檢查證書有效性**：客戶端檢查證書的有效期、簽名算法和其他相關信息，確保證書在有效期內且未被撤銷。
 1. **建立信任鏈**：客戶端從伺服器證書開始，逐步驗證每個中間證書，直到達到根證書。每個中間證書必須由上一層的 CA 簽名，最終的根證書必須在客戶端的信任存儲中。
 1. **驗證根證書**：確保根證書是受信任的，通常由操作系統或瀏覽器預裝的根 CA 列表中找到。
+
+失敗的驗證流程：Root CA 與 Server CA 不在同一個 Chain，在驗證過程中，如果伺服器證書與根證書之間的中間證書不完整或無法建立信任鏈，驗證過程會失敗。例如：
+
+1. **接收伺服器證書**：客戶端接收到伺服器證書和一個不完整的中間證書鏈。
+1. **檢查證書有效性**：客戶端檢查證書的有效期和簽名算法。
+1. **建立信任鏈失敗**：客戶端嘗試從伺服器證書建立信任鏈，但中間證書缺失或不正確，無法連接到受信任的根證書。
+1. **驗證失敗**：客戶端無法找到根證書或中間證書的簽名不匹配，導致無法建立完整的信任鏈，最終導致 TLS 握手失敗。
+
+```mermaid
+sequenceDiagram
+   participant Client
+   participant Server
+
+   rect rgb(236,239,244)
+   Client->>Server: Client Hello (支持的 TLS 版本、加密算法、隨機數)
+   Server->>Client: Server Hello (選擇的加密算法、伺服器的隨機數)
+   Server->>Client: Server Certificate (伺服器的數位證書和不完整的中間證書鏈)
+   Client->>Client: Check Certificate Validity (檢查證書有效期和簽名算法)
+   Client->>Client: Build Trust Chain (嘗試建立信任鏈)
+   Client->>Client: Verify Intermediate Certificate (驗證中間證書)
+   Client->>Client: Fail to Verify (無法驗證中間證書)
+   Client->>Server: Verification Failed (驗證失敗，終止連接)
+   end
+```
 
 #### 範例圖示
 
@@ -185,18 +306,54 @@ TLS（Transport Layer Security）自其前身 SSL（Secure Sockets Layer）以�
 #### 如何避免常見的 TLS 漏洞
 
 1. **防止中間人攻擊（MITM）**：嚴格驗證伺服器證書的真實性，使用 HSTS（HTTP Strict Transport Security）強制使用 HTTPS。HSTS 可以有效防止中間人攻擊，確保瀏覽器總是使用 HTTPS 連接到網站。
-    - [AppSec Monkey](https://www.appsecmonkey.com/blog/mitm)
-    - [Virtue Security](https://www.virtuesecurity.com/the-do-and-donts-of-hsts/)
+   - [AppSec Monkey](https://www.appsecmonkey.com/blog/mitm)
+   - [Virtue Security](https://www.virtuesecurity.com/the-do-and-donts-of-hsts/)
+
+   ```mermaid
+   sequenceDiagram
+      participant Client
+      participant Attacker
+      participant Server
+
+      rect rgb(236,239,244)
+      Client->>Attacker: Client Hello
+      Attacker->>Server: Client Hello (偽裝成客戶端)
+      Server->>Attacker: Server Hello + Certificate
+      Attacker->>Client: Server Hello + 攔截的 Certificate (偽裝成伺服器)
+      Client->>Attacker: Encrypted Data
+      Attacker->>Server: Encrypted Data (解密並重新加密)
+      Server->>Attacker: Encrypted Response
+      Attacker->>Client: Encrypted Response (解密並重新加密)
+
+      Note over Client,Server: 使用 HSTS 強制 HTTPS 連接可以防止這種攻擊。
+      end
+   ```
+
 1. **防止 POODLE 攻擊**：禁用 SSL 3.0 協議。POODLE 攻擊利用了 SSL 3.0 的漏洞，因此禁用該協議可以有效防止此類攻擊。
-    - [SSL Labs on POODLE](https://www.ssllabs.com/ssl-poodle/).
+   - [What Is POODLE Attack](https://www.acunetix.com/blog/web-security-zone/what-is-poodle-attack/).
 1. **防止 BEAST 攻擊**：升級到 TLS 1.1 或更高版本，並使用安全的加密套件。BEAST 攻擊針對的是 TLS 1.0，因此升級到更高版本可以避免此攻擊
-    - [BEAST Attack and Mitigations](https://www.acunetix.com/blog/articles/tls-ssl-beast-attack/).
+   - [BEAST Attack](http://securityalley.blogspot.com/2014/07/ssltls-beast.html).
 1. **防止 CRIME 和 BREACH 攻擊**：禁用 TLS 壓縮，避免在 HTTPS 中暴露敏感數據。CRIME 和 BREACH 攻擊利用了壓縮數據的特性，因此禁用壓縮可以防止這些攻擊。
-    - [CRIME Attack Explained](https://www.imperva.com/learn/application-security/crime-suppression/).
+   - [CRIME Attack Explained](https://www.imperva.com/learn/application-security/crime-suppression/).
 1. **防止心臟出血（Heartbleed）漏洞**：確保使用最新版本的 OpenSSL 並及時打補丁。Heartbleed 漏洞使攻擊者能夠讀取伺服器內存中的敏感數據，因此使用最新的 OpenSSL 版本和補丁是防止此漏洞的最佳方法。
-    - [Heartbleed Bug](https://heartbleed.com/).
+   - [Heartbleed Bug](https://heartbleed.com/).
+
+   ```mermaid
+   sequenceDiagram
+   rect rgb(236,239,244)
+      participant Client
+      participant Attacker
+      participant Server
+
+      Client->>Server: Heartbeat Request (利用 Heartbleed 漏洞)
+      Server->>Attacker: Server Memory Data (敏感信息洩露)
+
+      Note over Client,Server: 使用最新版本的 OpenSSL 並及時打補丁可以防止 Heartbleed 漏洞。
+      end
+   ```
+
 1. **防止 RC4 攻擊**：禁用 RC4 加密算法，使用更安全的替代算法。RC4 加密算法已被證明是不安全的，因此應該禁用，改用 AES-GCM 或 ChaCha20-Poly1305 等更安全的算法。
-    - [RC4 is Broken: Now What?](https://www.keycdn.com/blog/rc4-is-broken)
+   - [RC4 is Broken: Now What?](https://www.keycdn.com/blog/rc4-is-broken)
 
 ### 故障排除與診斷
 
@@ -232,15 +389,15 @@ TLS（Transport Layer Security）自其前身 SSL（Secure Sockets Layer）以�
 1. **Wireshark**
    - Wireshark 是一個網絡協議分析工具，可以用來捕獲和分析 TLS 流量，幫助診斷握手過程中的問題。
    - 可以使用 Wireshark 捕獲 TCP 流量，並在解析中查看 TLS 握手過程：
-    1. **捕獲流量**
-        - 使用 Wireshark 捕獲客戶端與伺服器之間的網絡流量。
-        - 設置過濾器來只捕獲 TLS 流量，例如 `tcp.port == 443`。
-    1. **分析握手過程**
-        - 在 Wireshark 中查看捕獲的 TLS 握手包，檢查 Client Hello 和 Server Hello 消息。
-        - 確認握手過程中沒有出現錯誤消息，如握手失敗或證書驗證失敗。
-    1. **檢查證書信息**
-        - 在 Wireshark 中查看伺服器發送的證書，檢查證書鏈的完整性和有效性。
-        - 確認證書的詳細信息，如發行者、主體和有效期。
+      1. **捕獲流量**
+         - 使用 Wireshark 捕獲客戶端與伺服器之間的網絡流量。
+         - 設置過濾器來只捕獲 TLS 流量，例如 `tcp.port == 443`。
+      1. **分析握手過程**
+         - 在 Wireshark 中查看捕獲的 TLS 握手包，檢查 Client Hello 和 Server Hello 消息。
+         - 確認握手過程中沒有出現錯誤消息，如握手失敗或證書驗證失敗。
+      1. **檢查證書信息**
+         - 在 Wireshark 中查看伺服器發送的證書，檢查證書鏈的完整性和有效性。
+         - 確認證書的詳細信息，如發行者、主體和有效期。
 1. **SSL Labs**
    - SSL Labs 提供了在線 SSL 測試工具，可以對網站的 SSL/TLS 配置進行全面分析，並提供改進建議。
    - 使用 SSL Labs 檢查網站：
@@ -487,11 +644,13 @@ sequenceDiagram
       ```bash
       #!/bin/bash
 
+      local domain_name = www.example.org
+
       if [ ! -f /var/lib/letsencrypt/live/${domain_name}/privkey.pem ] || [ ! -f /var/lib/letsencrypt/live/${domain_name}/fullchain.pem ]; then
       docker run -p 80:80 --rm --name certbot \
             -v /var/lib/letsencrypt:/etc/letsencrypt \
             -v /var/lib/letsencrypt/log:/var/log/letsencrypt \
-            certbot/certbot certonly --standalone --non-interactive --agree-tos --email no-reply@kryptogo.com -d ${domain_name}
+            certbot/certbot certonly --standalone --non-interactive --agree-tos --email no-reply@example.org -d ${domain_name}
       else
       docker run -p 80:80 --rm --name certbot \
          -v /var/lib/letsencrypt:/etc/letsencrypt \
@@ -516,3 +675,54 @@ sequenceDiagram
 1. Web 伺服器回應並提供由 Let's Encrypt 簽署的證書，客戶端驗證證書後建立加密通訊通道。
 
 這樣的設計確保了客戶端與 Web 伺服器之間的通訊是加密的，而 Cloudflare 僅提供 DNS 解析服務。
+
+### 使用 Cloudflare 進行 TLS 代理的失敗案例
+
+假設我們有一個網站，其 IPv4 位址為 `140.131.114.xxx`，透過 Cloudflare 作為 DNS 服務，並使用 A 記錄進行代理（Proxy）。網站的域名為 `www.example.org`，Cloudflare 的 TLS 加密模式設為 Full。但是，伺服器上的證書並不是由 Cloudflare 的 Origin CA 簽署的，而是由 Let's Encrypt 簽署的。這種配置會導致 Cloudflare 與 Web 伺服器之間的 TLS 握手失敗。
+
+DNS 解析和代理過程與[#使用 Cloudflare 進行 TLS 代理](#使用-cloudflare-進行-tls-代理)一致，差別在於握手過程的後半部份：
+
+1. 客戶端與 Cloudflare 的 TLS 握手
+   - 客戶端與 Cloudflare 進行 TLS 握手，確保到 Cloudflare 的通訊是加密的。
+   - 客戶端發送 Client Hello 給 Cloudflare。
+   - Cloudflare 回應 Server Hello，並發送自己的數位證書。
+   - 客戶端驗證 Cloudflare 的證書，生成對稱密鑰並加密傳輸給 Cloudflare。
+   - 雙方完成握手，建立加密通訊通道。
+1. Cloudflare 與 Web 伺服器的 TLS 握手
+   - Cloudflare 代理請求到 Web 伺服器，與其進行 TLS 握手。
+   - Cloudflare 發送 Client Hello 給 Web 伺服器。
+   - Web 伺服器回應 Server Hello，並發送由 Let's Encrypt 簽署的數位證書。
+   - Cloudflare 嘗試驗證 Web 伺服器的證書，但因為證書不是由 Cloudflare 的 Origin CA 簽署的，驗證失敗。
+   - TLS 握手失敗，無法建立加密通訊通道。
+
+```mermaid
+sequenceDiagram
+   participant Client
+   participant Cloudflare
+   participant DNS
+   participant WebServer
+
+   rect rgb(236,239,244)
+   Client->>DNS: Query www.example.org
+   DNS-->>Client: Return Cloudflare Proxy IP
+
+   Client->>Cloudflare: Send HTTP Request to Proxy IP
+   Cloudflare->>WebServer: Proxy HTTP Request to 140.131.114.xxx
+
+   Note over Client,Cloudflare: TLS Handshake between Client and Cloudflare
+   Client->>Cloudflare: Client Hello
+   Cloudflare->>Client: Server Hello + Cloudflare Certificate
+   Client->>Cloudflare: Verify Certificate + Send Encrypted Key
+   Cloudflare->>Client: Acknowledgment (Encrypted)
+
+   Note over Cloudflare,WebServer: TLS Handshake between Cloudflare and Web Server
+   Cloudflare->>WebServer: Client Hello
+   WebServer->>Cloudflare: Server Hello + Let's Encrypt Certificate
+   rect rgb(255,239,244)
+   Cloudflare->>WebServer: Verify Certificate (Fail)
+   WebServer->>Cloudflare: TLS Handshake Failed
+   end
+   end
+```
+
+這個例子展示了當使用 Cloudflare 進行 DNS 代理但伺服器上的證書不是由 Cloudflare 簽署時，會導致 Cloudflare 與伺服器之間的 TLS 握手失敗。為了解決這個問題，應確保伺服器上的證書由 Cloudflare 的 Origin CA 簽署，或者調整 Cloudflare 的 TLS 加密模式以兼容其他 CA 簽署的證書。
