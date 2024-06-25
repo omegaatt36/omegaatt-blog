@@ -35,9 +35,15 @@ TLS 被廣泛應用於各種需要保護數據傳輸的場景，包括但不限�
 
 ### TLS 基本概念
 
+{{< svg >}}
+
+![symmetric-encryption](https://cf-assets.www.cloudflare.com/slt3lc6tev37/1PYEAgdkoII5tQ5yzweHEX/a025977d2cb6a74df020ceb6273ae6d5/symmetric-encryption.svg)
+
+{{< /svg >}}
+
 #### 公鑰加密和私鑰加密
 
-公鑰加密和私鑰加密是 TLS 的基礎。每個參與通訊的實體都擁有一對密鑰：公鑰和私鑰。公鑰是公開的，任何人都可以用來加密信息，而私鑰是保密的，只有擁有者可以用來解密信息。這樣的機制確保了即使加密信息被攔截，也只有擁有私鑰的人能夠解密，細節可以回顧密碼學或計算機概論。
+公鑰加密和私鑰加密是 TLS 的基礎。每個參與通訊的實體都擁有一對密鑰：公鑰和私鑰。公鑰是公開的，任何人都可以用來加密訊息，而私鑰是保密的，只有擁有者可以用來解密訊息。這樣的機制確保了即使加密訊息被攔截，也只有擁有私鑰的人能夠解密，細節可以回顧密碼學或計算機概論。
 
 #### 對稱加密和非對稱加密
 
@@ -45,7 +51,7 @@ TLS 被廣泛應用於各種需要保護數據傳輸的場景，包括但不限�
 
 #### 數位證書和證書授權機構（CA）
 
-數位證書是用來證明公鑰擁有者身份的電子文件，通常由證書授權機構（CA）簽發。證書包含公鑰、擁有者信息以及 CA 的數字簽名。瀏覽器和其他應用程式可以驗證證書的真實性，確保通訊對象的身份。
+數位證書是用來證明公鑰擁有者身份的電子文件，通常由證書授權機構（CA）簽發。證書包含公鑰、擁有者訊息以及 CA 的數字簽名。瀏覽器和其他應用程式可以驗證證書的真實性，確保通訊對象的身份。
 
 數位證書的主要類型有：
 
@@ -57,30 +63,44 @@ TLS 被廣泛應用於各種需要保護數據傳輸的場景，包括但不限�
 
 #### 握手過程（Handshake Process）
 
-TLS 握手過程是建立安全連接的第一步，確保通訊雙方能夠安全地交換加密信息。握手過程大致分為以下幾個步驟：
+TLS 握手過程是建立安全連接的第一步，確保通訊雙方能夠安全地交換加密訊息。握手過程大致分為以下幾個步驟：
 
-1. **客戶端問候（Client Hello）**：客戶端發送一個問候消息給伺服器，包含支持的 TLS 版本、加密算法、隨機數和其他必要信息。
+1. **客戶端問候（Client Hello）**：客戶端發送一個問候消息給伺服器，包含支持的 TLS 版本、加密算法、隨機數和其他必要訊息。
 1. **伺服器問候（Server Hello）**：伺服器回應客戶端的問候消息，選擇一個加密算法，並發送伺服器的隨機數。
 1. **伺服器證書（Server Certificate）**：伺服器發送其數位證書給客戶端，用於驗證伺服器的身份。證書包含伺服器的公鑰和由 CA 簽名的證書。
-1. **密鑰交換（Key Exchange）**：伺服器和客戶端交換密鑰信息，使用非對稱加密算法（如 RSA、ECDHE）安全地生成會話密鑰。這個會話密鑰將用於之後的對稱加密通訊。
+1. **密鑰交換（Key Exchange）**：伺服器和客戶端交換密鑰訊息，使用非對稱加密算法（如 RSA、ECDHE）安全地生成會話密鑰。這個會話密鑰將用於之後的對稱加密通訊。
 1. **加密通訊（Encrypted Communication）**：客戶端和伺服器使用協商好的會話密鑰進行加密通訊。這確保了後續的數據傳輸是安全的。
+
+以 TLS 1.3 的工作方式為例：
 
 ```mermaid
 sequenceDiagram
-    participant Client
-    participant Server
+    participant Client App
+    participant Client Socket
+    participant Server Socket
+    participant Server App
 
     rect rgb(236,239,244)
-    Client->>Server: Client Hello (支持的 TLS 版本、加密算法、隨機數)
-    Server->>Client: Server Hello (選擇的加密算法、伺服器的隨機數)
-    Server->>Client: Server Certificate (伺服器的數位證書)
-    Client->>Server: Verify Certificate
-    Client->>Server: Key Exchange (生成會話密鑰)
-    Server->>Client: Key Exchange (確認會話密鑰)
-    Client->>Server: Finished (加密通訊開始)
-    Server->>Client: Finished (加密通訊開始)
-    Client->>Server: Encrypted Communication (加密的數據傳輸)
-    Server->>Client: Encrypted Communication (加密的數據傳輸)
+    Client App->>Client Socket: Start TLS <br> Handshake
+    Client Socket->>Server Socket: Client Hello <br> (client_random, key_share)
+    Server Socket->>Server App: Process Client Hello
+    Server App->>Server App: Generate Master Secret
+    Server App-->>Server Socket: Master Secret
+    Server Socket->>Client Socket: Server Hello <br> (server_random, <br> server_cert, key_share)
+    Server Socket->>Client Socket: Server Finished
+    Client Socket->>Client App: Verify Server Certificate <br> (server_cert)
+    Client App->>Client Socket: Generate Master Secret
+    Client Socket->>Server Socket: Client Finished
+    Note over Client App, Server App: 加密通訊開始
+    Client App->>Client Socket: Send Encrypted Request <br> (GET /index.html)
+    Client Socket->>Server Socket: Forward <br> Encrypted Request
+    Server Socket->>Server App: Decrypt Request
+    Server App->>Server App: Process Request
+    Server App-->>Server Socket: Response
+    Server Socket->>Server Socket: Encrypt Response
+    Server Socket-->>Client Socket: Forward <br> Encrypted Response
+    Client Socket->>Client App: Decrypt Response
+    Client App->>Client App: Process <br> Response (200 OK, <html>...</html>)
     end
 ```
 
@@ -210,7 +230,7 @@ func (hs *serverHandshakeState) sendSessionTicket() error
 在 TLS 握手過程中，客戶端會進行以下步驟來驗證 CA Chain：
 
 1. **接收伺服器證書**：客戶端從伺服器接收伺服器證書和可能的中間證書。
-1. **檢查證書有效性**：客戶端檢查證書的有效期、簽名算法和其他相關信息，確保證書在有效期內且未被撤銷。
+1. **檢查證書有效性**：客戶端檢查證書的有效期、簽名算法和其他相關訊息，確保證書在有效期內且未被撤銷。
 1. **建立信任鏈**：客戶端從伺服器證書開始，逐步驗證每個中間證書，直到達到根證書。每個中間證書必須由上一層的 CA 簽名，最終的根證書必須在客戶端的信任存儲中。
 1. **驗證根證書**：確保根證書是受信任的，通常由操作系統或瀏覽器預裝的根 CA 列表中找到。
 
@@ -238,16 +258,23 @@ sequenceDiagram
    end
 ```
 
-#### 範例圖示
+#### 範例
 
-以下是一個簡單的 CA Chain 圖示：
+以下是一個簡單的 CA Chain：
 
 ```plain
-根 CA (Root CA)
-   └── 中間 CA 1 (Intermediate CA 1)
-         └── 中間 CA 2 (Intermediate CA 2)
-               └── 伺服器證書 (Server Certificate)
+根 CA (ISRG Root X1)
+   └── 中間 CA (R3)
+               └── 伺服器證書 (www.omegaatt.com)
 ```
+
+{{< details title="www.omegaatt.com 的 CA Chain" >}}
+
+![CA www.omegaatt.com](images/20240625_085515.png)
+![CA R3](images/20240625_085522.png)
+![CA ISRG Root X1](images/20240625_085526.png)
+
+{{< /details >}}
 
 每個箭頭表示「簽發」，即上層 CA 簽發下層證書。在這個鏈條中，只要每個中間證書和根證書都是有效的並且可信，整個鏈條就被認為是可信的。
 
@@ -346,7 +373,7 @@ TLS（Transport Layer Security）自其前身 SSL（Secure Sockets Layer）以�
       participant Server
 
       Client->>Server: Heartbeat Request (利用 Heartbleed 漏洞)
-      Server->>Attacker: Server Memory Data (敏感信息洩露)
+      Server->>Attacker: Server Memory Data (敏感訊息洩露)
 
       Note over Client,Server: 使用最新版本的 OpenSSL 並及時打補丁可以防止 Heartbleed 漏洞。
       end
@@ -395,9 +422,9 @@ TLS（Transport Layer Security）自其前身 SSL（Secure Sockets Layer）以�
       1. **分析握手過程**
          - 在 Wireshark 中查看捕獲的 TLS 握手包，檢查 Client Hello 和 Server Hello 消息。
          - 確認握手過程中沒有出現錯誤消息，如握手失敗或證書驗證失敗。
-      1. **檢查證書信息**
+      1. **檢查證書訊息**
          - 在 Wireshark 中查看伺服器發送的證書，檢查證書鏈的完整性和有效性。
-         - 確認證書的詳細信息，如發行者、主體和有效期。
+         - 確認證書的詳細訊息，如發行者、主體和有效期。
 1. **SSL Labs**
    - SSL Labs 提供了在線 SSL 測試工具，可以對網站的 SSL/TLS 配置進行全面分析，並提供改進建議。
    - 使用 SSL Labs 檢查網站：
@@ -406,8 +433,8 @@ TLS（Transport Layer Security）自其前身 SSL（Secure Sockets Layer）以�
 #### 日誌分析與調試
 
 - **伺服器日誌**
-  - 檢查 Web 伺服器的日誌文件，可以找到 TLS 相關錯誤信息。
-  - 尋找與 SSL/TLS 相關的錯誤消息，這些信息通常會指示出問題的根本原因。
+  - 檢查 Web 伺服器的日誌文件，可以找到 TLS 相關錯誤訊息。
+  - 尋找與 SSL/TLS 相關的錯誤消息，這些訊息通常會指示出問題的根本原因。
 
 - **客戶端日誌**
   - 檢查客戶端應用程序的日誌，可以幫助識別與伺服器建立連接時的問題。
@@ -421,7 +448,7 @@ TLS（Transport Layer Security）自其前身 SSL（Secure Sockets Layer）以�
    - 驗證伺服器證書是否由受信任的 CA 簽發。如果使用自簽名證書，確保客戶端已手動信任該證書。
    - 檢查證書的有效期、域名匹配和簽名算法。
 1. **瀏覽器診斷**
-   - 在瀏覽器中訪問網站，查看詳細的證書信息。
+   - 在瀏覽器中訪問網站，查看詳細的證書訊息。
    - 在瀏覽器地址欄點擊安全鎖圖標，查看證書詳情和信任鏈。
 
 1. **更新根證書庫**

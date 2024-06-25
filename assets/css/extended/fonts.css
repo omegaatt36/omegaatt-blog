@@ -17,3 +17,9 @@ code {
   border-radius: 4px;
   transition: background-color 400ms ease-in-out 0s;
 }
+
+.svg-container {
+  padding: 0.2em 0.4em;
+  line-height: 1.6;
+  background-color: var(--svg-bg);
+}
