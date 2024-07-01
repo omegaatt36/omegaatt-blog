@@ -70,7 +70,7 @@ sequenceDiagram
 
 #### [auth.anonymous]
 
-- `enabled = true`：啟用匿名訪問，允許未經認證的用戶查看儀表板，將這個設定打開才會進行 jwt 驗證，否則上方的設定都白設定了。
+- `enabled = false`：禁用匿名訪問，確保所有訪問都需要經過認證。這點對於後續驗證十分重要，有很多其他部落格的這個區域都是設成 `true`，根本沒有經過 auth，相對的就是沒有安全性可言。
 
 {{< details title="完整 config：" >}}
 
@@ -101,7 +101,7 @@ allow_assign_grafana_admin = false
 skip_org_role_sync = false
 
 [auth.anonymous]
-enabled = true
+enabled = false
 
 [log.console]
 level = info
