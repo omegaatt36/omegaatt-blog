@@ -45,7 +45,7 @@ sequenceDiagram
 #### [security]
 
 - `allow_embedding = true`：允許將 Grafana 儀表板嵌入到其他網頁中，這對於我們需要將儀表板嵌入到自定義前端頁面是必要的。
-- `cookie_samesite = none`：允許跨站點請求攜帶 cookie，這在嵌入的情況下特別有用，因為瀏覽器會阻止跨站點的 cookie 請求。
+- `cookie_samesite = disabled`：允許跨站點請求攜帶 cookie，這在嵌入的情況下特別有用，因為瀏覽器會阻止跨站點的 cookie 請求。
 
 #### [auth]
 
@@ -77,7 +77,7 @@ sequenceDiagram
 ```ini
 [security]
 allow_embedding = true
-cookie_samesite = none
+cookie_samesite = disabled
 
 [auth]
 whitelisted_domains = localhost
