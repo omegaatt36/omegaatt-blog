@@ -149,6 +149,18 @@ vaultwarden 的 wiki 頁十分完整，smtp 等設定都是透過環境變數控
 
 ![bitwarden-advanced-member](images/Screenshot_20240901_104005.png)
 
+也可以使用 bitwarden 的 cli 來在 linux 上管理密碼，可以參考 [bitwarden-cli](https://github.com/dani-garcia/bitwarden-cli)。
+
+例如可以用來 mount nas：
+```bash
+❯ sudo mount.cifs -o \
+  $(bw get item xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx | \
+  jq -r '.login | "username=\(.username),password=\(.password)"') \
+  //IP/nas /mnt/nas
+? Master password: [hidden]
+[sudo] password for root:
+```
+
 ### 步驟四：備份
 
 #### 通用備份
