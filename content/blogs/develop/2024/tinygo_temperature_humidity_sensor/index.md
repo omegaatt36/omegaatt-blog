@@ -14,6 +14,8 @@ tags:
 作為嵌入式系統學習的微小專案，我決定使用 [TinyGo](https://tinygo.org/) 來實現一個簡單的溫濕度感測器。過去我大多使用 Arduino 作為微控制器（MCU）開發平台，但這次想嘗試使用 TinyGo 來進行單片機的學習。
 TinyGo 是 Go 語言的一個子集，專門針對小型設備和微控制器進行了優化，使得我們可以在資源受限的硬體上運行 Go 程式。
 
+全部的程式碼都可以到 [omegaatt36/pico-bme280](https://github.com/omegaatt36/pico-bme280) 中找到。
+
 ## 硬體選擇
 
 ### Raspberry Pi Pico
@@ -164,13 +166,11 @@ func main() {
 
 ## 結果與應用
 
-經過這次實作，我成功地將 Raspberry Pi Pico、BME280 感測器和 TinyGo 整合在一起，做出了一個簡單的溫濕度感測系統。這個系統目前可以：
+經過這次實作，成功地使用 TinyGo 來學習一些嵌入式系統開發。這個系統目前可以：
 
 1. 即時監測環境的溫度、濕度和氣壓
 2. 透過 Prometheus 收集長期數據
 3. 搭配 Grafana 實現數據可視化和告警功能
-
-這個專案不僅讓我更熟悉了 TinyGo 和嵌入式開發的流程，還為我的家庭自動化系統增添了一個實用的 component。
 
 ## 寫在最後
 
