@@ -39,7 +39,7 @@ categories:
 
 ### 配置複雜
 
-再接著說，使用了 GA plugin 與 sitemap plguin 後，某種程度上需要去理解 `config.js` 或是 `config.ts` 的結構，但最初我的目的是希望僅須設定 `*.yaml` 或是 `*.toml` 就好。
+再接著說，使用了 GA plugin 與 sitemap plugin 後，某種程度上需要去理解 `config.js` 或是 `config.ts` 的結構，但最初我的目的是希望僅須設定 `*.yaml` 或是 `*.toml` 就好。
 
 甚至到了 vuepress 2.x 版本，可能因為 node 版本升級或是專案架構的升級，export config 的方式不同了，有過重新撰寫 config 的步驟，還因此需要重新熟悉整格文件，對於不熟悉 js 與前端生態的我來說極為困擾。
 
