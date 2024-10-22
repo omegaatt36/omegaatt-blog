@@ -2,7 +2,7 @@
 title: 從 vuepress 遷移到 hugo 的心得
 date: 2024-06-10
 categories:
- - develop
+  - develop
 ---
 
 ## 前言
@@ -15,7 +15,7 @@ categories:
 
 選擇 VuePress 是基於以下幾點考量：
 
-- 朋友推薦，他是一名資深前端工程師，是 vuepress core-team 成員。
+- 朋友推薦，他是一名[資深前端工程師](https://www.linkedin.com/in/billy-chin/)，是 vuepress core-team 成員。
 - 僅需要撰寫 markdown，便能產生靜態的部落格。
 - 使用 theme plugin，可以方便的美化部落格，僅需要專注在內容的撰寫，不需要操心部落格是不是白底黑字而已。
 
