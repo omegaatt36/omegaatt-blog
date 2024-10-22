@@ -2,9 +2,9 @@
 title: 使用內建的 rsync 備份 Truenas Scale 到 Proxmox Backup Server
 date: 2024-05-19
 categories:
- - develope
+  - develop
 tags:
- - linux
+  - linux
 ---
 
 ## 前言
@@ -41,6 +41,7 @@ rsync 本身並沒有 server/client 的概念，只有 source 與 destination。
 ![](images/20240519_163855.png)
 
 在 Rsync Mode 中選擇 SSH，並選擇剛剛建立好的 SSH Connection。Remote Path 則可能事：
+
 - PBS 上透過 WebUI 建立 Directory 或是 ZFS -> 會綁在 PBS 的 Storate 下面所以 path 中會有 `/mnt/datastore/{name}`。
 - PBS 或任意主機上透過 cli 建立的 directory -> 就可能是任意位置，例如 `/root/nas-backup` 等等。
 

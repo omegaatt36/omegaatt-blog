@@ -2,11 +2,10 @@
 title: 透過 throughput 與 latency 的關係解決高延遲問題
 date: 2024-06-16
 categories:
- - develope
+  - develop
 tags:
- - backend
+  - backend
 ---
-
 
 在軟體工程中，我們常會面臨服務 high latency 的問題，而要解決這個問題，理解 throughput 與 latency 的關係是關鍵。
 
@@ -35,9 +34,9 @@ latency 與 throughput 之間存在緊密的關係，通常在系統負載增加
 ### 解決方法
 
 1. 增加處理能力：增加洗衣機的數量，提升洗衣店的最大 throughput。
-    增加洗衣機數量或開設更多分店，可以有效提升最大 throughput，減少顧客等候時間。
+   增加洗衣機數量或開設更多分店，可以有效提升最大 throughput，減少顧客等候時間。
 1. 優化內部處理：降低單個洗衣過程的時間，減少內部 latency。
-    通過使用更高效的洗衣機，縮短洗衣時間，可以降低單次洗衣的時間。
+   通過使用更高效的洗衣機，縮短洗衣時間，可以降低單次洗衣的時間。
 
 ## 實例分析
 

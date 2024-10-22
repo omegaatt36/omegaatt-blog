@@ -2,10 +2,10 @@
 title: Codewars Find X II in golang
 date: 2020-03-03
 categories:
- - develop
+  - develop
 tags:
- - golang
- - codewars
+  - golang
+  - codewars
 ---
 
 想不到一眨眼半個月過去了，自從面試趨勢之後整個人彷彿被電到失去信心，在離職與等待面試消息期間，也只好振作補足不足的地方繼續向前。
@@ -18,7 +18,7 @@ tags:
 
 有下一段程式碼:
 
-``` go
+```go
 func FindX(n int) int {
   if n == 0 {
     return 0
@@ -33,12 +33,13 @@ func FindX(n int) int {
 
 但 x 範圍為 1 <= n <= `10**6(1e6)` ，請試著重構。且當 n 愈來試大時，可能會超過 int64 表達，故需要將結果對 `10**9 + 7` 取模
 
-標記 `FUNDAMENTALS`  `OPTIMIZATION`
+標記 `FUNDAMENTALS` `OPTIMIZATION`
+
 # 解題邏輯
 
 若沒有取模限制的話這題可以化簡為 O(1)，但很明顯不行。於是先將原題目化簡為 O(n):
 
-``` go
+```go
 func FindX(n int) int {
     mod := int(math.Pow10(9)) + 7
 	m := 0
@@ -51,7 +52,7 @@ func FindX(n int) int {
 
 好測試過，就算是輸入 1e6 進去也很快就算出來了，於是提交答案
 
- `Execution Timed Out (12000 ms)`
+`Execution Timed Out (12000 ms)`
 什麼，怎麼會超時，於是，我卡關了。
 
 # 最終優化
@@ -62,7 +63,7 @@ func FindX(n int) int {
 
 會不會是因為測資不只一個 1e6，假設有幾千個隨機值，於是做了一個簡易的快取機制:
 
-``` go
+```go
 var m = []int{0}
 var mod = int(math.Pow10(9)) + 7
 
@@ -81,7 +82,7 @@ func FindX(n int) int {
 
 # 後記
 
-從 php 轉學 golang 會許效能會提升，但不會讓你把 O(n**2) 的問題變成 O(n)，更甚說不會讓 NP 問題變簡單。
+從 php 轉學 golang 會許效能會提升，但不會讓你把 O(n\*\*2) 的問題變成 O(n)，更甚說不會讓 NP 問題變簡單。
 
 這題的觀念回頭過來看十分簡單，不就是一個全域變數嗎？但很多時候並不能每次都用空間換時間，特別是最近學 bitwise 後更有感。
 

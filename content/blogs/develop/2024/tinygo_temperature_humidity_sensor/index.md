@@ -2,11 +2,11 @@
 title: 使用 TinyGo 與 Raspberry pi pico 實現溫濕度感測器
 date: 2024-10-02
 categories:
- - develope
+  - develop
 tags:
- - golang
- - raspberry_pi
- - prometheus
+  - golang
+  - raspberry_pi
+  - prometheus
 ---
 
 ## 前言

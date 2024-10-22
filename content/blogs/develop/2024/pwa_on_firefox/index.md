@@ -1,10 +1,10 @@
 ---
-title: '在 Firefox 上使用 PWA 將網頁應用安裝成 Desktop App'
+title: "在 Firefox 上使用 PWA 將網頁應用安裝成 Desktop App"
 date: 2024-08-25
 categories:
- - develope
+  - develop
 tags:
- - linux
+  - linux
 ---
 
 ## 前言
@@ -35,37 +35,38 @@ mozilla 官方有一個文件針對「安裝網頁應用到桌面環境」的歷
 
 1. 在 Firefox 瀏覽氣上安裝 [PWA Add-on](https://addons.mozilla.org/en-US/firefox/addon/pwas-for-firefox/)
 1. 瀏覽器會自動跳到設定頁面，首先會需要同意 EULA
-  ![setup-0](./images/setup-0.png)
+   ![setup-0](./images/setup-0.png)
 1. 接著會需要安裝 connector，需要透過該 connector 才能連結瀏覽器本身與 extension。
-  connector 由 Rust 編寫，使該 extension 可以在跨平台的桌面環境中管理 firefox 設定檔、runtime 等等未開放給 extension 存取的資源。
-  - Windows:
-    Windows 的 connector 除了手動安裝外，也推薦使用 [winget](https://github.com/microsoft/winget-cli) 來安裝，類似於 apt/yum 的套件管理工具。
-    ![connector installation windows](./images/setup-1.png)
-  - Linux
-    Linux 的 connector 可以到 [github release](https://github.com/filips123/PWAsForFirefox/releases) 上找到，例如我的作業系統是 OpenSUSE Tumbleweed，則可以下載 .rpm 檔案。
-    ```bash
-    sudo zypper in ./firefoxpwa-2.12.1-1.x86_64.rpm
-    ```
-    - Debian/Ubuntu(DEB):
+   connector 由 Rust 編寫，使該 extension 可以在跨平台的桌面環境中管理 firefox 設定檔、runtime 等等未開放給 extension 存取的資源。
+
+- Windows:
+  Windows 的 connector 除了手動安裝外，也推薦使用 [winget](https://github.com/microsoft/winget-cli) 來安裝，類似於 apt/yum 的套件管理工具。
+  ![connector installation windows](./images/setup-1.png)
+- Linux
+  Linux 的 connector 可以到 [github release](https://github.com/filips123/PWAsForFirefox/releases) 上找到，例如我的作業系統是 OpenSUSE Tumbleweed，則可以下載 .rpm 檔案。
+  ```bash
+  sudo zypper in ./firefoxpwa-2.12.1-1.x86_64.rpm
+  ```
+  - Debian/Ubuntu(DEB):
     ![connector installation deb](./images/setup-2.png)
-    - Redhat/Fedora/OpenSUSE(RPM):
+  - Redhat/Fedora/OpenSUSE(RPM):
     ![connector installation rpm](./images/setup-3.png)
+
 1. 接著會需要安裝不同於原生 Firefox 的 runtime，根據描述，會下載並由 connector 自動修改成支援 PWA 的 runtime。
-  ![runtime installation](./images/setup-4.png)
+   ![runtime installation](./images/setup-4.png)
 1. 到這邊已經完成 PWA extension 的安裝，可以嘗試使用 PWA 的方式來安裝 web app to desktop app。
 1. 首先需要打開你想要安裝成 Desktop App 的網頁，如果在不同的網頁嘗試設定，extension 會自動判斷該網頁 CORS Error，即便是 `https://www.notion.so` 與 `https://notion.so` 也屬於不同的 Origin。
-  接著點擊 PWAForFirefox 的圖示，可以看到已經安裝好的 extension。
-  ![extension icon](./images/setup-5.png)
+   接著點擊 PWAForFirefox 的圖示，可以看到已經安裝好的 extension。
+   ![extension icon](./images/setup-5.png)
 1. 接著一步一步的跟著指引設定好該 PWA 的設定。
-  ![add pwa](./images/setup-6.png)
-  ![add pwa](./images/setup-7.png)
-  ![add pwa](./images/setup-8.png)
-  ![add pwa](./images/setup-9.png)
+   ![add pwa](./images/setup-6.png)
+   ![add pwa](./images/setup-7.png)
+   ![add pwa](./images/setup-8.png)
+   ![add pwa](./images/setup-9.png)
 1. 完成，可以在應用程式選單內找到剛剛建立的 PWA 應用程式。
-  ![pwa at menu](./images/setup-10.png)
+   ![pwa at menu](./images/setup-10.png)
 1. 開啟後可以自動開啟網頁應用程式，並具有獨立的設定檔。
-  ![open pwa](./images/setup-11.png)
-
+   ![open pwa](./images/setup-11.png)
 
 ## 使用感受
 

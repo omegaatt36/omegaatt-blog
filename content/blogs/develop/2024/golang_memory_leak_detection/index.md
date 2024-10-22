@@ -2,10 +2,10 @@
 title: 透過內建的 pprof 工具來分析 Golang 發生的 memory leak
 date: 2024-08-17
 categories:
- - develope
+  - develop
 tags:
- - golang
- - optimization
+  - golang
+  - optimization
 ---
 
 ## 前言
@@ -28,31 +28,30 @@ gin 的 pprof package 提供了數個基於 `net/http/pprof` 的 endpoint，可�
 - `/goroutine`: 分析 goroutine 的問題，這也是本文中重點查看的 endpoint。
 - `/heap`: 分析 heap 的問題。
 
-
 可以在 http server 中加入以下程式碼來啟用 pprof：
 
 - 使用 gin-contrib/pprof 設定好的 route
 
-    ```go
-    r := gin.Default()
-    // ... other handlers
-    r.GET("", indexHandler)
+  ```go
+  r := gin.Default()
+  // ... other handlers
+  r.GET("", indexHandler)
 
-    // pprof handlers
-    pprof.Register(r)
-    ```
+  // pprof handlers
+  pprof.Register(r)
+  ```
 
 - 自訂 pprof 的 route
 
-    ```go
-    r := gin.Default()
+  ```go
+  r := gin.Default()
 
-    // ... other handlers
-    r.GET("", indexHandler)
+  // ... other handlers
+  r.GET("", indexHandler)
 
-    // pprof handlers
-    pprof.RouteRegister(r, "pprof")
-    ```
+  // pprof handlers
+  pprof.RouteRegister(r, "pprof")
+  ```
 
 將程式跑起來後，就會看到 pprof 的 endpoint 已經註冊在 http server 中了。
 
@@ -60,16 +59,16 @@ gin 的 pprof package 提供了數個基於 `net/http/pprof` 的 endpoint，可�
 
 1. 直接在網頁上查看
 
-    根據 server 與 route 的設定，假如是預設的 gin-contrib/pprof 的 route，使用瀏覽器開啟 `http://{{ HOST }}:{{ PORT }}/debug/pprof/` 就會顯示出 pprof 的頁面。
+   根據 server 與 route 的設定，假如是預設的 gin-contrib/pprof 的 route，使用瀏覽器開啟 `http://{{ HOST }}:{{ PORT }}/debug/pprof/` 就會顯示出 pprof 的頁面。
 
 2. 下載 pprof 的 profile 後使用 `go tool pprof` 分析
 
-    只想要針對某個項目進行排查，也可以使用 `curl` 來下載 output:
+   只想要針對某個項目進行排查，也可以使用 `curl` 來下載 output:
 
-    ```bash
-    curl -o output.pprof http://{{ HOST }}:{{ PORT }}/debug/pprof/goroutine
-    go tool pprof -http=:8080 output.pprof
-    ```
+   ```bash
+   curl -o output.pprof http://{{ HOST }}:{{ PORT }}/debug/pprof/goroutine
+   go tool pprof -http=:8080 output.pprof
+   ```
 
 ## 實際案例分析
 

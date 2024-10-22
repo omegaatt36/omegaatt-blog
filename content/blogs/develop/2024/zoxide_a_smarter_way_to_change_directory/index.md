@@ -1,10 +1,10 @@
 ---
-title: 'A smarter way to change directory: zoxide'
+title: "A smarter way to change directory: zoxide"
 date: 2024-09-24
 categories:
- - develope
+  - develop
 tags:
- - linux
+  - linux
 ---
 
 在日常的開發工作中，我們經常需要在不同的目錄間切換。雖然 `cd` 命令已經足夠好用，但如果有一個更聰明的工具能記住我們最常用的目錄，並讓我們用最少的按鍵就能快速跳轉，那豈不是更棒?

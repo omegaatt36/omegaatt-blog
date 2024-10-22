@@ -2,9 +2,9 @@
 title: 用 testcontainers 在本地開發 Go 應用程式
 date: 2024-05-19
 categories:
- - develope
+  - develop
 tags:
- - golang
+  - golang
 ---
 
 ## 介紹

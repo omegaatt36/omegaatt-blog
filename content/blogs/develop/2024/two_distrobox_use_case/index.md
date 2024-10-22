@@ -2,9 +2,9 @@
 title: 透過 Distrobox 解決 Linux 環境依賴問題
 date: 2024-05-18
 categories:
- - develope
+  - develop
 tags:
- - linux
+  - linux
 ---
 
 ## 前言
@@ -182,7 +182,7 @@ Printing pages (2/2)
 Done
 ```
 
-#### 這個_我不要了
+#### 這個\_我不要了
 
 當我們不再需要這個容器時，可以透過 Distrobox 來砍掉容器。由於我的 distrobox 後端為 podman，我們可以先使用 podman container ls 來查看，並且最後再驗收容器使否真的有被殺掉。
 

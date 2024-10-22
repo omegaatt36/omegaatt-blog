@@ -2,9 +2,9 @@
 title: 從實務經驗重新認識 TLS
 date: 2024-06-22
 categories:
- - develope
+  - develop
 tags:
- - backend
+  - backend
 ---
 
 因為[工作需要部署 grafana](./../grafana_embed_example)，重新認識了 TLS 的流程，藉此機會把學習過程紀錄下來。
@@ -120,46 +120,46 @@ TLS 支持多種加密協議和算法，包括：
 
 至於伺服器是如何驗證 TLS 的有效性，雖然不常直接建立一個 https server，較常使用 TLS Termination（或稱 SSL Termination），我們仍可以透過這個案例來理解伺服器端的 TLS 流程。
 
-- 當我們呼叫 [`http.ListenAndServeTLS(xxx, xxx)`]((https://pkg.go.dev/net/http#Server.ServeTLS))
+- 當我們呼叫 [`http.ListenAndServeTLS(xxx, xxx)`](<(https://pkg.go.dev/net/http#Server.ServeTLS)>)
 
-   ```go
-   func (srv *Server) ServeTLS(l net.Listener, certFile, keyFile string) error {
-      // Setup HTTP/2 before srv.Serve, to initialize srv.TLSConfig
-      // before we clone it and create the TLS Listener.
-      if err := srv.setupHTTP2_ServeTLS(); err != nil {
-         return err
-      }
+  ```go
+  func (srv *Server) ServeTLS(l net.Listener, certFile, keyFile string) error {
+     // Setup HTTP/2 before srv.Serve, to initialize srv.TLSConfig
+     // before we clone it and create the TLS Listener.
+     if err := srv.setupHTTP2_ServeTLS(); err != nil {
+        return err
+     }
 
-      config := cloneTLSConfig(srv.TLSConfig)
-      if !strSliceContains(config.NextProtos, "http/1.1") {
-         config.NextProtos = append(config.NextProtos, "http/1.1")
-      }
+     config := cloneTLSConfig(srv.TLSConfig)
+     if !strSliceContains(config.NextProtos, "http/1.1") {
+        config.NextProtos = append(config.NextProtos, "http/1.1")
+     }
 
-      configHasCert := len(config.Certificates) > 0 || config.GetCertificate != nil
-      if !configHasCert || certFile != "" || keyFile != "" {
-         var err error
-         config.Certificates = make([]tls.Certificate, 1)
-         config.Certificates[0], err = tls.LoadX509KeyPair(certFile, keyFile)
-         if err != nil {
-            return err
-         }
-      }
+     configHasCert := len(config.Certificates) > 0 || config.GetCertificate != nil
+     if !configHasCert || certFile != "" || keyFile != "" {
+        var err error
+        config.Certificates = make([]tls.Certificate, 1)
+        config.Certificates[0], err = tls.LoadX509KeyPair(certFile, keyFile)
+        if err != nil {
+           return err
+        }
+     }
 
-      tlsListener := tls.NewListener(l, config)
-      return srv.Serve(tlsListener)
-   }
-   ```
+     tlsListener := tls.NewListener(l, config)
+     return srv.Serve(tlsListener)
+  }
+  ```
 
 - 會建立一個 [`tls.Listener`](https://pkg.go.dev/crypto/tls#Server)
 
-   ```go
-   func NewListener(inner net.Listener, config *Config) net.Listener {
-      l := new(listener)
-      l.Listener = inner
-      l.config = config
-      return l
-   }
-   ```
+  ```go
+  func NewListener(inner net.Listener, config *Config) net.Listener {
+     l := new(listener)
+     l.Listener = inner
+     l.config = config
+     return l
+  }
+  ```
 
 - 由這個 Listener 實做的 `Accept()` 會呼叫 `Serve()` 並指定 `handshakeFn`
 
@@ -333,6 +333,7 @@ TLS（Transport Layer Security）自其前身 SSL（Secure Sockets Layer）以�
 #### 如何避免常見的 TLS 漏洞
 
 1. **防止中間人攻擊（MITM）**：嚴格驗證伺服器證書的真實性，使用 HSTS（HTTP Strict Transport Security）強制使用 HTTPS。HSTS 可以有效防止中間人攻擊，確保瀏覽器總是使用 HTTPS 連接到網站。
+
    - [AppSec Monkey](https://www.appsecmonkey.com/blog/mitm)
    - [Virtue Security](https://www.virtuesecurity.com/the-do-and-donts-of-hsts/)
 
@@ -363,6 +364,7 @@ TLS（Transport Layer Security）自其前身 SSL（Secure Sockets Layer）以�
 1. **防止 CRIME 和 BREACH 攻擊**：禁用 TLS 壓縮，避免在 HTTPS 中暴露敏感數據。CRIME 和 BREACH 攻擊利用了壓縮數據的特性，因此禁用壓縮可以防止這些攻擊。
    - [CRIME Attack Explained](https://www.imperva.com/learn/application-security/crime-suppression/).
 1. **防止心臟出血（Heartbleed）漏洞**：確保使用最新版本的 OpenSSL 並及時打補丁。Heartbleed 漏洞使攻擊者能夠讀取伺服器內存中的敏感數據，因此使用最新的 OpenSSL 版本和補丁是防止此漏洞的最佳方法。
+
    - [Heartbleed Bug](https://heartbleed.com/).
 
    ```mermaid
@@ -407,24 +409,25 @@ TLS（Transport Layer Security）自其前身 SSL（Secure Sockets Layer）以�
 #### 使用工具診斷問題
 
 1. **OpenSSL**
+
    - OpenSSL 是一個強大的工具，用於生成、管理和診斷 SSL/TLS 證書。可以使用 `openssl s_client` 命令來測試與伺服器的 TLS 連接。
 
-    ```bash
-    openssl s_client -connect www.example.org:443 -showcerts
-    ```
+   ```bash
+   openssl s_client -connect www.example.org:443 -showcerts
+   ```
 
 1. **Wireshark**
    - Wireshark 是一個網絡協議分析工具，可以用來捕獲和分析 TLS 流量，幫助診斷握手過程中的問題。
    - 可以使用 Wireshark 捕獲 TCP 流量，並在解析中查看 TLS 握手過程：
-      1. **捕獲流量**
-         - 使用 Wireshark 捕獲客戶端與伺服器之間的網絡流量。
-         - 設置過濾器來只捕獲 TLS 流量，例如 `tcp.port == 443`。
-      1. **分析握手過程**
-         - 在 Wireshark 中查看捕獲的 TLS 握手包，檢查 Client Hello 和 Server Hello 消息。
-         - 確認握手過程中沒有出現錯誤消息，如握手失敗或證書驗證失敗。
-      1. **檢查證書訊息**
-         - 在 Wireshark 中查看伺服器發送的證書，檢查證書鏈的完整性和有效性。
-         - 確認證書的詳細訊息，如發行者、主體和有效期。
+     1. **捕獲流量**
+        - 使用 Wireshark 捕獲客戶端與伺服器之間的網絡流量。
+        - 設置過濾器來只捕獲 TLS 流量，例如 `tcp.port == 443`。
+     1. **分析握手過程**
+        - 在 Wireshark 中查看捕獲的 TLS 握手包，檢查 Client Hello 和 Server Hello 消息。
+        - 確認握手過程中沒有出現錯誤消息，如握手失敗或證書驗證失敗。
+     1. **檢查證書訊息**
+        - 在 Wireshark 中查看伺服器發送的證書，檢查證書鏈的完整性和有效性。
+        - 確認證書的詳細訊息，如發行者、主體和有效期。
 1. **SSL Labs**
    - SSL Labs 提供了在線 SSL 測試工具，可以對網站的 SSL/TLS 配置進行全面分析，並提供改進建議。
    - 使用 SSL Labs 檢查網站：
@@ -433,6 +436,7 @@ TLS（Transport Layer Security）自其前身 SSL（Secure Sockets Layer）以�
 #### 日誌分析與調試
 
 - **伺服器日誌**
+
   - 檢查 Web 伺服器的日誌文件，可以找到 TLS 相關錯誤訊息。
   - 尋找與 SSL/TLS 相關的錯誤消息，這些訊息通常會指示出問題的根本原因。
 
@@ -448,6 +452,7 @@ TLS（Transport Layer Security）自其前身 SSL（Secure Sockets Layer）以�
    - 驗證伺服器證書是否由受信任的 CA 簽發。如果使用自簽名證書，確保客戶端已手動信任該證書。
    - 檢查證書的有效期、域名匹配和簽名算法。
 1. **瀏覽器診斷**
+
    - 在瀏覽器中訪問網站，查看詳細的證書訊息。
    - 在瀏覽器地址欄點擊安全鎖圖標，查看證書詳情和信任鏈。
 
@@ -487,51 +492,51 @@ TLS 是現代網絡安全的重要基石，保護了數據在互聯網上的傳�
 #### 營利組織：Cloudflare
 
 - **優勢**
-    1. **高級支持和服務**
-        - Cloudflare 提供專業的客戶支持，包括技術支持和問題解決，特別是針對付費客戶。
-        - 企業級客戶可享受 24/7 的支持服務，確保問題能夠及時解決。
-    1. **綜合安全解決方案**
-        - 除了 SSL/TLS 證書，Cloudflare 還提供其他安全服務，如 DDoS 防護、Web 應用防火牆（WAF）、Bot 管理等。
-        - 客戶可以獲得一體化的安全解決方案，減少多供應商整合的複雜性。
-    1. **高性能和可靠性**
-        - Cloudflare 擁有全球分佈的數據中心網絡，提供高速且可靠的內容分發網絡（CDN）。
-        - 其 DNS 服務也是業界最快和最可靠的之一，確保網站的高可用性和低延遲。
-    1. **靈活的證書管理**
-        - Cloudflare 支持自動化的證書管理，包括證書申請、更新和撤銷。
-        - 針對高級用戶，提供自定義的證書選項和靈活的配置。
+  1. **高級支持和服務**
+     - Cloudflare 提供專業的客戶支持，包括技術支持和問題解決，特別是針對付費客戶。
+     - 企業級客戶可享受 24/7 的支持服務，確保問題能夠及時解決。
+  1. **綜合安全解決方案**
+     - 除了 SSL/TLS 證書，Cloudflare 還提供其他安全服務，如 DDoS 防護、Web 應用防火牆（WAF）、Bot 管理等。
+     - 客戶可以獲得一體化的安全解決方案，減少多供應商整合的複雜性。
+  1. **高性能和可靠性**
+     - Cloudflare 擁有全球分佈的數據中心網絡，提供高速且可靠的內容分發網絡（CDN）。
+     - 其 DNS 服務也是業界最快和最可靠的之一，確保網站的高可用性和低延遲。
+  1. **靈活的證書管理**
+     - Cloudflare 支持自動化的證書管理，包括證書申請、更新和撤銷。
+     - 針對高級用戶，提供自定義的證書選項和靈活的配置。
 - **劣勢**
-    1. **費用**
-        - 高級和企業級服務通常伴隨較高的費用，對小型企業或個人開發者來說可能成本較高。
-        - 即使是免費方案，某些高級功能也需要付費訂閱。
-    1. **鎖定效應**
-        - 使用 Cloudflare 的綜合解決方案可能導致供應商鎖定，切換供應商的成本較高。
-        - 客戶可能需要適應 Cloudflare 的特定技術和配置要求。
+  1. **費用**
+     - 高級和企業級服務通常伴隨較高的費用，對小型企業或個人開發者來說可能成本較高。
+     - 即使是免費方案，某些高級功能也需要付費訂閱。
+  1. **鎖定效應**
+     - 使用 Cloudflare 的綜合解決方案可能導致供應商鎖定，切換供應商的成本較高。
+     - 客戶可能需要適應 Cloudflare 的特定技術和配置要求。
 
 #### 非營利組織：Let's Encrypt
 
 - **優勢**
-    1. **免費使用**
-        - Let's Encrypt 提供完全免費的 SSL/TLS 證書，適合個人網站、小型企業和非營利組織。
-        - 無需支付任何費用即可獲取和更新證書，降低了 SSL/TLS 部署的成本。
-    1. **自動化和易用性**
-        - Let's Encrypt 提供自動化的證書申請和更新工具（如 Certbot），簡化了證書管理流程。
-        - 自動化工具減少了人工干預，降低了管理複雜性和出錯風險。
-    1. **廣泛支持**
-        - Let's Encrypt 的根證書被所有主要瀏覽器和操作系統所信任，確保其廣泛兼容性。
-        - 社區支持活躍，提供大量的教程和幫助資源。
-    1. **開源和透明**
-        - Let's Encrypt 是開源項目，所有的運行原則和代碼都是公開透明的。
-        - 社區和用戶可以檢查和貢獻代碼，增強了信任和安全性。
+  1. **免費使用**
+     - Let's Encrypt 提供完全免費的 SSL/TLS 證書，適合個人網站、小型企業和非營利組織。
+     - 無需支付任何費用即可獲取和更新證書，降低了 SSL/TLS 部署的成本。
+  1. **自動化和易用性**
+     - Let's Encrypt 提供自動化的證書申請和更新工具（如 Certbot），簡化了證書管理流程。
+     - 自動化工具減少了人工干預，降低了管理複雜性和出錯風險。
+  1. **廣泛支持**
+     - Let's Encrypt 的根證書被所有主要瀏覽器和操作系統所信任，確保其廣泛兼容性。
+     - 社區支持活躍，提供大量的教程和幫助資源。
+  1. **開源和透明**
+     - Let's Encrypt 是開源項目，所有的運行原則和代碼都是公開透明的。
+     - 社區和用戶可以檢查和貢獻代碼，增強了信任和安全性。
 - **劣勢**
-    1. **支持和服務限制**
-        - Let's Encrypt 沒有提供專業的技術支持，主要依賴社區和文檔。
-        - 對於需要專業支持和服務的企業，用戶可能需要自行解決問題或尋求第三方幫助。
-    1. **功能有限**
-        - Let's Encrypt 僅提供域名驗證（DV）證書，不支持組織驗證（OV）或擴展驗證（EV）證書。
-        - 對於需要高級證書驗證和顯示綠色地址欄的網站，用戶可能需要選擇其他 CA。
-    1. **證書管理複雜性**
-        - 雖然 Let's Encrypt 提供自動化工具，但仍需要用戶進行一定的配置和維護。
-        - 對於不熟悉命令行工具的用戶，初次設置可能具有挑戰性。
+  1. **支持和服務限制**
+     - Let's Encrypt 沒有提供專業的技術支持，主要依賴社區和文檔。
+     - 對於需要專業支持和服務的企業，用戶可能需要自行解決問題或尋求第三方幫助。
+  1. **功能有限**
+     - Let's Encrypt 僅提供域名驗證（DV）證書，不支持組織驗證（OV）或擴展驗證（EV）證書。
+     - 對於需要高級證書驗證和顯示綠色地址欄的網站，用戶可能需要選擇其他 CA。
+  1. **證書管理複雜性**
+     - 雖然 Let's Encrypt 提供自動化工具，但仍需要用戶進行一定的配置和維護。
+     - 對於不熟悉命令行工具的用戶，初次設置可能具有挑戰性。
 
 詳細可以參考 reddit 的文章 [Why isn’t Let’s Encrypt used by large sites?](https://www.reddit.com/r/selfhosted/comments/1dfqs5w/why_isnt_lets_encrypt_used_by_large_sites/)
 
@@ -605,11 +610,11 @@ sequenceDiagram
 設定範例
 
 - **Cloudflare 設定**
-    1. 在 Cloudflare 控制台中，將 `www.example.org` 的 DNS 記錄設為 A 記錄，指向 Cloudflare 的代理 IP，並啟用 Proxy 功能。
-    1. TLS 設定中選擇 Full 模式，並使用 Cloudflare Origin CA 簽署證書給 Web 伺服器。
+  1. 在 Cloudflare 控制台中，將 `www.example.org` 的 DNS 記錄設為 A 記錄，指向 Cloudflare 的代理 IP，並啟用 Proxy 功能。
+  1. TLS 設定中選擇 Full 模式，並使用 Cloudflare Origin CA 簽署證書給 Web 伺服器。
 - **Web 伺服器設定**
-    1. 在 Web 伺服器上配置 Cloudflare Origin CA 簽署的證書。
-    1. 確保 Web 伺服器支持 TLS 並啟用了 HTTPS。
+  1. 在 Web 伺服器上配置 Cloudflare Origin CA 簽署的證書。
+  1. 確保 Web 伺服器支持 TLS 並啟用了 HTTPS。
 
 客戶端請求流程
 
@@ -664,9 +669,10 @@ sequenceDiagram
 
 - **Cloudflare 設定**：在 Cloudflare 控制台中，將 `www.example.org` 的 DNS 記錄設為 A 記錄，指向 Web 伺服器的真實 IP 地址（`140.131.114.xxx`），並關閉 Proxy 功能。
 - **Web 伺服器設定**
-   1. 應該要可以透過 `nslookup` 或 `dig` 查看到 `www.example.org` 已經指向 `140.131.114.xxx`。
-   1. 檢查防火牆是否已經開啟 tcp 80 allow 0.0.0.0/0。
-   1. 在 Web 伺服器上使用 certbot 等工具從 Let's Encrypt 獲取並配置 SSL/TLS 證書。我撰寫了一個腳本來執行這件事，同時可以 renew CA。
+
+  1.  應該要可以透過 `nslookup` 或 `dig` 查看到 `www.example.org` 已經指向 `140.131.114.xxx`。
+  1.  檢查防火牆是否已經開啟 tcp 80 allow 0.0.0.0/0。
+  1.  在 Web 伺服器上使用 certbot 等工具從 Let's Encrypt 獲取並配置 SSL/TLS 證書。我撰寫了一個腳本來執行這件事，同時可以 renew CA。
 
       ```bash
       #!/bin/bash
@@ -692,7 +698,7 @@ sequenceDiagram
       chmod 400 /var/lib/grafana/grafana.key /var/lib/grafana/grafana.crt
       ```
 
-   1. 確保 Web 伺服器支持 TLS 並啟用了 HTTPS。
+  1.  確保 Web 伺服器支持 TLS 並啟用了 HTTPS。
 
 客戶端請求流程
 
