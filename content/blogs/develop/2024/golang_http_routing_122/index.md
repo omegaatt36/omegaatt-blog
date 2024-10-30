@@ -1,6 +1,6 @@
 ---
 title: Golang 1.22 中 http routing 的改進
-date: 2024-03-31
+date: 2024-10-30
 categories:
  - develop
 tags:
@@ -226,3 +226,84 @@ func main() {
 | labstack/echo | 7.5M |
 
 假如自己的 side project 每天都要編譯一個 nightly version 的 docker image，使用 gin 將比原生的 net/http 多出 1.5G 的存儲空間。
+
+:::info
+2024-10-30 更新
+:::
+
+## 實戰
+
+我寫了一個簡易的記帳系統 [bookly](https://github.com/omegaatt36/bookly)，這是使用到的 module:
+
+```
+module github.com/omegaatt36/bookly
+
+go 1.23.0
+
+require (
+	github.com/go-gormigrate/gormigrate/v2 v2.1.2
+	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/samber/slog-zap/v2 v2.6.0
+	github.com/shopspring/decimal v1.4.0
+	github.com/stretchr/testify v1.9.0
+	github.com/urfave/cli/v2 v2.27.4
+	go.uber.org/zap v1.27.0
+	golang.org/x/crypto v0.27.0
+	gorm.io/driver/postgres v1.5.9
+	gorm.io/driver/sqlite v1.5.6
+	gorm.io/gorm v1.25.12
+)
+```
+
+裡面在 http 的處理僅使用標準庫的 http package，詳細可以參考 [app/api/router.go](https://github.com/omegaatt36/bookly/blob/main/app/api/router.go)，
+正是將 http method 寫進 path 內進行註冊，並
+```
+func (s *Server) registerRouters() {
+	authenticators := make(map[domain.IdentityProvider]domain.Authenticator)
+	if s.jwtSalt != nil && s.jwtSecret != nil {
+		authenticators[domain.IdentityProviderPassword] = auth.NewJWTAuthorizator(*s.jwtSalt, *s.jwtSecret)
+	}
+
+	publicRouter := http.NewServeMux()
+	internalRouter := http.NewServeMux()
+	v1Router := http.NewServeMux()
+
+	repo := repository.NewGORMRepository(database.GetDB())
+	{
+		bookkeepingX := bookkeeping.NewController(repo, repo)
+
+		v1Router.HandleFunc("POST /accounts", bookkeepingX.CreateAccount())
+		v1Router.HandleFunc("GET /accounts", bookkeepingX.GetAllAccounts())
+		v1Router.HandleFunc("GET /accounts/{id}", bookkeepingX.GetAccountByID())
+		v1Router.HandleFunc("PATCH /accounts/{id}", bookkeepingX.UpdateAccount())
+		v1Router.HandleFunc("DELETE /accounts/{id}", bookkeepingX.DeactivateAccountByID())
+		v1Router.HandleFunc("GET /users/{user_id}/accounts", bookkeepingX.GetUserAccounts())
+	}
+	{
+		userOptions := make([]user.Option, 0)
+		for identityProvider, authenticator := range authenticators {
+			userOptions = append(userOptions, user.WithAuthenticator(identityProvider, authenticator))
+		}
+
+		userX := user.NewController(repo, userOptions...)
+
+		internalRouter.HandleFunc("POST /auth/register", userX.RegisterUser())
+		publicRouter.HandleFunc("POST /auth/login", userX.LoginUser())
+	}
+
+	authMiddlewares := []middleware{}
+	if s.jwtSalt != nil && s.jwtSecret != nil {
+		jwtAuthenticator := auth.NewJWTAuthorizator(*s.jwtSalt, *s.jwtSecret)
+		authMiddlewares = append(authMiddlewares, authenticated(jwtAuthenticator))
+	}
+
+	router := http.NewServeMux()
+	router.Handle("/v1/", http.StripPrefix("/v1", chainMiddleware(authMiddlewares...)(v1Router)))
+	router.Handle("/internal/", http.StripPrefix("/internal", onlyInternal(*s.internalToken)(internalRouter)))
+	router.Handle("/public/", http.StripPrefix("/public", publicRouter))
+
+	s.router = chainMiddleware(rateLimiter(10, 100), logging)(router)
+}
+```
+
+同時在 [app/api/engine/chain.go](https://github.com/omegaatt36/bookly/blob/main/app/api/engine/chain.go) 內實現一個 http request/response 綁定的操作，進而增進程式碼的可維護性。在如此小型的 side project 中，標準庫的 http package 已經足夠使用了。
