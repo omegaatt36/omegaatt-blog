@@ -2,9 +2,11 @@
 title: 透過 WakaTime 幫助來紀錄自己做了哪些事，並製作獨特的 GitHub Profile
 date: 2023-08-03
 categories:
- - develop
+  - develop
 tags:
- - github
+  - github
+  - open_source
+  - self_hosted
 ---
 
 ## WakaTime 介紹
@@ -19,14 +21,15 @@ tags:
 ![](images/wakatime_dashboard_official-2.png)
 
 安裝相應的客戶端插件。[wakatime 支援的插件、編輯器](https://wakatime.com/plugins)包括但不限於：
+
 - Visual Studio Code
 - Vim
 - Excel
 - Terminal
-    - zsh
-    - bash
-    - fish
-    - iTerm2
+  - zsh
+  - bash
+  - fish
+  - iTerm2
 
 舉例來說我們可以安裝 [vscode 插件](https://marketplace.visualstudio.com/items?itemName=WakaTime.vscode-wakatime)，並跟著 Installation 輸入完 API Key 就可以開始寫點東西了。
 
@@ -57,6 +60,7 @@ tags:
 ## 更新你的 GitHub Profile
 
 [GitHub Profile](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/about-your-profile) 定義如下：
+
 > If you add a README file to the root of a public repository with the same name as your username, that README will automatically appear on your profile page.
 
 舉例來說，我的 github 使用者名稱為 omegaatt36，放在 `github.com/omegaatt36/omegaatt36` 這個 repo 中的 `README.md` 就會顯示在我的 Overview 上。
@@ -69,53 +73,55 @@ tags:
 
 1. 建立與自己使用者名稱同名的 repo，舉例來說我的使用者名稱是 omegaatt36，就建立一個名為 omegaatt36 的 repo。
 2. 新增 `README.md` 並在檔案內增加兩條註解，將統計資料的顯示區域提供給 `waka-readme-stats` 辨識：
-    ```markdown
-    <!--START_SECTION:waka-->
-    <!--END_SECTION:waka-->
-    ```
+   ```markdown
+   <!--START_SECTION:waka-->
+   <!--END_SECTION:waka-->
+   ```
 3. 新增 GitHub Action Workflow file，在專案目錄中的 `.github/workflows` 內新增 `waka-readme.yml`:
-    ```yaml
-    name: Waka Readme
 
-    on:
-    schedule:
-        - cron: '0 0 * * *'
-    workflow_dispatch:
-    jobs:
-    update-readme:
-        name: Update Readme with Metrics
-        runs-on: ubuntu-latest
-        steps:
-        - uses: anmol098/waka-readme-stats@master
-            with:
-            WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-            GH_TOKEN: ${{ secrets.GH_TOKEN }}
-            SHOW_PROFILE_VIEWS: False
-            SHOW_SHORT_INFO: False
-            SHOW_LOC_CHART: False
-    ```
+   ```yaml
+   name: Waka Readme
+
+   on:
+   schedule:
+       - cron: '0 0 * * *'
+   workflow_dispatch:
+   jobs:
+   update-readme:
+       name: Update Readme with Metrics
+       runs-on: ubuntu-latest
+       steps:
+       - uses: anmol098/waka-readme-stats@master
+           with:
+           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+           SHOW_PROFILE_VIEWS: False
+           SHOW_SHORT_INFO: False
+           SHOW_LOC_CHART: False
+   ```
+
 4. 其中[參數](https://github.com/anmol098/waka-readme-stats#flags-available)可以設定可以參考官方文件，某些參數需要額外的授權。
 5. commit 並 push 到 GitHub 上。
 6. 在 GitHub repo 內設定 secrets:
-    1. 點擊 repo 中的 Settings 頁籤
-        ![](images/github-profile-1.png)
-    2. 點擊左側 Secrets and variables 中的 Actions
-        ![](images/github-profile-2.png)
-    3. 點擊 New repository secret
-        ![](images/github-profile-3.png)
-    4. 到 [WakaTime 的設定頁面](https://wakatime.com/settings/account)複製 Secret API Key
-        ![](images/github-profile-4.png)
-    5. 建立一個 secret，名稱為 `WAKATIME_API_KEY`，secret 為剛剛複製的 Secret API Key
-        ![](images/github-profile-5.png)
-    6. 到 [GitHub token 頁面](https://github.com/settings/tokens)設定一個擁有 repo, user 權限的 Token
-        ![](images/github-profile-6.png)
-    7. 複製 Token（這個 token 不會再顯示，忘記的話請註銷再重新建立）
-        ![](images/github-profile-7.png)
-    8. 回到 repo 中再建立一個 secret，名稱為 `GH_TOKEN`，secret 為剛剛複製的 GitHub Token
+   1. 點擊 repo 中的 Settings 頁籤
+      ![](images/github-profile-1.png)
+   2. 點擊左側 Secrets and variables 中的 Actions
+      ![](images/github-profile-2.png)
+   3. 點擊 New repository secret
+      ![](images/github-profile-3.png)
+   4. 到 [WakaTime 的設定頁面](https://wakatime.com/settings/account)複製 Secret API Key
+      ![](images/github-profile-4.png)
+   5. 建立一個 secret，名稱為 `WAKATIME_API_KEY`，secret 為剛剛複製的 Secret API Key
+      ![](images/github-profile-5.png)
+   6. 到 [GitHub token 頁面](https://github.com/settings/tokens)設定一個擁有 repo, user 權限的 Token
+      ![](images/github-profile-6.png)
+   7. 複製 Token（這個 token 不會再顯示，忘記的話請註銷再重新建立）
+      ![](images/github-profile-7.png)
+   8. 回到 repo 中再建立一個 secret，名稱為 `GH_TOKEN`，secret 為剛剛複製的 GitHub Token
 7. 手動執行工作流，點擊 Actions 頁籤，手動執行 Waka Readme 工作流。
-    ![](images/github-profile-8.png)
+   ![](images/github-profile-8.png)
 8. 待工作流執行完後，回到 Code 頁籤，就能看到我們在 WakaTime 上的統計數據了，同樣的數據也會呈現在個人首頁上。
-    ![](images/github-profile-9.png)
+   ![](images/github-profile-9.png)
 
 ### 透過 gist 保留每一天的數據
 
@@ -124,7 +130,7 @@ WakaTime 免費版的 dashboard 僅能顯示最多 14 天的資料，若是想�
 透過 [https://github.com/marketplace/actions/wakatime-sync](wakatime-sync) 我們可以將 WakaTime 的數據紀錄至 gist 內，並透過 [superman66/wakatime-dashboard](https://wakatime.chenhuichao.com/dashboard) 或是 [zzwtsy/wakatime-dashboard-vue](https://wakavue.yumdeb.top/) 來顯示。
 
 下圖即為三個工作天與一個假日的 WakeTime 數據，使用 [zzwtsy/wakatime-dashboard-vue](https://wakavue.yumdeb.top/) 來呈現的結果
-    ![](images/wakatime-sync-1.png)
+![](images/wakatime-sync-1.png)
 
 ## 結語
 

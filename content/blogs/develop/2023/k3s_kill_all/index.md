@@ -2,9 +2,9 @@
 title: 解決 VM 關機時等待容器關閉
 date: 2023-01-11
 categories:
- - develop
+  - develop
 tags:
- - linux
+  - linux
 ---
 
 ```
@@ -18,6 +18,7 @@ tags:
 若是沒有做特別的設定，或是沒有過分的 stateful pod，找到了 [k3s issue #2400](https://github.com/k3s-io/k3s/issues/2400#issuecomment-1312621468) 中的解決方法
 
 [Stopping K3s](https://docs.k3s.io/upgrades/killall)
+
 > To allow high availability during upgrades, the K3s containers continue running when the K3s service is stopped.
 >
 > To stop all of the K3s containers and reset the containerd state, the k3s-killall.sh script can be used.
@@ -25,6 +26,7 @@ tags:
 在關閉 k3s service 後，containers 仍會繼續執行，所以可以透過 `/usr/local/bin/k3s-killall.sh` 來強制清除 containers。
 
 於是可以將該 shell script 設定為 systemd service 關閉後執行:
+
 ```
 sudo cat <<EOF >/etc/systemd/system/shutdown-k3s.service
 [Unit]

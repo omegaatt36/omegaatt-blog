@@ -2,9 +2,9 @@
 title: 那些在 Backend Sharing 中出現的人事物
 date: 2024-03-24
 categories:
- - develop
+  - develop
 tags:
- - personal
+  - personal
 ---
 
 《最高學以致用法》、《最高學習法》這兩本書是我在 2023 年上半年讀了覺得挺有意思的書，核心概念就是「產出」，例如唸書時能夠回答同學問題的，肯定都已經精通該知識點了。

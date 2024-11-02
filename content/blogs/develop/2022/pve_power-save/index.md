@@ -2,32 +2,33 @@
 title: 改善 Proxmox VE/Debian 始終跑在最高頻率
 date: 2022-01-09
 categories:
- - develop
+  - develop
 tags:
- - linux
- - kubernetes
- - proxmox
+  - linux
+  - kubernetes
+  - proxmox
 ---
 
 這幾天把便宜撿到的 Threadripper 2950X 平台也上 Proxmox VE 玩玩了，裝完系統後才發現自己太習慣於 windows 下的電源管理，一直都沒發現 linux 下 CPU 頻率都是拉滿的狀態，找了[debian 下進行電源管理的電源計畫設定教學](https://forum.proxmox.com/threads/fix-always-high-cpu-frequency-in-proxmox-host.84270/)達到降溫省電，順便做做紀錄。
 
 此篇文章的硬體基於
+
 ```
 root@raiven:~# neofetch
-       _,met$$$$$gg.          root@raiven 
-    ,g$$$$$$$$$$$$$$$P.       ----------- 
-  ,g$$P"     """Y$$.".        OS: Debian GNU/Linux 10 (buster) x86_64 
- ,$$P'              `$$$.     Host: HP Z2 SFF G4 Workstation 
-',$$P       ,ggs.     `$$b:   Kernel: 5.4.106-1-pve 
-`d$$'     ,$P"'   .    $$$    Uptime: 276 days, 9 hours, 51 mins 
- $$P      d$'     ,    $$P    Packages: 719 (dpkg) 
- $$:      $$.   -    ,d$$'    Shell: bash 5.0.3 
- $$;      Y$b._   _,d$P'      Terminal: /dev/pts/1 
- Y$$.    `.`"Y$$$$P"'         CPU: Intel Xeon E-2278G (16) @ 5.000GHz 
- `$$b      "-.__              GPU: Intel Device 3e9a 
-  `Y$$                        Memory: 48763MiB / 64099MiB 
+       _,met$$$$$gg.          root@raiven
+    ,g$$$$$$$$$$$$$$$P.       -----------
+  ,g$$P"     """Y$$.".        OS: Debian GNU/Linux 10 (buster) x86_64
+ ,$$P'              `$$$.     Host: HP Z2 SFF G4 Workstation
+',$$P       ,ggs.     `$$b:   Kernel: 5.4.106-1-pve
+`d$$'     ,$P"'   .    $$$    Uptime: 276 days, 9 hours, 51 mins
+ $$P      d$'     ,    $$P    Packages: 719 (dpkg)
+ $$:      $$.   -    ,d$$'    Shell: bash 5.0.3
+ $$;      Y$b._   _,d$P'      Terminal: /dev/pts/1
+ Y$$.    `.`"Y$$$$P"'         CPU: Intel Xeon E-2278G (16) @ 5.000GHz
+ `$$b      "-.__              GPU: Intel Device 3e9a
+  `Y$$                        Memory: 48763MiB / 64099MiB
    `Y$$.
-     `$$b.                                            
+     `$$b.
        `Y$$b.
           `"Y$b._
               `"""
@@ -36,6 +37,7 @@ root@raiven:~# ^C
 ```
 
 用 `watch -n 1 "cat /proc/cpuinfo | grep MHz"` 可以查看當下的 cpu 頻率狀態。
+
 ```
 Every 1.0s: cat /proc/cpuinfo | grep MHz                                                                                                             raiven: Sun Jan  9 22:03:08 2022
 
@@ -60,11 +62,13 @@ cpu MHz         : 4734.148
 會發現 CPU 一直都在頻率很高的狀態，可能導致無謂的能源浪費。
 
 於是我們可以先安裝 [ACPI](https://zh.wikipedia.org/zh-tw/%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%94%B5%E6%BA%90%E6%8E%A5%E5%8F%A3)。
+
 ```
 apt install acpi-support acpid acpi
 ```
 
 接著可以查看有哪些選項可以使用
+
 ```
 > cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors
 
@@ -76,11 +80,13 @@ conservative ondemand userspace powersave performance schedutil
 ```
 
 在 E-2278 上只看到效能(performance)與節能(powersave)，嘗試將電源管理改為節能:
+
 ```
 echo "powersave" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 ```
 
 接著再次查看 CPU 頻率，就會發現已經成功讓電源管理變為節能了，而有需要時仍會跑到最大頻率 4.5GHz。
+
 ```
 Every 1.0s: cat /proc/cpuinfo | grep MHz                                                                                                             raiven: Sun Jan  9 22:11:21 2022
 

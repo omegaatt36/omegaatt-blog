@@ -2,10 +2,10 @@
 title: VScode SFTP 快速同步文件到 Server
 date: 2020-01-20
 categories:
- - develop
+  - develop
 tags:
- - linux
- - vscode
+  - linux
+  - vscode
 ---
 
 當 Server 環境使用白名單搭配 Reverce-Proxy 時，或是 dev、test 環境不供外部使用時，或許會將部分 code 存在只能靠內網連線的主機上，並透過 OpenSSH 供內部遠端操作。
@@ -31,17 +31,17 @@ tags:
 主要配置好host, port, username, privateKeyPath, remotePath, ignore这参数即可：
 ![](https://i.imgur.com/m03U2cm.png)
 
-* name : 檔案暱稱
-* host : server IP/URL
-* port : 若 server 建置好 ssh 環境，可將 port 端口改為 22
-* username : 在 server 中的使用者名稱
-* remotePath : 欲上傳的目錄位置
-* privateKeyPath : 私鑰
-* password : 若有設私鑰則可有(null)可無
-* uploadOnSave : 自動上傳，個人是沒有開啟(經常性按 ctrl + S)
-* ignore : 
+- name : 檔案暱稱
+- host : server IP/URL
+- port : 若 server 建置好 ssh 環境，可將 port 端口改為 22
+- username : 在 server 中的使用者名稱
+- remotePath : 欲上傳的目錄位置
+- privateKeyPath : 私鑰
+- password : 若有設私鑰則可有(null)可無
+- uploadOnSave : 自動上傳，個人是沒有開啟(經常性按 ctrl + S)
+- ignore :
 
-``` 
+```
 {
     "name": "my_work_space",
     "host": "192.168.X.X",
@@ -49,7 +49,7 @@ tags:
     "protocol": "sftp",
     "username": "centos",
     "remotePath": "\\home\\centos\\***\\",
-    "privateKeyPath": "C:\\***.pem", 
+    "privateKeyPath": "C:\\***.pem",
     "uploadOnSave": false,
     "syncMode": "update",
     "ignore": [

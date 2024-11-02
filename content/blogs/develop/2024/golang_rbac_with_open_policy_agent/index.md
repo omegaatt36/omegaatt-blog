@@ -2,9 +2,9 @@
 title: 如何利用 Open Policy Agent 配合 Golang 建構彈性的 RBAC 模組
 date: 2024-04-04
 categories:
- - develop
+  - develop
 tags:
- - golang
+  - golang
 ---
 
 ## RBAC 概念簡介
@@ -83,9 +83,9 @@ allow if {
 
 ```json
 {
-    "action": "read",
-    "resource": "user",
-    "user": "bob"
+  "action": "read",
+  "resource": "user",
+  "user": "bob"
 }
 ```
 
@@ -93,20 +93,18 @@ allow if {
 
 ```json
 {
-    "allow": true,
-    "role_permissions": {
-        "admin": [
-            {
-                "action": "read",
-                "resource": "user"
-            }
-        ]
-    },
-    "user_roles": {
-        "bob": [
-            "admin"
-        ]
-    }
+  "allow": true,
+  "role_permissions": {
+    "admin": [
+      {
+        "action": "read",
+        "resource": "user"
+      }
+    ]
+  },
+  "user_roles": {
+    "bob": ["admin"]
+  }
 }
 ```
 

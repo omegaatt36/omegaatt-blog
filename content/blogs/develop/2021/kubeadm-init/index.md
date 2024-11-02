@@ -2,26 +2,25 @@
 title: Kubernetes 學習筆記 - Ubuntu kubeamd 建置 cluster
 date: 2021-09-19
 categories:
- - develop
+  - develop
 tags:
- - kubernetes
+  - kubernetes
 ---
 
 ## 環境
 
-物理機: 2278G/16G DDR4 ECC*4/1T MX500
-OS:
-    - master: Ubuntu server 20.04
-    - node: Ubuntu server 20.04
+物理機: 2278G/16G DDR4 ECC\*4/1T MX500
+OS: - master: Ubuntu server 20.04 - node: Ubuntu server 20.04
 
 ## 安裝 docker、kubeadm、kubelet、kubectl
 
 ### 安裝 docker
+
 ```shell
-sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y 
+sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" 
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io -y
@@ -31,7 +30,8 @@ sudo usermod -aG docker $USER
 
 登出再登入
 
-### 安裝 kubeadm kubelet kubectl 
+### 安裝 kubeadm kubelet kubectl
+
 ```shell
 sudo apt-get install -y apt-transport-https curl
 sudo su
@@ -56,13 +56,14 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 ### 設定 kubeadm
 
-####  master
+#### master
+
 ```shell
-sudo kubeadm init \ 
-    --pod-network-cidr 網路區段 \ 
-    --apiserver-advertise-address 本機IP \ 
+sudo kubeadm init \
+    --pod-network-cidr 網路區段 \
+    --apiserver-advertise-address 本機IP \
     --apiserver-cert-extra-sans gcp IP
-    
+
 # kubeadm init --pod-network-cidr 172.100.0.0/16 --apiserver-advertise-address 10.140.0.2 --apiserver-cert-extra-sans 130.211.253.131
 ```
 
@@ -75,8 +76,8 @@ To start using your cluster, you need to run the following as a regular user:
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
-  
-Alternatively, if you are the root user, you can run: 
+
+Alternatively, if you are the root user, you can run:
 
   export KUBECONFIG=/etc/kubernetes/admin.conf
 
@@ -91,6 +92,7 @@ Then you can join any number of worker nodes by running the following on each as
 照著他給的指令去建立 config 後可以去尋找喜歡的 [CNI](https://kubernetes.io/docs/concepts/cluster-administration/addons/#networking-and-network-policy) 根據他的安裝指令設定網路
 
 例如若是想使用 [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/) 作為 CNI 則可以
+
 ```shell
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```

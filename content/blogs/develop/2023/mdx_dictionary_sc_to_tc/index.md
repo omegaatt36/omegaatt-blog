@@ -2,23 +2,25 @@
 title: 讓 BOOX 也使用繁體中文辭典
 date: 2023-05-04
 categories:
- - develop
+  - develop
 tags:
- - personal
+  - personal
 ---
 
 由於最近讀原文書讀得挺辛苦，邊用電子閱讀器看書，騰不出手用手機查字典，內建的辭典又只有英文翻譯簡體中文，在網上衝浪也找不到繁體中文的 mdx 英漢辭典可以直接使用。
 
 ## 所需依賴
+
 - 任何英漢辭典
-    > 文內以 BOOX 內下載的英漢辭典，參考[教學](https://mul.iqrator.com/2021/07/19/boox%E6%99%BA%E6%85%A7%E6%82%85%E8%AE%80-%E5%85%A7%E5%BB%BA%E5%AD%97%E5%85%B8%E6%87%89%E7%94%A8/)。
+  > 文內以 BOOX 內下載的英漢辭典，參考[教學](https://mul.iqrator.com/2021/07/19/boox%E6%99%BA%E6%85%A7%E6%82%85%E8%AE%80-%E5%85%A7%E5%BB%BA%E5%AD%97%E5%85%B8%E6%87%89%E7%94%A8/)。
 - python 環境，用以安裝 [mdict-utils](https://github.com/liuyug/mdict-utils)
-    > 經測試後 windows 與 wsl 中均能完成，文內 python 環境以 wsl 為主。
+  > 經測試後 windows 與 wsl 中均能完成，文內 python 環境以 wsl 為主。
 - 任何繁簡轉換軟體
-    > 文內以新發現的 [ConvertZZ](https://github.com/flier268/ConvertZZ) 最為 GUI 簡轉繁示例。
-    > 文末有使用 [OpenCC](https://github.com/BYVoid/OpenCC) 作為 CLI 示例。
+  > 文內以新發現的 [ConvertZZ](https://github.com/flier268/ConvertZZ) 最為 GUI 簡轉繁示例。
+  > 文末有使用 [OpenCC](https://github.com/BYVoid/OpenCC) 作為 CLI 示例。
 
 ## 主要流程
+
 - 將 mdx 拆成 txt
 - 簡轉繁
 - 將 txt 包成 mdx
@@ -26,6 +28,7 @@ tags:
 ### 安裝
 
 安裝 mdict-utils
+
 ```shell
 ❯ pip install mdict-utils
 Defaulting to user installation because normal site-packages is not writeable
@@ -46,12 +49,14 @@ Successfully installed mdict-utils-1.3.12 tqdm-4.65.0 xxhash-3.2.0
 將英漢辭典重新命名為 `dict.mdx`
 
 先看一下該 mdx 的編碼為 `UTF-8`，這將作為後續簡轉繁的編碼依據。
+
 ```shell
 ❯ /home/raiven/.local/bin/mdict -m dict.mdx | grep Encoding
 Encoding: "UTF-8"
 ```
 
 接著我們 unpack `dict.mdx`，透過參數 `-x` 指定文件，透過參數 `-d` 輸出到暫存資料夾 `output`
+
 ```shell
 ❯ mdict -x dict.mdx -d ./output
 100%|███████████████████████████████████████████████████████████| 435468/435468 [00:01<00:00, 383585.55rec/s]
@@ -59,6 +64,7 @@ Encoding: "UTF-8"
 ```
 
 可以看到暫存資料夾內有三個文件，分別是描述、標題、本文
+
 ```shell
 ❯ ls output
 dict.mdx.description.html  dict.mdx.title.html  dict.mdx.txt
@@ -88,6 +94,7 @@ a-
 ### pack
 
 指定方才解出來的描述、標題，加上轉換為繁體中文的本文，標成 mdx
+
 ```shell
 ❯ mdict --title output/dict.mdx.title.html \
   --description output/dict.mdx.description.html \

@@ -5,6 +5,8 @@ categories:
   - develop
 tags:
   - linux
+  - software
+  - open_source
 ---
 
 ## 前言

@@ -2,9 +2,9 @@
 title: 2023 展望
 date: 2023-01-01
 categories:
- - develop
+  - develop
 tags:
- - personal
+  - personal
 ---
 
 TL;DR
@@ -12,6 +12,7 @@ TL;DR
 今年還沒躺平。
 
 ---
+
 > 你不是**喜歡**寫程式的人，是用程式吃飯的。
 
 年前 CEO 這麼對我說，後面接著一段話:

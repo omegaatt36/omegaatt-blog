@@ -2,9 +2,9 @@
 title: 基於 Golang 的 Grafana Dashboard 與 JWT 認證的前後端實作
 date: 2024-06-10
 categories:
- - develop
+  - develop
 tags:
- - golang
+  - golang
 ---
 
 在工作上有一個需求是需要做一些 [OLAP](https://aws.amazon.com/tw/what-is/olap/)，原訂計畫是使用 Google Looker(ver. Google Cloud Core)，礙於量小不符合經濟效益，決定用 Grafana 這個較熟悉的開源套件來幫助我們做視覺化的處理。
@@ -203,62 +203,64 @@ func main() {
 {{< details title="完整 code:" >}}
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Embed Grafana Dashboard</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Grafana Dashboard</h1>
     <label for="start">Start Date:</label>
-    <input type="date" id="start" name="start" value="2024-05-01">
+    <input type="date" id="start" name="start" value="2024-05-01" />
     <label for="end">End Date:</label>
-    <input type="date" id="end" name="end" value="2024-05-31">
+    <input type="date" id="end" name="end" value="2024-05-31" />
     <label for="organization_id">Organization ID:</label>
-    <input type="text" id="organization_id" name="organization_id" value="1">
+    <input type="text" id="organization_id" name="organization_id" value="1" />
     <button onclick="loadGrafanaDashboard()">Load Dashboard</button>
     <iframe id="grafanaFrame" src="" width="100%" height="450px"></iframe>
 
     <script>
-        async function fetchToken() {
-            try {
-                const response = await fetch(`/token`);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const token = await response.text();
-                return token;
-            } catch (error) {
-                document.getElementById('error').style.display = 'block';
-                console.error('Error fetching token:', error);
-            }
+      async function fetchToken() {
+        try {
+          const response = await fetch(`/token`);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const token = await response.text();
+          return token;
+        } catch (error) {
+          document.getElementById("error").style.display = "block";
+          console.error("Error fetching token:", error);
         }
+      }
 
-        async function loadGrafanaDashboard() {
-            const token = await fetchToken();
-            if (token) {
-                const startDate = document.getElementById('start').value;
-                const endDate = document.getElementById('end').value;
-                const organizationId = document.getElementById('organization_id').value;
+      async function loadGrafanaDashboard() {
+        const token = await fetchToken();
+        if (token) {
+          const startDate = document.getElementById("start").value;
+          const endDate = document.getElementById("end").value;
+          const organizationId =
+            document.getElementById("organization_id").value;
 
-                if (!startDate || !endDate || !organizationId) {
-                    document.getElementById('error').innerText = 'Please select start date, end date, and enter organization ID.';
-                    document.getElementById('error').style.display = 'block';
-                    return;
-                }
+          if (!startDate || !endDate || !organizationId) {
+            document.getElementById("error").innerText =
+              "Please select start date, end date, and enter organization ID.";
+            document.getElementById("error").style.display = "block";
+            return;
+          }
 
-                const from = new Date(`${startDate}T00:00:00`).getTime();
-                const to = new Date(`${endDate}T23:59:59`).getTime();
+          const from = new Date(`${startDate}T00:00:00`).getTime();
+          const to = new Date(`${endDate}T23:59:59`).getTime();
 
-                const grafana1BaseURL = `{{ .DashboardURL }}`;
-                const grafana1URL = `${grafana1BaseURL}?auth_token=${token}&kiosk&from=${from}&to=${to}&var-org_id=${organizationId}`;
-                document.getElementById('grafanaFrame').src = grafana1URL;
-            }
+          const grafana1BaseURL = `{{ .DashboardURL }}`;
+          const grafana1URL = `${grafana1BaseURL}?auth_token=${token}&kiosk&from=${from}&to=${to}&var-org_id=${organizationId}`;
+          document.getElementById("grafanaFrame").src = grafana1URL;
         }
+      }
     </script>
-</body>
+  </body>
 </html>
 ```
 

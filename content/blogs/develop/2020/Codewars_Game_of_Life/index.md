@@ -2,10 +2,10 @@
 title: 威康生命遊戲 in PHP
 date: 2020-01-23
 categories:
- - develop
+  - develop
 tags:
- - php
- - codewars
+  - php
+  - codewars
 ---
 
 # 威康生命遊戲 in PHP

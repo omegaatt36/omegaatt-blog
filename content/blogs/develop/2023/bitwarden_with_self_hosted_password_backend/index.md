@@ -2,10 +2,11 @@
 title: 使用 Bitwarden 與自架後端 Vaultwarden 來管理密碼與 2FA Authenticator
 date: 2024-09-01
 categories:
- - develop
+  - develop
 tags:
- - linux
- - self-hosted
+  - linux
+  - open_source
+  - self_hosted
 ---
 
 在尋覓有哪些 self-hosted 專案好玩時，偶然發現了 1password、LastPass 的開源替代方案，甚至後端資料庫能自架，決定架來用用看。
@@ -105,7 +106,6 @@ sequenceDiagram
     end
 ```
 
-
 ## Pricing
 
 個人使用的話，若僅需儲存個人密碼與信用卡、身份等純文字資訊，則免費版本已經夠用了，不需要付費。若需要額外的檔案加密、硬體加密、多個組織等等，則需要支付一定的費用。
@@ -139,7 +139,7 @@ vaultwarden 的 wiki 頁十分完整，smtp 等設定都是透過環境變數控
 需要設定它連接到自己的 Vaultwarden 服務器。
 
 1. 在 Bitwarden 客戶端中，這邊以 firefox extension 為例，點擊「正在登入到」，並選擇 self-hosted。
-    ![self-hosted](images/Screenshot_20231112_125439.webp)
+   ![self-hosted](images/Screenshot_20231112_125439.webp)
 2. 在 "服務器 URL" 中輸入 Vaultwarden 服務器地址。
 3. 登錄或創建一個新的帳戶。
 
@@ -152,6 +152,7 @@ vaultwarden 的 wiki 頁十分完整，smtp 等設定都是透過環境變數控
 也可以使用 bitwarden 的 cli 來在 linux 上管理密碼，可以參考 [bitwarden-cli](https://github.com/dani-garcia/bitwarden-cli)。
 
 例如可以用來 mount nas：
+
 ```bash
 ❯ sudo mount.cifs -o \
   $(bw get item xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx | \

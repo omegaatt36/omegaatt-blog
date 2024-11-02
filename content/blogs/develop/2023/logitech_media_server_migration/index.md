@@ -2,11 +2,13 @@
 title: Logitech Media Server 遷移紀錄：從 Bare Metal 到 Docker 再到 Podman
 date: 2023-02-24
 categories:
- - develop
+  - develop
 tags:
- - logitechmediaserver
- - docker
- - podman
+  - logitechmediaserver
+  - docker
+  - podman
+  - self_hosted
+  - open_source
 ---
 
 2021 年公司開始實施 322 WFH，少了通勤的時間，在家的時間也多了，就想在上班時也能好好對待自己，雖然是木耳但始終會想知道，網路上說的獨立訊源減少雜訊是有多重要，亦或只是玄學?於是誕生了[Raspberry pi 4 + piCorePlayer 7.0.0 折騰筆記](/blogs/develop/2021/piCorePlayer)這篇筆記，到現在這個部落格的累積曝光最高的也是因為這篇吧。
@@ -29,6 +31,7 @@ tags:
 公司電腦是內顯，若是常駐 youtube 視窗，十分浪費顯示卡資源，甚至會影響到頁面切換效能，這時候起一個 container 來跑 lms，再用 [Squeezelite-X](https://apps.microsoft.com/store/detail/9PBHMTNP9037) 來做為撥放器，算是十分清量的解決方案了。再更後來將 docker desktop 移除了，詳細可以參閱 [WSL2 中使用 systemd 管理 podman 的 container](/blogs/develop/2023/wsl2_systemd_podman)。
 
 在公司，就用 podman 起一個 container:
+
 ```bash
 mkdir -p ~/.config/systemd/user
 mkdir -p ~/podman/lms/config ~/podman/lms/playlist ~/podman/lms/music
@@ -54,6 +57,7 @@ systemctl --user status container-lms.service
 ```
 
 在家裡，也將 lms 從 k8s cluster 中移到 proxmox ve LXC ，基於 debian 11，作為更「顯眼」的 container。
+
 ```bash
 # http://downloads.slimdevices.com/
 sudo apt install perl libssl-dev

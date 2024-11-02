@@ -2,9 +2,9 @@
 title: Golang 學習筆記 Day 0 - Why Golang & 安裝篇
 date: 2020-08-25
 categories:
- - develop
+  - develop
 tags:
- - golang
+  - golang
 ---
 
 ```
@@ -21,13 +21,13 @@ tags:
 
 &emsp; &emsp; 所幸在實習期間，公司願意提供環境讓我邊學習邊成長後做出貢獻，而使用的後端語言是 PHP，然而就一年以來的使用 PHP 有以下優缺點：
 
-* 學習曲線~~極~~低，但坑很多
-* 解釋型腳本語言部署極方便
-* 非靜態、非強行別、萬用 array 導致容易出現很多偷懶的 code
-* 窮人聖經 LAMP、LNMP
-* 歷史悠久 framework 眾多、工作好找，甚至有許多 C 底層的高校框架可以使用。
-* 可以很 OO 也可以不 OO，寫 code 彈性極大
-* 在 php 7.0 改用 zend 引擎後效能改頭換面，「原來 PHP 也可以寫遊戲」。搭配一些 C 底層框架，甚至可以跟 nodeJS 一較高下，而期望中 8.0 效能將再更高。
+- 學習曲線~~極~~低，但坑很多
+- 解釋型腳本語言部署極方便
+- 非靜態、非強行別、萬用 array 導致容易出現很多偷懶的 code
+- 窮人聖經 LAMP、LNMP
+- 歷史悠久 framework 眾多、工作好找，甚至有許多 C 底層的高校框架可以使用。
+- 可以很 OO 也可以不 OO，寫 code 彈性極大
+- 在 php 7.0 改用 zend 引擎後效能改頭換面，「原來 PHP 也可以寫遊戲」。搭配一些 C 底層框架，甚至可以跟 nodeJS 一較高下，而期望中 8.0 效能將再更高。
 
 ![](https://i.imgur.com/CkKvVrE.jpg)
 
@@ -55,13 +55,13 @@ Step.3 更改環境變數 GOPATH
 
 Step.1 同樣到[官網](https://golang.org/dl/)下載 binary 檔並解壓縮:
 
-``` bash
+```bash
 $ wget  https://golang.org/dl/go1.15.linux-amd64.tar.gz
 ```
 
 Step.2 解壓縮後放到你要放的資料夾
 
-``` bash
+```bash
 $ sudo tar -xvf go1.15.linux-amd64.tar.gz
 # $ sudo mv go [PATH]
 $ sudo mv go /usr/local
@@ -69,26 +69,26 @@ $ sudo mv go /usr/local
 
 Step.3 在 `.profile` 或諸如 `.zshrc` 中設定環境變數， `source` 後即可使用
 
-``` bash
+```bash
 # $ vi .profile
 $ vi .zshrc
 ```
 
-``` vim
+```vim
 # in the .zshrc
 export GOPATH=/usr/local
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$GOPATH/bin
 ```
 
-``` bash
+```bash
 # $ source .profile
 $ source .zshrc
 ```
 
 最後測試一下，輸入 `go version` 確認一下是否能正常執行 golang 指令
 
-``` bash
+```bash
 $ go version
 'go version go1.14.4 linux/amd64
 ```
@@ -99,7 +99,7 @@ $ go version
 
 首先先創建一個 `hello-world` 資料夾，並在裡面建立一個 `main.go` ，並複製貼上下面的程式碼。
 
-``` go
+```go
 package main
 
 import (
@@ -123,7 +123,7 @@ golang 中所有的程式碼檔案都是以 `.go` 做為副檔名，於是建立
 
 接著來看程式碼：
 
-``` go
+```go
 // 這支檔案是 main package
 package main
 

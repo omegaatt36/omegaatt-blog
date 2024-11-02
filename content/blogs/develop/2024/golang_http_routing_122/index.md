@@ -2,9 +2,9 @@
 title: Golang 1.22 中 http routing 的改進
 date: 2024-10-30
 categories:
- - develop
+  - develop
 tags:
- - golang
+  - golang
 ---
 
 Golang 作為一個偏向 server 應用的程式語言，一般的 web server 並不會直接使用原生的 package `net/http`，而更多的使用 `gin-gonic/gin` 或是 `gorilla/mux`，後來也有 `labstack/echo` 以及 `go-chi/chi` 等等選擇，在效能、輕量、好維護、好擴充中，都能找到對應的 third party package，其中的原因不外乎是原生的 package 提供的功能過於簡潔。
@@ -217,7 +217,7 @@ func main() {
 ```
 
 使用 `go build main.go` 來編譯成可執行檔，並使用 `du -sh main` 來查看執行檔大小：
-| package  | size |
+| package | size |
 |----------|------|
 | net/http | 6.8M |
 | gin-gonic/gin | 11M |
@@ -257,6 +257,7 @@ require (
 
 裡面在 http 的處理僅使用標準庫的 http package，詳細可以參考 [app/api/router.go](https://github.com/omegaatt36/bookly/blob/main/app/api/router.go)，
 正是將 http method 寫進 path 內進行註冊，並
+
 ```
 func (s *Server) registerRouters() {
 	authenticators := make(map[domain.IdentityProvider]domain.Authenticator)

@@ -5,6 +5,8 @@ categories:
   - develop
 tags:
   - linux
+  - open_source
+  - self_hosted
 ---
 
 ## 前言

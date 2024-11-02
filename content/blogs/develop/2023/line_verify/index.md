@@ -2,9 +2,9 @@
 title: golang 中使用 Line LIFF 實作 Single Sign-On
 date: 2023-04-22
 categories:
- - develop
+  - develop
 tags:
- - golang
+  - golang
 ---
 
 文章中的程式碼放在[https://github.com/omegaatt36/line-verify-id-token](https://github.com/omegaatt36/line-verify-id-token)中。
@@ -12,10 +12,10 @@ tags:
 ### Requirements
 
 - [Line Login Channel](https://developers.line.biz/zh-hant/)
-    - channel id
-    - channel secret
+  - channel id
+  - channel secret
 - [Line LIFF APP](https://github.com/line/line-liff-v2-starter)
-    - 用 liff.getIDToken() 獲取 [ID Token](https://developers.line.biz/en/docs/line-login/verify-id-token/#get-an-id-token)
+  - 用 liff.getIDToken() 獲取 [ID Token](https://developers.line.biz/en/docs/line-login/verify-id-token/#get-an-id-token)
 
 在現代網站中，單一登錄 (Single Sign-On, SSO) 已經成為了一個普遍存在的功能，它能夠讓使用者在不同的應用程式和服務之間自動地登錄，而不需要再輸入帳號和密碼。這樣可以方便使用者的使用，並且也能夠增加安全性，減少帳號密碼被盜用的風險。
 
@@ -45,6 +45,7 @@ type DecodedIDToken struct {
 ```
 
 接著撰寫一個驗證 ID Token 的 function 用來驗證
+
 ```go
 // VerifyIDToken verify id token by using HS256 or ES256.
 // It checks: signature, issuer, time related fields, channel ID.
@@ -57,6 +58,7 @@ func VerifyIDToken(ctx context.Context, idToken string) (*entity.DecodedIDToken,
 ```
 
 最一開始的版本我們使用了標準的 jwt 解碼寫法:
+
 ```go
 claims := jwt.StandardClaims{}
 jwt.ParseWithClaims(idToken, claims, func(token *jwt.Token) (any, error) {
@@ -108,6 +110,7 @@ func findKey(keySet *jose.JSONWebKeySet, keyID string) (*jose.JSONWebKey, error)
 ```
 
 接著就可以使用該公鑰本來進行解密了
+
 ```go
 parser := jwt.Parser{
     ValidMethods: []string{
@@ -192,6 +195,7 @@ if err := json.Unmarshal(bs, &id); err != nil {
 ```
 
 完成驗證，回傳驗證後的 ID Token
+
 ```go
 return &entity.DecodedIDToken{
     Amr:       id.Amr,
@@ -207,6 +211,7 @@ return &entity.DecodedIDToken{
 ```
 
 後續只要將 UserID 存進站內的資料庫，並與用戶關聯，下次登入就可以區分為:
+
 - `POST /api/user/v1/login` 使用帳號密碼登入，並回傳站內的 JWT。
 - `POST /api/user/v1/login/line` 使用 LINE ID Token 登入，並回傳站內的 JWT。
 

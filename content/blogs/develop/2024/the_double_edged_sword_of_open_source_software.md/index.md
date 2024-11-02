@@ -18,7 +18,7 @@ tags:
 
 說到開源軟體，不外乎就是 free 或是 freedom 的軟體，可以說是免費的軟體，也可以說是自由的軟體。
 
-早期的 [LAMP Stack](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) 相較於 Microsoft 的 Windows Server、IBM 或是 Oracle 付費的服務，每個組件都是免費的，廣泛受到 Geek 到大中小型企業的使用
+早期的 [LAMP Stack](<https://en.wikipedia.org/wiki/LAMP_(software_bundle)>) 相較於 Microsoft 的 Windows Server、IBM 或是 Oracle 付費的服務，每個組件都是免費的，廣泛受到 Geek 到大中小型企業的使用
 
 同時，開源軟體顧名思義是開放原始碼，在授權許可下可以自由使用、修改、分享，許多人將開源與安全劃上等號。
 
@@ -126,6 +126,7 @@ PhotoPrism 是一個免費的圖庫管理，後來也區分了付費版本（Ess
 這篇文章並不是在告訴大家不要使用開源軟體，而是對自己做一個警惕，不要凡事都想著免費使用，下一個被收購或是因為維護而本過高而停止官方 instance 的 XXX App 可能會是任何軟體。
 
 同時也要警惕所有 Self-Hosted 的玩家，即便軟體看似安全，但仍需要做好:
+
 - 備份
 - fail2ban 的機制
 - 異地備份

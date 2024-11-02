@@ -2,10 +2,10 @@
 title: 如何優雅地批次安裝 Nerd font 字型
 date: 2023-05-03
 categories:
- - develop
+  - develop
 tags:
- - linux
- - wsl
+  - linux
+  - wsl
 ---
 
 [fonts repo](https://github.com/ryanoasis/nerd-fonts)
@@ -135,15 +135,17 @@ echo -e '\033[0m'
 ```
 
 若沒有要改目標字型也可以直接透過 github 上的檔案來安裝
+
 - wsl:
-    ```sh
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/omegaatt36/dotfiles/main/install_fonts.sh)" --windows
-    ```
+  ```sh
+  bash -c "$(curl -fsSL https://raw.githubusercontent.com/omegaatt36/dotfiles/main/install_fonts.sh)" --windows
+  ```
 - linux:
-    ```sh
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/omegaatt36/dotfiles/main/install_fonts.sh)"
-    ```
+  ```sh
+  bash -c "$(curl -fsSL https://raw.githubusercontent.com/omegaatt36/dotfiles/main/install_fonts.sh)"
+  ```
 
 #### ref
+
 - [install_meslo_wsl](https://gist.githubusercontent.com/romkatv/aa7a70fe656d8b655e3c324eb10f6a8b/raw/install_meslo_wsl.sh)
 - [install nerd fonts](https://gist.github.com/matthewjberger/7dd7e079f282f8138a9dc3b045ebefa0)

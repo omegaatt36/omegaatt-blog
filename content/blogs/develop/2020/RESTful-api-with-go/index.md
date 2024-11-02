@@ -2,9 +2,9 @@
 title: RESTful server based on golang
 date: 2020-03-19
 categories:
- - develop
+  - develop
 tags:
- - golang
+  - golang
 ---
 
 很高興有個機會製作面試前的測試作業，也就趁這個機會做個筆記以及學習紀錄。
@@ -15,23 +15,23 @@ tags:
 
 ### 基本需求
 
-* based on golnag
-* The API interface you provide can be any of the following：RESTful、json rpc、gRPC
-* At least two sources
-* When a source is unavailable, the result of its last successful ask is returned
-* Use git to manage source code
-* Write readme.md and describe what features, features, and TODO which have been implemented
+- based on golnag
+- The API interface you provide can be any of the following：RESTful、json rpc、gRPC
+- At least two sources
+- When a source is unavailable, the result of its last successful ask is returned
+- Use git to manage source code
+- Write readme.md and describe what features, features, and TODO which have been implemented
 
 ### 額外可選
 
-* Traffic limits, including the number of times your server queries the source, and the number of times the user queries you
-* Good testing, annotations, and git commit
-* An additional websocket interface is provided to automatically send the latest information whenever the market changes
-* Users can choose to use an automatic source determination, the latest data source, or manually specify the source of the data
-* Package it as a Dockerfile, docker-compose file, or kubernetes yaml
-* There is a simple front-end or cli program that displays the results
-* The API you provide has a corresponding file, such as a swagger, or simply a markdown file
-* Other features not listed but that you thought would be cool to implement
+- Traffic limits, including the number of times your server queries the source, and the number of times the user queries you
+- Good testing, annotations, and git commit
+- An additional websocket interface is provided to automatically send the latest information whenever the market changes
+- Users can choose to use an automatic source determination, the latest data source, or manually specify the source of the data
+- Package it as a Dockerfile, docker-compose file, or kubernetes yaml
+- There is a simple front-end or cli program that displays the results
+- The API you provide has a corresponding file, such as a swagger, or simply a markdown file
+- Other features not listed but that you thought would be cool to implement
 
 這邊就必須要先打預防針了，**這篇僅為學習筆記**，並非正式教學。且，我只是 Golang 初學者，所以這篇內也不會出現什麼高等級的解法，甚至也是第一次實作介接 API 呢 (笑)。而 DB 以及 redis 都是直接以方便使用去寫 dbi 而已並無用抽象曾去封裝，也進而導致 unit test 十分困難先擱置了，有空才會再針對性重構，而此次就先將目標專注在 API 介接。
 
@@ -85,7 +85,7 @@ tags:
 
 首先當然是建立最基本可以提供前端/外部來打的 http server，使用 [ `gorilla/mux` ](https://github.com/gorilla/mux) 作為 router。也可以建立一個便於註冊 handler 的結構。
 
-``` go
+```go
 type route struct {
 	Method     string
 	Pattern    string
@@ -98,7 +98,7 @@ var routes []route
 
 接著透過 `init()` 讓外部在 import 時加載這些 handler 到全域變數上。
 
-``` go
+```go
 func init() {
   register("GET", "/", handler, nil)
   ...
@@ -111,7 +111,7 @@ func register(method, pattern string, handler http.HandlerFunc, middleware mux.M
 
 最後建立一個初始化函數來取得 router。這邊可以預先為後續 http middleware 做空間。
 
-``` go
+```go
 func NewRouter() *mux.Router {
 	r := mux.NewRouter()
 	for _, route := range routes {
@@ -131,7 +131,7 @@ func NewRouter() *mux.Router {
 
 而此次也有發現在最新版的 mongo 及 redis 都有用 context 來對 db 讀寫時對 go routine 的觸發超時，透過 `WithTimeOut` 可以進而確保不會超時，相關知識可以參考[這裡](https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-context/)。
 
-``` go
+```go
 ctx, cancle := context.WithTimeout(context.Background(), 10*time.Second)
 // ensure cancle function will be executed
 defer cancle()
@@ -144,7 +144,7 @@ db.SetClint(client)
 
 而這個 `clientOptions` 是用於 `docker-compose` 用的，可以 link 住另一個 container 的網路位置。
 
-``` go
+```go
 func clientOptions() *options.ClientOptions {
 	host := "db"
 	if os.Getenv("profile") != "prod" {
@@ -160,7 +160,7 @@ func clientOptions() *options.ClientOptions {
 
 使用 [ `crypto/bcrypt` ](https://godoc.org/golang.org/x/crypto/bcrypt) 來編碼/解碼使用者的密碼在來存放到 DB 中，可以減緩發生[這個影片](https://youtu.be/kKti4SjMg3Q?t=145)中提到的 Drag 造成的後續問題。而當使用者登入後也可以透過 [ `dgrijalva/jwt-go` ](https://github.com/dgrijalva/jwt-go) 庫來返回一個 `JSON-Web-Token` ，後續使用這個 JWT 來存取服務。
 
-``` go
+```go
 func GenerateToken(user *models.User) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"user_name": user.UserName,
@@ -175,7 +175,7 @@ func GenerateToken(user *models.User) (string, error) {
 
 在實際編寫時，思考了一下拿回來的 JSON 要用何種方式來解碼比較有效率，首先針對 coinmarketcap 的[資料](https://coinmarketcap.com/api/documentation/v1/) 進行嘗試，該資料結構中很明顯是多層的 JSON。
 
-``` json
+```json
 {
     "status": {
 		...
@@ -196,7 +196,7 @@ func GenerateToken(user *models.User) (string, error) {
 
 ##### 方案一 JSON to struct
 
-``` go
+```go
 type coinmarketcapStatus struct {
 	Timestamp string `json:"timestamp"`
 }
@@ -230,7 +230,7 @@ func byUnmarshal(str string) float64 {
 
 ##### 方案一 JSON to map
 
-``` go
+```go
 func byJSONToMap(str string) float64 {
 	var mapResult map[string]interface{}
 	err := json.Unmarshal([]byte(str), &mapResult)
@@ -244,7 +244,7 @@ func byJSONToMap(str string) float64 {
 
 然後構過 golang 內建的 benchmark `go test -bench=.`
 
-``` go
+```go
 func BenchmarkByUnmarshal(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		byUnmarshal(jsonStr)
@@ -270,7 +270,7 @@ ok      mondb_practice  4.076s
 
 先寫一層抽象層來定義必須實作的方法(抽象的工廠)
 
-``` go
+```go
 type Response interface {
 	GetUSD() float64
 }
@@ -286,7 +286,7 @@ type responseFactory interface {
 
 接著實作一個實際要產出產品的繼承類 (陸譯派生類?)
 
-``` go
+```go
 type CoinMarketCapFactory struct{}
 
 func (CoinMarketCapFactory) Create(str string) (Response, error) {
@@ -312,7 +312,7 @@ func (cmc coinMarketCap) GetUSD() float64 {
 
 接著就可以根據要分門別類以及要被共用的方法分開撰寫，就可以得到一個非常簡單的 APU 工廠了，往後有新的來源也僅需再加一個繼承類後，實作必要方法即可。
 
-``` go
+```go
 type API interface {
 	GetUSD() float64
 	GetSourceName() string
@@ -332,18 +332,18 @@ type responseAttribute struct {
 
 ### ticker
 
-然而剛文中有提到，取得的資料不會回傳，使用者是拿取資料庫中的資料，那要如何觸發取得遠端 API 呢，可以使用  ticker，再把每個 API 要延遲的時間寫進 `config` 內，我選擇的是寫進自訂檔案 `APIconf.json` 內而沒有寫進 code 裡，也方便私人的 auth 不暴露在 github 上。
+然而剛文中有提到，取得的資料不會回傳，使用者是拿取資料庫中的資料，那要如何觸發取得遠端 API 呢，可以使用 ticker，再把每個 API 要延遲的時間寫進 `config` 內，我選擇的是寫進自訂檔案 `APIconf.json` 內而沒有寫進 code 裡，也方便私人的 auth 不暴露在 github 上。
 
-``` json
+```json
 {
-    "sourceName": {
-        "auth":"auth token",
-        "delay" : 300
-    }
+  "sourceName": {
+    "auth": "auth token",
+    "delay": 300
+  }
 }
 ```
 
-``` go
+```go
 func InitAPIs() {
 	for _, v := range apis {
 		go runTicker(v)
@@ -376,7 +376,7 @@ func runTicker(api API) {
 
 緊接著把核心的，要讓外部 call 的服務迅速完成後綁到 router 上
 
-``` go
+```go
 func GetServiceMap(w http.ResponseWriter, r *http.Request) {
 	keys, _ := db.RedisKeysByNameSpace(db.NSLatestAPI)
 	utility.ResponseWithJSON(w, http.StatusOK, utility.Response{Result: utility.ResSuccess, Data: keys})
@@ -398,7 +398,7 @@ func GetLatestPrice(w http.ResponseWriter, r *http.Request) {
 再透過上文中提到的 JWT 搭配 middleware 來驗證使用者，
 也可以擴充來達到流量控制。
 
-``` go
+```go
 register("GET", "/getServiceMap", controllers.GetServiceMap, auth.TokenMiddleware)
 register("GET", "/getLatestPrice/{service}", controllers.GetLatestPrice, auth.TokenMiddleware)
 
@@ -413,7 +413,7 @@ if route.Middleware == nil {
 
 最後設定完跨網域就完成了
 
-``` go
+```go
 allowedHeaders := handlers.AllowedHeaders([]string{"Content-Type", "Authorization"})
 allowedOrigins := handlers.AllowedOrigins([]string{"*"})
 allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS"})
