@@ -74,7 +74,7 @@ Murphy 考到了駕照，跨年去到了台東，沒有駕照的我就當個優�
 
 ### 幻覺博物館
 
-這次主要是去找台中媽媽開的[軟蛋醬-學士店](https://g.co/kgs/EaCd9AB)，順路去了幻覺博物館。
+這次主要是去找台中媽媽開的[軟蛋醬-學士店](https://maps.app.goo.gl/9z4Zq24iS9JGSuxs7)，順路去了幻覺博物館。
 
 {{< gallery images="images/PXL_20240518_052653008.jpg|images/PXL_20240518_034619601.MP.jpg|images/PXL_20240518_034428400.MP.jpg" >}}
 
