@@ -53,7 +53,8 @@ params:
 
   assets:
     favicon: "favicon.ico"
-    favicon32x32: "favicon.ico"
+    favicon16x16: "favicon-16x16.ico"
+    favicon32x32: "favicon-32x32.ico"
     apple_touch_icon: "favicon.png"
     safari_pinned_tab: "favicon.png"
 
