@@ -401,6 +401,42 @@ docker run -d -p 5000:5000 --restart=always --name local-registry registry:2
 
 在你的開發機器上，需要告訴 Docker daemon 和 Buildx builder 兩件事：1) 如何連接到這個 registry container，2) 信任這個 HTTP registry。
 
+```mermaid
+flowchart TD
+    %% Docker CLI and Output Location in the same row
+    subgraph Local_Machine
+        CLI[Docker CLI]
+        D[Output Location]
+        A[Docker Daemon]
+
+        %% Same network group
+        subgraph Network_Group[Shared Network: host]
+            B[Buildx BuildKit Container]
+            R[Local Registry<br>localhost:5000]
+        end
+    end
+
+    subgraph Remote_Registry
+        C[Remote Registry]
+    end
+
+    %% --push to local registry
+    B --**push**--> R
+
+    %% --push to remote registry (optional)
+    B --**push**--> C
+
+    %% --load to Docker daemon
+    B --**load**--> A
+
+    %% --output to specified location
+    B --**output**--> D
+
+    %% Docker CLI triggers buildx build
+    CLI --**docker buildx build**--> A
+    A --> B
+```
+
 1.  配置 Docker Daemon 信任本地 Registry：
     編輯 (或建立) Docker daemon 的配置文件，通常是 `/etc/docker/daemon.json` (Linux) 或透過 Docker Desktop 的設定介面 (macOS/Windows)。加入以下內容：
 
