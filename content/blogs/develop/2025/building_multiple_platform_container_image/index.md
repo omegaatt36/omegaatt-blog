@@ -542,29 +542,16 @@ flowchart TD
 
 ## References
 
-- Docker Docs: Multi-platform images
-  https://docs.docker.com/build/building/multi-platform/
-- Open Container Initiative (OCI) Image Format Specification
-  https://github.com/opencontainers/image-spec
-- Linux Kernel Documentation: binfmt_misc
-  https://www.kernel.org/doc/html/latest/admin-guide/binfmt-misc.html
-- Colima GitHub Repository
-  https://github.com/abiosoft/colima
-- Go Official Docs: CGO
-  https://pkg.go.dev/cmd/cgo
-- Go Official Docs: Build Constraints (Build Tags)
-  https://pkg.go.dev/go/build#hdr-Build_Constraints
-- Debian Policy Manual: Control files and their fields
-  https://www.debian.org/doc/debian-policy/ch-controlfields.html
-- Docker Official Action: setup-qemu-action
-  https://github.com/docker/setup-qemu-action
-- Docker Official Action: setup-buildx-action
-  https://github.com/docker/setup-buildx-action
-- Docker Official Action: build-push-action
-  https://github.com/docker/build-push-action
-- Docker Hub: Official Registry Image
-  https://hub.docker.com/_/registry
-- Docker Docs: Test insecure registries
-  https://docs.docker.com/registry/insecure/
-- Docker Docs: Daemon configuration file (`daemon.json`)
-  https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file
+- [Docker Docs: Multi-platform images](https://docs.docker.com/build/building/multi-platform/)
+- [Open Container Initiative (OCI) Image Format Specification](https://github.com/opencontainers/image-spec)
+- [Linux Kernel Documentation: binfmt_misc](https://www.kernel.org/doc/html/latest/admin-guide/binfmt-misc.html)
+- [Colima GitHub Repository](https://github.com/abiosoft/colima)
+- [Go Official Docs: CGO](https://pkg.go.dev/cmd/cgo)
+- [Go Official Docs: Build Constraints (Build Tags)](https://pkg.go.dev/go/build#hdr-Build_Constraints)
+- [Debian Policy Manual: Control files and their fields](https://www.debian.org/doc/debian-policy/ch-controlfields.html)
+- [Docker Official Action: setup-qemu-action](https://github.com/docker/setup-qemu-action)
+- [Docker Official Action: setup-buildx-action](https://github.com/docker/setup-buildx-action)
+- [Docker Official Action: build-push-action](https://github.com/docker/build-push-action)
+- [Docker Hub: Official Registry Image](https://hub.docker.com/_/registry)
+- [Docker Docs: Test insecure registries](https://docs.docker.com/registry/insecure/)
+- [Docker Docs: Daemon configuration file (`daemon.json`)](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file)
