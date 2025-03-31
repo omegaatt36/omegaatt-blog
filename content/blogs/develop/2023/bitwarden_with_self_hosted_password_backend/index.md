@@ -9,7 +9,13 @@ tags:
   - self_hosted
 ---
 
+![cover](/images/cover.png)
+
 在尋覓有哪些 self-hosted 專案好玩時，偶然發現了 1password、LastPass 的開源替代方案，甚至後端資料庫能自架，決定架來用用看。
+
+為什麼要自架？完全控制資料、隱私考量、或者純粹是學習和折騰 (符合 self-hosted 精神)。但控制權也意味著責任，特別是安全和備份。
+
+這篇會專注在使用 Bitwarden 客戶端搭配輕量級的 Vaultwarden 後端。
 
 # 使用 Bitwarden 來管理密碼
 
@@ -50,8 +56,9 @@ sequenceDiagram
     participant Server
 
     rect rgb(236,239,244)
-    Client ->> Client: 使用 Master Password 生成加密密鑰
-    Client ->> Client: 加密密碼資料
+    Client ->> Client: 使用 Master Password 透過 PBKDF2 生成加密密鑰 (KDF Key)
+    Client ->> Client: 使用 KDF Key 生成加密金鑰 (Symmetric Key)
+    Client ->> Client: 加密密碼資料 (AES-CBC/256)
     Client ->> Server: 發送新增密碼請求 (加密後的密碼資料)
     Server ->> Server: 儲存加密後的密碼資料
     Server -->> Client: 回應成功 (確認訊息)
@@ -69,11 +76,13 @@ sequenceDiagram
 
     rect rgb(236,239,244)
     Client ->> Client: 用戶輸入帳號和 Master Password
+    Client ->> Client: 透過 PBKDF2 生成 KDF Key 和 Master Key
+    Client ->> Client: 使用 HMAC 驗證登入資料
     Client ->> Server: 發送身份驗證請求 (帳號, 雜湊後的驗證資訊)
-    Server ->> Server: 驗證用戶身份
+    Server ->> Server: 驗證用戶身份 (比對 HMAC)
     Server -->> Client: 回傳加密的 vault 資料
-    Client ->> Client: 使用 Master Password 生成解密密鑰
-    Client ->> Client: 解密加密的 vault 資料
+    Client ->> Client: 使用 Master Key 生成解密密鑰
+    Client ->> Client: 解密加密的 vault 資料 (AES-CBC/256)
     Client ->> Client: 本地存儲解密後的 vault
     end
 ```
@@ -87,9 +96,11 @@ sequenceDiagram
 
     rect rgb(236,239,244)
     Client ->> Client: 用戶輸入舊的和新的 Master Password
-    Client ->> Client: 使用舊 Master Password 解密本地 vault
-    Client ->> Client: 使用新 Master Password 生成新加密密鑰
-    Client ->> Client: 使用新密鑰重新加密 vault
+    Client ->> Client: 使用 PBKDF2 生成舊 KDF Key
+    Client ->> Client: 使用舊密鑰解密本地 vault
+    Client ->> Client: 使用新 Master Password 生成新的 KDF Key
+    Client ->> Client: 使用新 KDF Key 生成新的加密金鑰
+    Client ->> Client: 重新加密 vault 資料
     Client ->> Server: 上傳重新加密的 vault
     Server ->> Server: 替換舊的加密資料
     Server -->> Client: 確認成功
@@ -100,10 +111,11 @@ sequenceDiagram
         Client ->> Server: 同步檢查更新
         Server -->> Client: 傳送新加密的 vault
         Client ->> Client: 用戶輸入新的 Master Password
-        Client ->> Client: 生成新解密密鑰
-        Client ->> Client: 解密並本地更新
+        Client ->> Client: 使用新 Master Password 生成新的解密密鑰
+        Client ->> Client: 解密並本地更新 vault
     end
     end
+
 ```
 
 ## Pricing
@@ -116,7 +128,9 @@ sequenceDiagram
 
 ## 使用 Vaultwarden 作為自托管後端
 
-[Vaultwarden](https://github.com/dani-garcia/vaultwarden) 是一個 Bitwarden 的非官方後端實現，它使用 Rust 編寫，更輕量且易於部署。使用 Vaultwarden，您可以在自己的服務器上部署 Bitwarden，這樣您就可以完全控制您的密碼數據。
+官方的 Bitwarden Server 是用 C# 和 MSSQL 寫的，資源消耗較大，設定也相對複雜。
+
+[Vaultwarden](https://github.com/dani-garcia/vaultwarden) (以前叫 bitwarden_rs) 是社群用 Rust 寫的相容後端，極度輕量，通常搭配 SQLite (也支援 MySQL/PostgreSQL)，資源佔用非常小，跑在 Raspberry Pi 上都沒問題。它還順便解鎖了官方需要付費才能用的功能，像是 TOTP、組織功能等 (雖然個人用可能不太需要組織)。對於 self-hoster 來說，Vaultwarden 幾乎是首選。
 
 ### 步驟一：Vaultwarden 服務器
 
@@ -222,8 +236,14 @@ docker run -d \
   ttionya/vaultwarden-backup:latest
 ```
 
-## 結論
+## 自架的負擔：安全與備份
 
-使用 Bitwarden 和 Vaultwarden 為自己提供一個安全、可靠且完全控制的密碼管理方案。透過這種方法，不僅擁有了強大的密碼管理工具，還確保了數據的私密性和安全性。
+![footer](/images/footer.png)
 
-由於此 server 是公開的，需要自行處理 fail2ban 與 DDOS 攻擊與備份管理，若此站被攻破，也只能怪自己沒有做好完整的資安防護。
+*   HTTPS 是基本要求，必備。
+*   保持 Vaultwarden 和反向代理更新到最新版本。
+*   考慮使用 Fail2ban 監控反向代理的 log，防止暴力破解 `/admin` 或登入頁面。
+*   定期檢查 Vaultwarden admin 頁面的診斷訊息。
+*   備份：極度重要！Master Password 丟了神仙難救，在 reddit 上也不乏出現類似議題，同樣的伺服器掛了、資料丟了也很慘。
+
+自架 Vaultwarden 提供了對密碼管理的完全控制，同時享受 Bitwarden 優異的客戶端體驗和幾乎全部的「付費」功能。代價是你需要自己負責伺服器的安全、維護和備份。對於喜歡掌控自己數據、有能力維護服務的人來說，這是個絕佳方案。如果對維護沒信心，或者 Master Password 丟了會崩潰，那可能官方的付費服務或 1Password 等商業方案更適合。
