@@ -7,10 +7,9 @@ tags:
   - docker
   - security
   - development_experience
+cover:
+  image: "images/cover.png"
 ---
-
-![Dev Container Logo](images/Gemini_Generated_Image_plp22rplp22rplp2.jpeg)
-> 嘗試使用 Google Gemini 呼叫 Imagen 來產生 cover
 
 最近換了新工作，到了一間資訊安全公司，讓我更加重視開發環境的安全。
 
@@ -249,3 +248,6 @@ docker exec -it --user root dev-node-$(basename $(pwd)) bash
 ## 額外內容
 
 文中提到的 [chezmoi](https://www.chezmoi.io/)，是一款使用 git 進行版本控制的 dotfiles 管理工具，當有多個 Host machine 或是經常「系統搬家」時，十分有幫助（或許可以再寫一篇文章來介紹）。
+
+![Dev Container Logo](images/footer.jpeg)
+> 嘗試使用 Google Gemini 呼叫 Imagen 來產生 cover

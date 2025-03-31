@@ -7,9 +7,9 @@ tags:
   - linux
   - open_source
   - self_hosted
+cover:
+  image: "images/cover.png"
 ---
-
-![cover](/images/cover.png)
 
 在尋覓有哪些 self-hosted 專案好玩時，偶然發現了 1password、LastPass 的開源替代方案，甚至後端資料庫能自架，決定架來用用看。
 

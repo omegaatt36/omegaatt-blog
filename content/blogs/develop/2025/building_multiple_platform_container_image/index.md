@@ -8,9 +8,9 @@ tags:
   - docker
   - linux
   - macOS
+cover:
+  image: "images/cover.png"
 ---
-
-![](/images/cover.png)
 
 ## 前言
 

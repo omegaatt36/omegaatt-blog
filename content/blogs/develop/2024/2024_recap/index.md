@@ -3,6 +3,8 @@ title: 2024 Recap
 date: 2024-12-31
 categories:
   - personal
+cover:
+  image: "images/P1072324.JPG"
 ---
 
 > 假如你的答案更好，書本上的答案一點也不重要。

@@ -5,6 +5,8 @@ categories:
   - develop
 tags:
   - golang
+cover:
+  image: "images/cover.png"
 ---
 
 Golang 是一門簡潔有力的程式語言，相較於其他程式語言，更傾向於使用組合（composition）而不是繼承（inheritance），語言設計之初更是沒有提供繼承的關鍵字，這種設計哲學讓 Golang 在現代軟體開發中脫穎而出。
