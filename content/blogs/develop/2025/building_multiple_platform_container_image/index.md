@@ -10,6 +10,7 @@ tags:
   - macOS
 ---
 
+![](/images/cover.png)
 
 ## 前言
 
@@ -55,6 +56,7 @@ Buildx 則可以建立獨立的 builder instance。這些 builder instance 可�
 如果你要建構 *真正* 的多平台 image (一個 tag 對應多個平台)，最直接的方法就是使用 `docker buildx build ... --push`。如果只是想在本機測試某個特定平台的 image，可以用 `--platform=linux/arm64 --load` (假設你在 ARM 主機上)。
 
 ```mermaid
+%%{init: {'theme':'dark'}}%%
 flowchart TD
     %% Docker CLI and Output Location in the same row
     subgraph Local Machine
@@ -402,8 +404,10 @@ docker run -d -p 5000:5000 --restart=always --name local-registry registry:2
 在你的開發機器上，需要告訴 Docker daemon 和 Buildx builder 兩件事：1) 如何連接到這個 registry container，2) 信任這個 HTTP registry。
 
 ```mermaid
+%%{init: {'theme':'dark'}}%%
 flowchart TD
     %% Docker CLI and Output Location in the same row
+
     subgraph Local_Machine
         CLI[Docker CLI]
         D[Output Location]
