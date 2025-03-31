@@ -1,0 +1,11 @@
+/* Add this rule if you haven't already adjusted .first-entry */
+.first-entry {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Keep existing top margin, remove default bottom margin if overridden above */
+    margin: var(--gap) 0;
+    min-height: 0px; /* Keep this if it was there */
+    /* The rest of your .first-entry styles... */
+}

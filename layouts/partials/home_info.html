@@ -1,5 +1,36 @@
 {{- with site.Params.homeInfoParams }}
 <article class="first-entry home-info">
+    {{- if .Avatar }}
+        {{- $avatarPath := .Avatar }}
+        {{- $avatar := "" }}
+        {{- $altText := .AvatarTitle | default "Author Avatar" }}
+        {{/* Check if it's an external URL */}}
+        {{- if or (hasPrefix $avatarPath "http://") (hasPrefix $avatarPath "https://") }}
+            {{- $avatar = $avatarPath }}
+        {{- else }}
+            {{/* Try to get it from assets first */}}
+            {{- $avatarResource := resources.Get $avatarPath }}
+            {{- if $avatarResource }}
+                {{/* Process image (e.g., resize) - adjust size as needed */}}
+                {{- $avatarProc := $avatarResource.Resize "150x150" }}
+                {{- $avatar = $avatarProc.RelPermalink }}
+            {{- else }}
+                {{/* Fallback to static directory */}}
+                {{- $avatar = $avatarPath | absURL }}
+            {{- end }}
+        {{- end }}
+
+        {{- if $avatar }}
+        <img src="{{ $avatar }}"
+                alt="{{ $altText }}"
+                width="150" {{/* Explicit width for performance */}}
+                height="150" {{/* Explicit height for performance */}}
+                loading="lazy"
+                class="entry-avatar" {{/* Use existing class if styled */}}
+                style="border-radius: 50%; margin: 0 auto 1em auto; display: block;"> {{/* Basic centering and circular style */}}
+        {{- end }}
+    {{- end }}
+
     <header class="entry-header">
         <h1>{{ .Title | markdownify }}</h1>
     </header class="entry-header">
