@@ -379,6 +379,167 @@ jobs:
 2.  交叉編譯 (Cross-Compilation): 對於像 Go 或 Rust 這種交叉編譯支援良好的語言，盡量在 Dockerfile 的 build stage 中利用交叉編譯，而不是在模擬環境中執行編譯器。這樣可以大幅減少模擬的開銷。只有那些必須在目標環境執行的步驟 (如 `apt install` 或執行測試) 才需要在模擬環境中進行。
 3.  優化 Dockerfile: 減少在模擬環境中執行的指令數量。例如，先在本機架構下載所有依賴，再切換到模擬環境。
 
+### 進階優化：使用原生建構分離編譯與打包 (GitHub Actions)
+
+雖然 docker buildx build --push 搭配 QEMU 模擬讓我們能在單一 job 中完成多平台映像檔的建構與推送，但正如「性能考量」中提到的，透過 QEMU 模擬執行 CPU 密集型的編譯任務（例如 go build）效能非常差。在 instagramrobot 專案中，我們觀察到 arm64 的 Go 編譯時間是在 amd64 runner 上透過 QEMU 模擬執行的，時間竟然是原生 amd64 編譯的將近十倍！
+
+```
+https://github.com/omegaatt36/instagramrobot/actions/runs/14131506554/job/39592743935#step:6:432
+
+# 在 amd64 runner 上原生建構 amd64
+#22 [linux/amd64 build 6/6] RUN ["go", "build", "-o", "insta-fetcher", "cmd/bot/main.go"]
+#22 DONE 35.5s
+
+# 在 amd64 runner 上透過 QEMU 模擬建構 arm64
+#24 [linux/arm64 build 6/6] RUN ["go", "build", "-o", "insta-fetcher", "cmd/bot/main.go"]
+#24 DONE 317.8s
+```
+
+這不僅大幅拉長了 CI/CD 的時間，也消耗了更多的計算資源。為了解決這個問題，我採用了「原生建構」的策略，將 GitHub Actions workflow 拆成兩個主要的 job：
+
+1. build-binaries: 這個 job 利用 GitHub Actions 的 strategy.matrix 功能，針對每個目標平台 (amd64, arm64) 在對應架構的 Runner 上執行原生 Go 編譯。
+1. build-and-push-image: 這個 job 會等待 build-binaries 完成，下載所有架構的 Go 二進位檔，然後使用 docker buildx 來 組裝 最終的多平台 Docker image，最後推送到 Registry。
+
+這樣做的好處是，最耗時的 Go 編譯步驟都在原生環境下執行，速度最快。而第二個 job 中的 docker buildx 主要負責複製檔案和處理 Dockerfile 指令，即使某些指令需要在 QEMU 下執行（例如，如果 Dockerfile 中有 apt install 等操作），其耗時也遠小於在 QEMU 下編譯 Go 程式碼。
+Workflow 概覽
+
+#### Workflow
+
+以下是更新後的 GitHub Actions workflow 核心部分：
+
+```yaml
+name: Build muiltiple platform container image
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to release"
+        required: true
+      tag:
+        description: "Tag to release"
+        required: true
+
+jobs:
+  # Job 1: 在原生環境下編譯各平台的二進位檔
+  build-binaries:
+    strategy:
+      matrix:
+        include:
+          # 使用 amd64 Runner 編譯 amd64 二進位檔
+          - arch: amd64
+            os: ubuntu-24.04
+          # 使用 arm64 Runner 編譯 arm64 二進位檔
+          - arch: arm64
+            os: ubuntu-24.04-arm
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+
+      # 針對當前 Runner 的架構進行原生編譯
+      - name: Build Go binary for ${{ matrix.arch }}
+        env:
+          GOOS: linux
+          GOARCH: ${{ matrix.arch }}
+          CGO_ENABLED: 0 # 確保交叉編譯行為一致 (在此例中為禁用 CGO)
+        run: go build -ldflags="-s -w" -o insta-fetcher-${{ matrix.arch }} cmd/bot/main.go
+
+      # 上傳編譯好的二進位檔作為 artifact，供下個 job 使用
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: binary-${{ matrix.arch }} # 不同架構使用不同 artifact 名稱
+          path: insta-fetcher-${{ matrix.arch }} # 指定要上傳的檔案
+          retention-days: 1 # Artifact 只需保留很短時間
+
+  # Job 2: 組裝多平台 Docker Image 並推送
+  build-and-push-image:
+    needs: build-binaries # 確保此 job 在 build-binaries 完成後才執行
+    runs-on: ubuntu-latest # 這個 job 可以在標準 amd64 runner 上執行
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 下載所有由 build-binaries job 產生的 artifact
+      - name: Download all binary artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: binaries
+
+      # 將下載的二進位檔移動到 Docker build context 的根目錄下，方便 Dockerfile 複製
+      - name: Move binaries to build context root
+        run: |
+          # Artifact 下載後會包含一層目錄，例如 binaries/binary-amd64/insta-fetcher-amd64
+          mv binaries/binary-amd64/insta-fetcher-amd64 ./insta-fetcher-amd64
+          mv binaries/binary-arm64/insta-fetcher-arm64 ./insta-fetcher-arm64
+          echo "Files in context root:"
+          ls -l .
+
+      - name: Build and Push Multi-Platform Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile.buildx # 使用新的 Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            omegaatt36/insta-fetcher:latest
+            omegaatt36/insta-fetcher:${{ github.event_name == 'release' && github.ref_name || github.event_name == 'workflow_dispatch' && github.event.inputs.tag }}
+          # 啟用 GitHub Actions Cache 以加速後續建構 (快取 Docker layer)
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+```
+
+#### 新的 Dockerfile (Dockerfile.buildx)
+
+為了配合這個新的 workflow，我們需要一個稍微不同的 Dockerfile，它不再負責編譯 Go 程式碼，而是根據目標平台 (TARGETARCH) 複製對應的、已經由上一個 job 編譯好的二進位檔。
+
+```yaml
+FROM gcr.io/distroless/static-debian12 as prod
+
+# BuildKit 會自動為每個平台設定這個 ARG
+ARG TARGETARCH
+
+WORKDIR /home/app/
+
+# 根據目標架構複製對應的二進位檔
+# 這些二進位檔 (insta-fetcher-amd64, insta-fetcher-arm64)
+# 是由 build-and-push-image job 從 artifact 下載並移動到 build context 根目錄的
+COPY insta-fetcher-${TARGETARCH} ./insta-fetcher
+# 例如
+# 當 buildx 建構 linux/amd64 平台時，這裡會執行 COPY insta-fetcher-amd64 ./insta-fetcher
+# 當 buildx 建構 linux/arm64 平台時，這裡會執行 COPY insta-fetcher-arm64 ./insta-fetcher
+
+CMD ["./insta-fetcher"]
+```
+
+這個 Dockerfile.buildx 非常簡單：
+
+1. 它基於 distroless/static-debian12 這個多平台映像檔。
+1. 它接收 TARGETARCH 這個 build argument (由 buildx 自動提供)。
+1. 它使用 COPY 指令，結合 TARGETARCH 變數，從 build context 中複製正確架構的二進位檔到映像檔內。
+
+透過將原生編譯與 Docker 映像檔組裝分離成兩個 job，我們繞開了 QEMU 模擬中最耗時的步驟，大幅縮短了 GitHub Actions 的執行時間。雖然 workflow 的複雜度略有增加（需要處理 artifact 傳遞和一個新的 Dockerfile），但換來的效能提升和資源節省是非常顯著的，特別是對於編譯時間較長的專案。
+
+這種方法體現了「原生建構」的核心思想：盡可能在目標架構的原生環境下執行計算密集型任務。對於 Go 這類交叉編譯友好的語言，我們選擇了直接在原生環境編譯；對於 Docker 映像檔的組裝，buildx 仍然是處理多平台 manifest 和 layer 的最佳工具，只是我們讓它做的工作變少了（不再需要在模擬環境下跑 Go 編譯器）。
+
 ## Trouble Shooting: 使用 Local Registry 進行 `--push`
 
 當你使用 `docker buildx build --push` 時，最直接的方式是推送到公開的 registry (例如 Docker Hub, GHCR 等)。但有時候，你可能只是想在本地測試多平台 image 的推送與拉取流程，或者在 CI 環境中建構並暫存 image，而不希望將其公開。這時候，可以在本地或 CI 環境中運行一個私有的 registry container。
