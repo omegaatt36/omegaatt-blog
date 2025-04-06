@@ -95,6 +95,8 @@
     font-size: 14px;
     margin-bottom: var(--gap);
     text-align: center;
+    overflow: hidden;
+    position: relative;
 }
 
 .entry-cover img {
@@ -102,11 +104,7 @@
     pointer-events: none;
     width: 100%;
     height: auto;
-}
-
-.entry-cover a {
-    color: var(--secondary);
-    box-shadow: 0 1px 0 var(--primary);
+    display: block;
 }
 
 .home-info .entry-avatar {

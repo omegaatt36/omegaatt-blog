@@ -1,0 +1,29 @@
+{{- $cxt := .cxt }}
+{{/* Access parameters directly using the context */}}
+{{- $isHidden := $cxt.Params.cover.hiddenInSingle | default $cxt.Params.cover.hidden | default false }}
+
+{{/* Access cover image parameter from the original context */}}
+{{- with $cxt.Params.cover.image }}
+  {{/* Make sure resource fetching uses the original context */}}
+  {{- $original := $cxt.Resources.GetMatch . }}
+  {{- if $original }}
+    {{- $image := $original.Resize "720x" }} {{/* Adjust size as needed */}}
+    {{- $dominantColor := $original.Colors | default "#eee" }} {{/* Get dominant color, provide fallback */}}
+    <div class="entry-cover" style="background-color: {{ $dominantColor }}; aspect-ratio: {{ $image.Width }} / {{ $image.Height }};">
+      <img
+        src="{{ $image.RelPermalink }}"
+        width="{{ $image.Width }}"
+        height="{{ $image.Height }}"
+        {{/* Access alt text parameter from original context, fallback to page title */}}
+        alt="{{ $cxt.Params.cover.alt | default $cxt.Title | plainify }}"
+        loading="lazy" {{/* Crucial for LCP */}}
+        style="display: block; width: 100%; height: auto; opacity: 0; transition: opacity 0.5s ease-in-out;" {{/* Start hidden, fade in */}}
+        onload="this.style.opacity='1';" {{/* Fade in when loaded */}}
+      />
+    </div>
+  {{ else }}
+    {{/* Handle external images or error cases if needed */}}
+    {{/* Use original context for title fallback */}}
+    <img src="{{ . | absURL }}" alt="{{ $cxt.Params.cover.alt | default $cxt.Title | plainify }}" loading="lazy">
+  {{ end }}
+{{ end }}
