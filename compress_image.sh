@@ -10,7 +10,7 @@ find . -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -print0
       if [[ "$width" -gt 1000 || "$height" -gt 1000 ]]; then
          if [[ "$ext" == "png" ]]; then
           # Resize PNG in place (consider using mogrify or temp file for safety)
-          magick convert "$file" -resize 50%  "$file"
+          magick convert "$file" -resize 80%  "$file"
          else
           # Resize and compress JPG/JPEG
           # Using a temp file approach for safety during conversion
