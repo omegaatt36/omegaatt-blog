@@ -1,6 +1,6 @@
 ---
 title: "用 Golang Bubbletea 打造終端機應用：從 Hello World 到多頁面架構"
-date: 2025-09-06
+date: 2025-09-05
 categories:
   - develop
 tags:
@@ -257,3 +257,4 @@ func (p homePage) Update(msg tea.Msg) (Page, tea.Cmd) {
 [Tips for building Bubble Tea programs
 ](https://leg100.github.io/en/posts/building-bubbletea-programs/)
 [Build a Terminal Wizard in Go (Bubble Tea Tutorial)](https://www.youtube.com/watch?v=Gl31diSVP8M)
+[](https://www.youtube.com/watch?v=ERaZi0YvBRs)
