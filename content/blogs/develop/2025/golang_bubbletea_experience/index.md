@@ -1,6 +1,6 @@
 ---
 title: "用 Golang Bubbletea 打造終端機應用：從 Hello World 到多頁面架構"
-date: 2025-09-06
+date: 2025-09-05
 categories:
   - develop
 tags:
