@@ -85,6 +85,11 @@ menu:
       url: https://link.omegaatt.com
       weight: 60
 
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
 outputs:
   home:
     - HTML
