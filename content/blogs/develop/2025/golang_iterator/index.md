@@ -319,38 +319,193 @@ func main() {
 }
 ```
 
+### `samber/lo/it`：Iterator 的完美搭檔
+
+在 `samber/lo` v1.52.0 版本中，新增了 `it` sub package，專門用於處理 Go 1.23+ 的 `iter.Seq`。這個套件彌補了原本 `lo` 立即求值與 Iterator 惰性求值之間的鴻溝，讓開發者可以在熟悉的 API 介面下享受惰性計算的好處。
+
+`lo/it` 的核心特色：
+
+- 完全基於 `iter.Seq` 的惰性求值：所有函數都接受和回傳 `iter.Seq[T]` 或 `iter.Seq2[K, V]`，實現真正的惰性計算。
+- 保留熟悉的 API：函數命名與原本的 `lo` 保持一致（如 `Map`, `Filter`, `Reduce`），降低學習成本。
+- 明確的效能警示：在函數文件中清楚標示哪些操作需要完整迭代序列或分配記憶體（如 `Reverse`, `Shuffle`, `GroupBy`）。
+
+以下是使用 `lo/it` 的範例：
+
+```go
+package main
+
+import (
+  "fmt"
+  "slices"
+
+  "github.com/samber/lo/it"
+)
+
+func main() {
+  // 建立一個從 slice 產生的 Iterator
+  numbers := slices.Values([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10})
+
+  // 使用 it.Filter 和 it.Map 建立惰性計算的處理鏈
+  // 注意：此時並沒有真正執行任何計算
+  result := it.Map(
+    it.Filter(numbers, func(x int) bool {
+      fmt.Printf("Filtering %d\n", x)
+      return x%2 == 0
+    }),
+    func(x int) string {
+      fmt.Printf("Mapping %d\n", x)
+      return fmt.Sprintf("item-%d", x)
+    },
+  )
+
+  // 只有在迭代時才會執行計算
+  for item := range result {
+    fmt.Printf("Got: %s\n", item)
+    if item == "item-4" {
+      break // 提前終止，後續元素不會被處理
+    }
+  }
+}
+
+// 輸出：
+// Filtering 1
+// Filtering 2
+// Mapping 2
+// Got: item-2
+// Filtering 3
+// Filtering 4
+// Mapping 4
+// Got: item-4
+```
+
+從輸出可以看到，`Filter` 和 `Map` 是交錯執行的，且一旦 `break` 就停止處理，這就是惰性求值的威力。
+
 ### 與 Golang Iterator 的核心差異
 
 1. 求值策略：
-  - `samber/lo`：通常是立即求值。整個集合被處理，結果立即產生。
-  - Golang Iterator (`iter.Seq`)：是惰性求值 (Lazy Evaluation)。元素僅在迭代過程中被請求時才逐個產生。這對於大型資料集或無限序列非常重要，因為不需要一次將所有資料載入記憶體。
+  - `samber/lo`：立即求值。整個集合被處理，結果立即產生。
+  - `samber/lo/it`：惰性求值。元素僅在迭代過程中被請求時才逐個產生，與 `iter.Seq` 完全一致。
+  - Golang Iterator (`iter.Seq`)：惰性求值的標準協議。
 
 2. 核心目標：
-  - `samber/lo`：提供一套豐富的、便捷的、用於轉換和操作現有集合的工具函數。
-  - Golang Iterator：提供一個標準化的「迭代」機制和協議。它更側重於如何「產生」和「消耗」序列，而不是直接提供大量的轉換函數。標準庫 `iter` 套件本身提供的轉換函數相對較少，但其設計允許在其之上構建更複雜的惰性操作。
+  - `samber/lo`：提供豐富的、立即求值的集合操作工具函數。
+  - `samber/lo/it`：在 `iter.Seq` 之上提供豐富的、惰性求值的序列操作工具函數。
+  - Golang Iterator：提供標準化的迭代協議。
 
 3. 資源消耗：
-  - `samber/lo`：由於是立即求值並通常會創建新的集合來存放結果，對於非常大的集合，可能會消耗較多記憶體。
-  - Golang Iterator：由於是惰性求值，可以逐個處理元素，潛在地減少峰值記憶體使用，特別是在鏈式操作中，中間結果不需要完全物化。
+  - `samber/lo`：立即求值，會創建新的集合來存放結果。對於大型集合可能消耗較多記憶體。
+  - `samber/lo/it`：惰性求值，可以逐個處理元素。但某些操作（如 `Reverse`, `GroupBy`）仍需完整迭代序列。
+  - Golang Iterator：惰性求值，潛在地減少峰值記憶體使用。
+
+### 三種方式的效能比較
+
+讓我們透過一個實際的例子來比較三種方式：
+
+```go
+package main
+
+import (
+  "fmt"
+  "slices"
+
+  "github.com/samber/lo"
+  "github.com/samber/lo/it"
+)
+
+func main() {
+  data := make([]int, 1000000)
+  for i := range data {
+    data[i] = i
+  }
+
+  // 方式 1: 使用 samber/lo (立即求值)
+  result1 := lo.Map(
+    lo.Filter(data, func(x int, _ int) bool { return x%2 == 0 }),
+    func(x int, _ int) int { return x * 2 },
+  )
+  fmt.Printf("lo: first 5 results: %v\n", result1[:5])
+  // 即使只需要前 5 個結果，整個 1,000,000 元素都被處理了
+
+  // 方式 2: 使用 samber/lo/it (惰性求值)
+  result2 := it.Map(
+    it.Filter(slices.Values(data), func(x int) bool { return x%2 == 0 }),
+    func(x int) int { return x * 2 },
+  )
+  count := 0
+  for x := range result2 {
+    fmt.Printf("%d ", x)
+    count++
+    if count >= 5 {
+      break // 只處理到第 5 個結果就停止
+    }
+  }
+  fmt.Println()
+
+  // 方式 3: 手寫 Iterator (惰性求值)
+  filterAndMap := func(yield func(int) bool) {
+    for _, x := range data {
+      if x%2 == 0 {
+        if !yield(x * 2) {
+          return
+        }
+      }
+    }
+  }
+  count = 0
+  for x := range filterAndMap {
+    fmt.Printf("%d ", x)
+    count++
+    if count >= 5 {
+      break
+    }
+  }
+  fmt.Println()
+}
+```
+
+在這個例子中，方式 1 (`lo`) 會處理全部 1,000,000 個元素，而方式 2 (`lo/it`) 和方式 3 (手寫 Iterator) 都只會處理到第 5 個符合條件的元素就停止。
 
 ### 何時選擇？
 
-- 選擇 `samber/lo` (或其他類似工具庫)：
-  - 當我們已經有一個具體的集合 (如 slice 或 map)。
-  - 需要進行常見的集合轉換 (map, filter, reduce 等)，並且希望程式碼簡潔易讀。
-  - 操作的資料集大小可控，立即求值的記憶體開銷可以接受。
-  - 追求開發效率，快速完成集合操作邏輯。
+- 選擇 `samber/lo` (立即求值)：
+  - 已經有具體的、大小可控的集合 (slice 或 map)。
+  - 需要完整處理所有元素。
+  - 追求開發效率和程式碼簡潔。
+  - 操作的資料集大小可控，記憶體開銷可接受。
 
-- 選擇 Golang Iterator (`iter.Seq`)：
-  - 需要處理可能非常大或無限的序列。
-  - 希望實現惰性計算，按需產生資料，以優化效能和資源使用。
-  - 需要自訂複雜的序列生成邏輯。
-  - 設計可組合的資料處理管道，其中每個步驟都是惰性的。
-  - 期望 `iter.Seq` 作為輸入或輸出的 API 整合。
+- 選擇 `samber/lo/it` (惰性求值 + 豐富 API)：
+  - 處理可能很大的資料集，但不一定需要處理全部元素。
+  - 需要建立複雜的資料處理管道。
+  - 希望保留 `lo` 的熟悉 API，同時享受惰性計算的好處。
+  - 需要與其他回傳 `iter.Seq` 的 API 整合。
 
-實際上，兩者並非完全互斥。`samber/lo` 可以用於準備或最終處理 Iterator 產生的資料。例如，我們可以使用 Iterator 高效地從資料來源讀取和初步過濾資料，然後將結果分塊收集到 slice 中，再使用 `samber/lo` 進行更複雜的轉換或分組。
+- 選擇手寫 Golang Iterator (完全控制)：
+  - 需要高度客製化的序列生成邏輯。
+  - 效能要求極高，需要精細控制每個細節。
+  - 實作特定領域的 Iterator（如無限序列、從外部資料來源串流資料）。
 
-總結來說，`samber/lo` 提供了豐富的「瑞士刀」般的集合操作工具，而 Golang Iterator 則提供了一種更底層、更具彈性的惰性序列處理機制。理解它們的設計哲學和核心差異，可以幫助我們在不同場景下做出更明智的技術選型。
+實際上，這三種方式可以互補使用。例如：
+- 使用 `lo/it` 或手寫 Iterator 高效地處理大型資料集的初步篩選。
+- 將結果收集到 slice 後，使用 `lo` 進行複雜的分組或統計。
+- 最終結果再轉換為 Iterator 供下游使用。
+
+```go
+// 混合使用範例
+data := getHugeDataset() // 假設是一個巨大的資料集
+
+// 使用 it 進行初步篩選（惰性）
+filtered := it.Filter(data, somePredicate)
+
+// 取前 1000 筆轉成 slice
+topResults := slices.Collect(it.Slice(filtered, 0, 1000))
+
+// 使用 lo 進行複雜的分組（立即求值）
+grouped := lo.GroupBy(topResults, someGroupingFunc)
+
+// 處理分組結果...
+```
+
+總結來說，`samber/lo` 提供了豐富的立即求值工具，`samber/lo/it` 則在保留熟悉 API 的同時提供了惰性求值能力，而手寫 Iterator 則提供了最大的彈性和控制。理解它們的設計哲學和適用場景，可以幫助我們在不同情況下做出最佳選擇。
 
 ## 結論
 
