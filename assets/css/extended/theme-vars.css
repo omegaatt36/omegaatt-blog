@@ -1,39 +1,27 @@
 :root {
-    --gap: 24px;
-    --content-gap: 20px;
-    --nav-width: 1024px;
+    --primary-font: 'Inter', 'Noto Sans TC', sans-serif;
+    --code-font: 'Fira Code', monospace;
+
+    /* Adjust colors for a more modern feel */
+    --primary: #268bd2; /* A slightly more vibrant blue */
+    --secondary: #657b83;
+    --background: #fdf6e3;
+    --content: #586e75;
+
+    /* Improve spacing and readability */
+    --gap: 28px;
     --main-width: 720px;
-    --header-height: 60px;
-    --footer-height: 60px;
-    --radius: 8px;
-    --theme: #e5e9f0;
-    --entry: #d8dee9;
-    --primary: #2e3440;
-    --secondary: #4c566a;
-    --tertiary: #eceff4;
-    --content: #3b4252;
-    --code-block-bg: #3b4252;
-    --code-bg: #eceff4;
-    --border: #dcdfef;
-    --svg-bg: #dcdfef;
+    --post-width: 720px;
 }
 
 .dark {
-    --theme: #2E3440;
-    --entry: #3b4252;
-    --primary: #eceff4;
-    --secondary: #e5e9f0;
-    --tertiary: #070809;
-    --content: #d8dee9;
-    --code-block-bg: #3b4252;
-    --code-bg: #3B4252;
-    --border: #5E81AC;
+    --primary: #2aa198; /* A nice cyan for dark mode */
+    --secondary: #93a1a1;
+    --background: #002b36;
+    --content: #839496;
 }
 
-.list {
-    background: var(--code-bg);
-}
-
-.dark.list {
-    background: var(--theme);
+body {
+    font-family: var(--primary-font);
+    line-height: 1.75; /* Increase line height for better readability */
 }

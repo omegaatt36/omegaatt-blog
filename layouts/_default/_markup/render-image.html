@@ -1,0 +1,43 @@
+{{/*
+    Image Render Hook
+    This template is called for every image rendered by Goldmark.
+    It takes an image resource and generates a modern <picture> element
+    with responsive sizes and WebP format.
+
+    It now includes a check to handle SVG images gracefully.
+*/}}
+
+{{- $image := .Page.Resources.GetMatch .Destination -}}
+{{- if not $image -}}
+    {{- $image = resources.Get .Destination -}}
+{{- end -}}
+
+{{- if $image -}}
+    {{- if eq $image.MediaType.SubType "svg" -}}
+        {{/* Handle SVG images: output a standard img tag without resizing */}}
+        <img src="{{ $image.RelPermalink }}" alt="{{ .Text }}" {{ with .Title }}title="{{ . }}"{{ end }} loading="lazy" />
+    {{- else -}}
+        {{/* Handle raster images: generate responsive WebP and original formats */}}
+        {{- $small := $image.Resize "320x" -}}
+        {{- $medium := $image.Resize "640x" -}}
+        {{- $large := $image.Resize "960x" -}}
+
+        {{- $smallWebp := $image.Resize "320x webp" -}}
+        {{- $mediumWebp := $image.Resize "640x webp" -}}
+        {{- $largeWebp := $image.Resize "960x webp" -}}
+
+        <figure>
+            <picture>
+                <source srcset="{{ $largeWebp.RelPermalink }} 960w, {{ $mediumWebp.RelPermalink }} 640w, {{ $smallWebp.RelPermalink }} 320w" type="image/webp" sizes="(max-width: 768px) 100vw, 720px" />
+                <source srcset="{{ $large.RelPermalink }} 960w, {{ $medium.RelPermalink }} 640w, {{ $small.RelPermalink }} 320w" type="{{ $image.MediaType }}" sizes="(max-width: 768px) 100vw, 720px" />
+                <img src="{{ $medium.RelPermalink }}" alt="{{ .Text }}" loading="lazy" class="img-fluid" />
+            </picture>
+            {{- if .Title -}}
+                <figcaption>{{ .Title }}</figcaption>
+            {{- end -}}
+        </figure>
+    {{- end -}}
+{{- else -}}
+    {{/* Fallback for external images */}}
+    <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" loading="lazy" />
+{{- end -}}
