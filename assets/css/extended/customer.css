@@ -1,11 +1,79 @@
-/* Add this rule if you haven't already adjusted .first-entry */
-.first-entry {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* Keep existing top margin, remove default bottom margin if overridden above */
-    margin: var(--gap) 0;
-    min-height: 0px; /* Keep this if it was there */
-    /* The rest of your .first-entry styles... */
+/* General Post Styling */
+.post-content {
+    font-size: 1.1rem;
+    color: var(--content);
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3 {
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+/* Code Block Styling */
+.post-content pre {
+    background-color: #f9f2e7; /* A slightly different shade from background */
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #eee8d5;
+    font-family: var(--code-font);
+    font-size: 0.95em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    overflow-x: auto;
+}
+
+.dark .post-content pre {
+    background-color: #073642; /* A darker background for dark mode */
+    border: 1px solid #001f28;
+}
+
+/* Blockquote Styling */
+.post-content blockquote {
+    border-left: 4px solid var(--primary);
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    background-color: rgba(38, 139, 210, 0.05);
+    color: #4a5a60;
+    border-radius: 0 8px 8px 0;
+}
+
+.dark .post-content blockquote {
+    background-color: rgba(42, 161, 152, 0.1);
+    color: #a3b4b6;
+}
+
+.post-content blockquote p {
+    margin: 0;
+    font-size: 1rem;
+    font-style: italic;
+}
+
+.post-content blockquote::before {
+    content: none; /* remove default quotes */
+}
+
+/* Custom Blockquote Styles */
+.post-content blockquote.info {
+    border-color: #268bd2;
+    background-color: rgba(38, 139, 210, 0.05);
+}
+.dark .post-content blockquote.info {
+    background-color: rgba(38, 139, 210, 0.1);
+}
+
+.post-content blockquote.warning {
+    border-color: #b58900;
+    background-color: rgba(181, 137, 0, 0.05);
+}
+.dark .post-content blockquote.warning {
+    background-color: rgba(181, 137, 0, 0.1);
+}
+
+.post-content blockquote.danger {
+    border-color: #dc322f;
+    background-color: rgba(220, 50, 47, 0.05);
+}
+.dark .post-content blockquote.danger {
+    background-color: rgba(220, 50, 47, 0.1);
 }
