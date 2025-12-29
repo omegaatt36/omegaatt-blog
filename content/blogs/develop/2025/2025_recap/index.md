@@ -91,7 +91,7 @@ cover:
 
 {{< gallery images="images/game/20250811214014-01K2CNPEY7FQY3P0QB3FZRY224.jpg|images/game/20251129233452-01KB724GFD1GZNMVZ4Y93GC989.jpg" >}}
 
-時間來到 2025-09-04 晚上 10:00，萬眾矚目的[絲之歌](https://gnn.gamer.com.tw/detail.php?sn=291496)正式發售，我也在第一時間購買（後續台灣 eshop 出來後就不能刷台灣的信用卡購買了），完全神迷在 Team Cherry 打造的世界中。可惜的是推出一週後，Team Cherry 就「降低難度」讓一些陷阱從扣兩血變成扣一血。也發布了 2026 年要推出絲之歌 [DLC](https://www.youtube.com/watch?v=qDFEeeLy6ws) 的資訊，期許到時候也能在推出當下馬上遊玩
+時間來到 2025-09-04 晚上 10:00，萬眾矚目的[絲之歌](https://gnn.gamer.com.tw/detail.php?sn=291496)正式發售，我也在第一時間購買（後續台灣 eshop 出來後就不能刷台灣的信用卡購買了），完全沈迷在 Team Cherry 打造的世界中。可惜的是推出一週後，Team Cherry 就「降低難度」讓一些陷阱從扣兩血變成扣一血。也發布了 2026 年要推出絲之歌 [DLC](https://www.youtube.com/watch?v=qDFEeeLy6ws) 的資訊，期許到時候也能在推出當下馬上遊玩
 
 {{< gallery images="images/game/20250904223219-01K4AJ7FNDSBTBPGXG138MEXW9.jpg|images/game/20250924093359-01K5WNK8ANZT9NC4T4FE2K3SY1.jpg|images/game/20250927202231-01K65HXVS2JTT2RJGJHTCMW0FJ.jpg" >}}
 
@@ -99,7 +99,7 @@ cover:
 
 {{< gallery images="images/game/20251129233431-01KB72DD0WHE592JJ36VZRT1WS.jpg|images/game/20250824193546-01K3DT925FM5BKHDVS5MJZX1Z2.jpg|images/game/20250824193548-01K3DT8A4Q3Z42GRAZ731G49WR.jpg|images/game/20251129233433-01KB72BE8Q9JVWKM3EC825BNXT.jpg|images/game/20251129233435-01KB72APKFCP78SEF09J04YSEP.jpg|images/game/20251129233446-01KB729EVZQREKYGACBRB5NVRS.jpg" >}}
 
-也在此幫前同事打廣告，[末航](https://store.steampowered.com/app/3299100/)已經正式發布了，趕快手到前往 Steam 購買！！！
+也在此幫前同事打廣告，[末航](https://store.steampowered.com/app/3299100/)已經正式發布了，趕快手刀前往 Steam 購買！！！
 
 
 

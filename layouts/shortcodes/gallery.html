@@ -1,95 +1,12 @@
-<div class="gallery" data-gallery-id="{{ .Ordinal }}">
-    {{ $images := split (.Get "images") "|" }} {{ range $index, $image := $images }}
-    <img src="{{ $image }}" alt="{{ $image }}" class="gallery-image" onclick="openModal(this.closest('.gallery').dataset.galleryId, {{ $index }})" />
-    {{ end }}
+{{- /* Gallery Shortcode Usage: {{< gallery images="path/to/img1.jpg|path/to/img2.jpg" >}} With captions: {{< gallery images="path/to/img1.jpg:Caption 1|path/to/img2.jpg:Caption 2" >}} With alt text (for accessibility): {{< gallery
+images="path/to/img1.jpg:Caption:Alt text|path/to/img2.jpg" >}} */ -}} {{- $galleryId := .Ordinal -}} {{- $imagesParam := .Get "images" -}} {{- $images := split $imagesParam "|" -}}
+
+<div class="gallery" data-gallery-id="{{ $galleryId }}" role="region" aria-label="Image gallery">
+    {{- range $index, $imageData := $images -}} {{- $parts := split $imageData ":" -}} {{- $src := index $parts 0 -}} {{- $caption := "" -}} {{- $alt := "" -}} {{- if gt (len $parts) 1 -}} {{- $caption = index $parts 1 -}} {{- end -}} {{-
+    if gt (len $parts) 2 -}} {{- $alt = index $parts 2 -}} {{- else if $caption -}} {{- $alt = $caption -}} {{- else -}} {{- $alt = printf "Gallery image %d" (add $index 1) -}} {{- end -}}
+
+    <img src="{{ $src }}" alt="{{ $alt }}" class="gallery-image" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="View {{ $alt }} in full size" {{- if $caption }} data-caption="{{ $caption }}" {{ end -}} />
+    {{- end -}}
 </div>
 
-<div id="modal" class="modal">
-    <span class="close">&times;</span>
-    <a class="prev" onclick="changeImage(-1)">&#10094;</a>
-    <a class="next" onclick="changeImage(1)">&#10095;</a>
-    <img class="modal-content" id="modalImage" />
-</div>
-
-<style>
-    .gallery {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        width: 100%;
-        gap: 10px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    .gallery img {
-        width: auto;
-        max-width: none;
-        flex: 1 1 auto;
-        height: 200px;
-        object-fit: cover;
-        cursor: zoom-in;
-        margin-bottom: 10px;
-    }
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.8);
-        .prev,
-        .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            padding: 16px;
-            margin-top: -22px;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
-        }
-
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
-
-        .prev:hover,
-        .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-    }
-    .modal-content {
-        margin: auto;
-        display: block;
-        width: 80%;
-        max-width: 900px;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    .close {
-        position: absolute;
-        top: 15px;
-        right: 35px;
-        color: #f1f1f1;
-        font-size: 40px;
-        font-weight: bold;
-        transition: 0.3s;
-    }
-    .close:hover,
-    .close:focus {
-        color: #bbb;
-        text-decoration: none;
-        cursor: pointer;
-    }
-</style>
-
-<script></script>
+{{- /* Register that this page uses a gallery (for conditional loading) */ -}} {{- .Page.Scratch.Set "hasGallery" true -}}

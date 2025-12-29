@@ -22,7 +22,12 @@
         {{- block "main" . }}{{ end }}
     </main>
     {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
-    <script src="{{ "js/gallery.js" | relURL }}"></script>
+
+    {{- /* Conditionally load gallery modal and JS only when needed */ -}}
+    {{- if .Scratch.Get "hasGallery" }}
+    {{- partial "gallery-modal.html" . }}
+    <script src="{{ "js/gallery.js" | relURL }}" defer></script>
+    {{- end }}
 </body>
 
 </html>
