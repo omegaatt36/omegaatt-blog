@@ -7,8 +7,6 @@ tags:
   - android
   - pixel
   - security
-cover:
-  image: "images/cover.png"
 ---
 
 最近整理抽屜時，翻出了這台陪伴我一段時間的 Google Pixel 5。
