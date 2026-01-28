@@ -68,6 +68,10 @@ menu:
       name: Blogs
       url: blogs
       weight: 2
+    - identifier: life
+      name: Life
+      url: categories/personal/
+      weight: 10
     - identifier: archives
       name: Archives
       url: archives/
