@@ -1,0 +1,143 @@
+/* ============================================
+   Personal/Life Category Styles
+   Professional photographer aesthetic:
+   - Serif typography
+   - Warm color palette
+   - Immersive image display
+   ============================================ */
+
+/* --- Override root variables for personal pages (Light Mode) --- */
+body:has(.post-personal) {
+    --theme: #faf8f5 !important;
+    --entry: #f0ede8 !important;
+    --primary: #3d3d3d !important;
+    --secondary: #6b6b6b !important;
+    --tertiary: #e8e4df !important;
+    --content: #3d3d3d !important;
+    --border: #d4c9bb !important;
+}
+
+/* --- Override root variables for personal pages (Dark Mode) --- */
+body.dark:has(.post-personal) {
+    --theme: #1a1916 !important;
+    --entry: #252220 !important;
+    --primary: #e8e4df !important;
+    --secondary: #a89f91 !important;
+    --tertiary: #2d2a27 !important;
+    --content: #d8d3cc !important;
+    --border: #4a433c !important;
+}
+
+/* --- Warm Color Variables (Light Mode) --- */
+.post-personal {
+    --personal-text: #3d3d3d;
+    --personal-text-secondary: #6b6b6b;
+    --personal-bg: #faf8f5;
+    --personal-accent: #8b7355;
+}
+
+/* --- Warm Color Variables (Dark Mode) --- */
+.dark .post-personal {
+    --personal-text: #e8e4df;
+    --personal-text-secondary: #a89f91;
+    --personal-bg: #1a1916;
+    --personal-accent: #d4a574;
+}
+
+/* --- Base Typography --- */
+.post-personal .post-content {
+    font-family: "Noto Serif TC", "Georgia", serif;
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: var(--personal-text);
+    letter-spacing: 0.02em;
+}
+
+.post-personal .post-content p {
+    margin-bottom: 1.8em;
+}
+
+/* --- Heading Styles --- */
+.post-personal .post-title {
+    font-family: "Noto Serif TC", serif;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+}
+
+.post-personal .post-content h2,
+.post-personal .post-content h3 {
+    font-family: "Noto Serif TC", serif;
+    font-weight: 600;
+    margin-top: 3em;
+    margin-bottom: 1em;
+}
+
+/* --- Full-width Image Display --- */
+.post-personal .gallery {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 0 20px;
+    gap: 8px;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.post-personal .gallery-image {
+    height: 400px;
+    border-radius: 2px;
+}
+
+@media screen and (max-width: 768px) {
+    .post-personal .gallery-image {
+        height: 250px;
+    }
+}
+
+/* --- Hide Technical Elements --- */
+.post-personal .toc {
+    display: none;
+}
+
+.post-personal .post-tags {
+    display: none;
+}
+
+/* --- Simplified Meta Info --- */
+.post-personal .post-meta {
+    color: var(--personal-text-secondary);
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+/* --- Blockquote Style --- */
+.post-personal blockquote {
+    font-style: italic;
+    border-left: 3px solid var(--personal-accent);
+    padding-left: 1.5em;
+    margin: 2em 0;
+    color: var(--personal-text-secondary);
+}
+
+/* --- Link Style --- */
+.post-personal .post-content a {
+    color: var(--personal-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.post-personal .post-content a:hover {
+    opacity: 0.8;
+}
+
+/* --- Cover Image Enhancement --- */
+.post-personal .post-header + .post-content,
+.post-personal .entry-cover {
+    margin-top: 2em;
+}
+
+/* --- List Styling --- */
+.post-personal .post-content ul,
+.post-personal .post-content ol {
+    font-family: "Noto Serif TC", "Georgia", serif;
+    line-height: 1.9;
+}
