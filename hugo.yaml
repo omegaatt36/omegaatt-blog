@@ -1,7 +1,6 @@
 baseURL: https://www.omegaatt.com
 languageCode: zh-TW
 title: omegaatt
-author: "Raiven Kao"
 theme: ["PaperMod"]
 copyright: "© Raiven Kao 2020 - 2025"
 enableRobotsTXT: false
@@ -13,6 +12,9 @@ googleAnalytics: G-5ZBLJ2BSQN
 #     blogs: /blogs/develop/:year/:filename
 
 params:
+  author:
+    name: "Raiven Kao"
+    email: "raiven.kao@gmail.com"
   env: production
   defaultTheme: dark
   DateFormat: "2006-01-02"

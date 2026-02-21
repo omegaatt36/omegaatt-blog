@@ -23,10 +23,10 @@
     </main>
     {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
 
-    {{- /* Conditionally load gallery modal and JS only when needed */ -}}
+    {{- /* Conditionally load PhotoSwipe gallery */ -}}
     {{- if .Scratch.Get "hasGallery" }}
-    {{- partial "gallery-modal.html" . }}
-    <script src="{{ "js/gallery.js" | relURL }}" defer></script>
+    <link rel="stylesheet" href="{{ "css/photoswipe.css" | relURL }}">
+    <script type="module" src="{{ "js/gallery.js" | relURL }}" defer></script>
     {{- end }}
 </body>
 

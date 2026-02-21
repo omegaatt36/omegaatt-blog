@@ -1,0 +1,40 @@
+{
+  "images": [
+    {
+      "src": "PANA6888.webp",
+      "width": 1333,
+      "height": 2000,
+      "aspectRatio": 0.6665
+    },
+    {
+      "src": "PANA6896.webp",
+      "width": 1333,
+      "height": 2000,
+      "aspectRatio": 0.6665
+    },
+    {
+      "src": "PANA6909.webp",
+      "width": 1333,
+      "height": 2000,
+      "aspectRatio": 0.6665
+    },
+    {
+      "src": "PXL_20260104_045947057.webp",
+      "width": 2000,
+      "height": 1506,
+      "aspectRatio": 1.3280212483399734
+    },
+    {
+      "src": "PXL_20260104_050154290.webp",
+      "width": 1130,
+      "height": 1500,
+      "aspectRatio": 0.7533333333333333
+    },
+    {
+      "src": "PXL_20260104_051158445.webp",
+      "width": 1130,
+      "height": 1500,
+      "aspectRatio": 0.7533333333333333
+    }
+  ]
+}

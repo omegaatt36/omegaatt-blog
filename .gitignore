@@ -2,3 +2,4 @@ public/*
 resources/*
 .hugo_build.lock
 .obsidian
+tools/imgproc/imgproc

@@ -1,0 +1,28 @@
+{
+  "images": [
+    {
+      "src": "PANA6969.webp",
+      "width": 2000,
+      "height": 1333,
+      "aspectRatio": 1.5003750937734435
+    },
+    {
+      "src": "PANA6975.webp",
+      "width": 1333,
+      "height": 2000,
+      "aspectRatio": 0.6665
+    },
+    {
+      "src": "PXL_20260104_091542349.webp",
+      "width": 1506,
+      "height": 2000,
+      "aspectRatio": 0.753
+    },
+    {
+      "src": "PXL_20260104_122019280.webp",
+      "width": 1506,
+      "height": 2000,
+      "aspectRatio": 0.753
+    }
+  ]
+}

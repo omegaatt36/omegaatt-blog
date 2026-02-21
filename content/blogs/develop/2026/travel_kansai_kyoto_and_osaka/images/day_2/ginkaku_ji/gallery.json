@@ -1,0 +1,64 @@
+{
+  "images": [
+    {
+      "src": "00_PXL_20260103_022813448.webp",
+      "width": 2000,
+      "height": 1506,
+      "aspectRatio": 1.3280212483399734
+    },
+    {
+      "src": "01_PXL_20260103_023744151.webp",
+      "width": 1506,
+      "height": 2000,
+      "aspectRatio": 0.753
+    },
+    {
+      "src": "02_PXL_20260103_030950346.webp",
+      "width": 1506,
+      "height": 2000,
+      "aspectRatio": 0.753
+    },
+    {
+      "src": "03_PXL_20260103_031541534.webp",
+      "width": 1506,
+      "height": 2000,
+      "aspectRatio": 0.753
+    },
+    {
+      "src": "04_PANA6812.webp",
+      "width": 1333,
+      "height": 2000,
+      "aspectRatio": 0.6665
+    },
+    {
+      "src": "05_PXL_20260103_034309754.webp",
+      "width": 1506,
+      "height": 2000,
+      "aspectRatio": 0.753
+    },
+    {
+      "src": "06_PXL_20260103_042553480.webp",
+      "width": 1130,
+      "height": 1500,
+      "aspectRatio": 0.7533333333333333
+    },
+    {
+      "src": "PANA6818.webp",
+      "width": 1333,
+      "height": 2000,
+      "aspectRatio": 0.6665
+    },
+    {
+      "src": "PANA6826.webp",
+      "width": 2000,
+      "height": 1333,
+      "aspectRatio": 1.5003750937734435
+    },
+    {
+      "src": "PXL_20260103_043118102.webp",
+      "width": 1130,
+      "height": 1500,
+      "aspectRatio": 0.7533333333333333
+    }
+  ]
+}
