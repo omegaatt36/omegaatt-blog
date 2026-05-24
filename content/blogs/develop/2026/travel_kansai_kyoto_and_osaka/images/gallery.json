@@ -1,0 +1,52 @@
+{
+  "images": [
+    {
+      "src": "cover.webp",
+      "width": 2000,
+      "height": 1218,
+      "aspectRatio": 1.6420361247947455
+    },
+    {
+      "src": "day_1.webp",
+      "width": 2000,
+      "height": 1333,
+      "aspectRatio": 1.5003750937734435
+    },
+    {
+      "src": "day_2.webp",
+      "width": 1506,
+      "height": 2000,
+      "aspectRatio": 0.753
+    },
+    {
+      "src": "day_3.webp",
+      "width": 1506,
+      "height": 2000,
+      "aspectRatio": 0.753
+    },
+    {
+      "src": "day_4.webp",
+      "width": 1506,
+      "height": 2000,
+      "aspectRatio": 0.753
+    },
+    {
+      "src": "day_5.webp",
+      "width": 1506,
+      "height": 2000,
+      "aspectRatio": 0.753
+    },
+    {
+      "src": "noccounting.webp",
+      "width": 1416,
+      "height": 956,
+      "aspectRatio": 1.4811715481171548
+    },
+    {
+      "src": "noccounting_bot.webp",
+      "width": 900,
+      "height": 2000,
+      "aspectRatio": 0.45
+    }
+  ]
+}

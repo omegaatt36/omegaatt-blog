@@ -1,0 +1,36 @@
+<article class="post-entry">
+    {{/* --- Thumbnail Logic Start --- */}} {{ $isHidden := .Params.cover.hidden | default .Site.Params.cover.hiddenInList | default false }} {{ $thumbnail := "" }} {{/* Default thumbnail size */}} {{ $thumbSize := "100x" }} {{/* Adjust
+    default size as needed (e.g., "100x75") */}} {{ with .Params.cover.image }} {{ $imagePath := . }} {{/* Try to get image as page resource first */}} {{ $image := $.Resources.GetMatch $imagePath }} {{ if $image }} {{/* Process page
+    resource */}} {{ $thumb := $image.Resize $thumbSize }} {{ $thumbnail = $thumb.RelPermalink }} {{ else }} {{/* Fallback for static images or external URLs */}} {{ if or (hasPrefix $imagePath "http://") (hasPrefix $imagePath "https://")
+    }} {{ $thumbnail = $imagePath }} {{/* Use external URL directly */}} {{ else }} {{ $thumbnail = $imagePath | absURL }} {{/* Assume static path */}} {{ end }} {{ end }} {{ end }} {{/* Conditionally display thumbnail div */}} {{ if and
+    $thumbnail (not $isHidden) }}
+    <div class="entry-thumbnail">
+        {{/* Image inside the thumbnail div */}}
+        <img src="{{ $thumbnail }}" alt="Thumbnail for {{ .Title | plainify }}" loading="lazy" />
+    </div>
+    {{ end }} {{/* --- Thumbnail Logic End --- */}} {{/* Group text content */}}
+    <div class="entry-text-content">
+        <header class="entry-header">
+            <h2 class="entry-hint-parent">
+                {{ .Title | markdownify }} {{- if .Draft }}<span class="entry-hint" title="Draft">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 -960 960 960" fill="currentColor">
+                        <path
+                            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z"
+                        />
+                    </svg> </span
+                >{{- end }}
+            </h2>
+        </header>
+        {{- if not (.Param "hideSummary" | default .Site.Params.hideSummary | default false) }}
+        <div class="entry-content">
+            {{/* Use .Summary or .Plain based on preference */}}
+            <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+        </div>
+        {{- end }} {{- if not (.Param "hideMeta" | default .Site.Params.hideMeta | default false) }}
+        <footer class="entry-footer">{{- partial "post_meta.html" . -}}</footer>
+        {{- end }}
+    </div>
+
+    {{/* Single link overlaying the entire entry */}}
+    <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+</article>

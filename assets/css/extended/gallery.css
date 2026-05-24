@@ -1,0 +1,94 @@
+/* Gallery Component — Justified Grid Layout */
+
+.gallery.justified {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 1.5em 0;
+}
+
+.gallery-item {
+    margin: 0;
+    overflow: hidden;
+    height: 200px;
+    cursor: zoom-in;
+    border-radius: 4px;
+    transition: opacity 0.2s ease;
+}
+
+.gallery-item:hover {
+    opacity: 0.9;
+}
+
+.gallery-item a {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.gallery-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Prevent last row from over-stretching */
+.gallery.justified::after {
+    content: "";
+    flex-grow: 999;
+}
+
+/* Legacy horizontal scroll fallback (for images= param) */
+.gallery.scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--tertiary) transparent;
+    padding-bottom: 8px;
+    margin: 1.5em 0;
+}
+
+.gallery.scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.gallery.scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.gallery.scroll::-webkit-scrollbar-thumb {
+    background-color: var(--tertiary);
+    border-radius: 3px;
+}
+
+.gallery.scroll .gallery-image {
+    width: auto;
+    max-width: none;
+    flex: 0 0 auto;
+    height: 200px;
+    object-fit: cover;
+    cursor: zoom-in;
+    border-radius: 4px;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .gallery-item {
+        height: 150px;
+    }
+
+    .gallery.scroll .gallery-image {
+        height: 150px;
+    }
+}
+
+/* Prevent body scroll when PhotoSwipe is open */
+body.pswp-open {
+    overflow: hidden;
+}

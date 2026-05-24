@@ -1,0 +1,95 @@
+{{- /* Gallery Shortcode
+  Directory mode: {{< gallery dir="images/day_1/hotel" >}}
+  Legacy mode:    {{< gallery images="img1.jpg|img2.jpg" >}}
+*/ -}}
+{{- $galleryId := .Ordinal -}}
+
+{{- if .Get "dir" -}}
+  {{- /* === Directory mode: justified grid === */ -}}
+  {{- $dir := .Get "dir" -}}
+  {{- $jsonPath := printf "%s/gallery.json" $dir -}}
+  {{- $jsonResource := .Page.Resources.GetMatch $jsonPath -}}
+
+  {{- if $jsonResource -}}
+    {{- $galleryData := $jsonResource.Content | unmarshal -}}
+    <div class="gallery scroll" data-pswp-gallery id="gallery-{{ $galleryId }}">
+      {{- range $index, $img := $galleryData.images -}}
+        {{- $srcPath := printf "%s/%s" $dir $img.src -}}
+        {{- $imgRes := $.Page.Resources.GetMatch $srcPath -}}
+        {{- $alt := printf "Gallery image %d" (add $index 1) -}}
+        {{- if $imgRes -}}
+        <a href="{{ $imgRes.RelPermalink }}"
+           data-pswp-width="{{ $img.width }}"
+           data-pswp-height="{{ $img.height }}">
+          <img src="{{ $imgRes.RelPermalink }}"
+               alt="{{ $alt }}"
+               class="gallery-image"
+               width="{{ $img.width }}"
+               height="{{ $img.height }}"
+               loading="lazy"
+               decoding="async" />
+        </a>
+        {{- end -}}
+      {{- end -}}
+    </div>
+  {{- else -}}
+    {{- /* Fallback: no gallery.json, glob images from dir */ -}}
+    {{- $pattern := printf "%s/*.webp" $dir -}}
+    {{- $images := .Page.Resources.Match $pattern -}}
+    <div class="gallery scroll" data-pswp-gallery id="gallery-{{ $galleryId }}">
+      {{- range $index, $img := $images -}}
+        {{- $alt := printf "Gallery image %d" (add $index 1) -}}
+        <a href="{{ $img.RelPermalink }}"
+           data-pswp-width="{{ $img.Width }}"
+           data-pswp-height="{{ $img.Height }}">
+          <img src="{{ $img.RelPermalink }}"
+               alt="{{ $alt }}"
+               class="gallery-image"
+               width="{{ $img.Width }}"
+               height="{{ $img.Height }}"
+               loading="lazy"
+               decoding="async" />
+        </a>
+      {{- end -}}
+    </div>
+  {{- end -}}
+
+{{- else if .Get "images" -}}
+  {{- /* === Legacy mode: horizontal scroll === */ -}}
+  {{- $imagesParam := .Get "images" -}}
+  {{- $images := split $imagesParam "|" -}}
+  <div class="gallery scroll" data-pswp-gallery id="gallery-{{ $galleryId }}">
+    {{- range $index, $imageData := $images -}}
+      {{- $parts := split $imageData ":" -}}
+      {{- $src := index $parts 0 -}}
+      {{- $alt := printf "Gallery image %d" (add $index 1) -}}
+      {{- if gt (len $parts) 1 -}}
+        {{- $alt = index $parts 1 -}}
+      {{- end -}}
+      {{- $imgRes := $.Page.Resources.GetMatch $src -}}
+      {{- if $imgRes -}}
+        <a href="{{ $imgRes.RelPermalink }}"
+           data-pswp-width="{{ $imgRes.Width }}"
+           data-pswp-height="{{ $imgRes.Height }}">
+          <img src="{{ $imgRes.RelPermalink }}"
+               alt="{{ $alt }}"
+               class="gallery-image"
+               width="{{ $imgRes.Width }}"
+               height="{{ $imgRes.Height }}"
+               loading="lazy"
+               decoding="async" />
+        </a>
+      {{- else -}}
+        <a href="{{ $src | relURL }}">
+          <img src="{{ $src | relURL }}"
+               alt="{{ $alt }}"
+               class="gallery-image"
+               loading="lazy"
+               decoding="async" />
+        </a>
+      {{- end -}}
+    {{- end -}}
+  </div>
+{{- end -}}
+
+{{- .Page.Scratch.Set "hasGallery" true -}}

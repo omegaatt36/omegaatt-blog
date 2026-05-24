@@ -1,0 +1,48 @@
+.archive-entry:hover {
+    background-color: rgba(128, 128, 128, 0.1); /* Subtle hover effect */
+}
+
+.archive-entry-text {
+    flex-grow: 1;
+    min-width: 0; /* Prevent text overflow */
+    display: flex;
+    flex-direction: column; /* Stack title and meta */
+    justify-content: center; /* Center text vertically if thumbnail is taller */
+}
+
+.archive-entry-title {
+    font-size: 1.1rem; /* Slightly smaller title */
+    margin: 0 0 4px 0; /* Adjust spacing */
+    line-height: 1.3;
+}
+
+.archive-meta {
+    font-size: 0.8rem; /* Smaller meta text */
+    color: var(--secondary);
+}
+
+/* Ensure the link covers the entry */
+.archive-entry .entry-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+/* Make title and meta clickable via the link */
+.archive-entry h3,
+.archive-entry .archive-meta {
+    position: relative;
+    z-index: 0; /* Below the absolute link */
+}
+
+/* Optional: Remove background/border from the generic post-entry if it applies here */
+.archive-posts .post-entry {
+    background: none;
+    border: none;
+    padding: calc(var(--gap) * 0.5) 0;
+    margin-bottom: calc(var(--gap) * 0.5);
+    border-bottom: 1px dashed var(--border);
+}
