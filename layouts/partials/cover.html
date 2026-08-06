@@ -4,8 +4,10 @@
 
 {{/* Access cover image parameter from the original context */}}
 {{- with $cxt.Params.cover.image }}
+  {{- if not $isHidden }}
   {{/* Make sure resource fetching uses the original context */}}
-  {{- $original := $cxt.Resources.GetMatch . }}
+  {{- $imagePath := . }}
+  {{- $original := $cxt.Resources.GetMatch $imagePath }}
   {{- if $original }}
     {{- $image := $original.Resize "720x" }} {{/* Adjust size as needed */}}
     {{- $dominantColor := $original.Colors | default "#eee" }} {{/* Get dominant color, provide fallback */}}
@@ -21,9 +23,14 @@
         onload="this.style.opacity='1';" {{/* Fade in when loaded */}}
       />
     </div>
-  {{ else }}
-    {{/* Handle external images or error cases if needed */}}
-    {{/* Use original context for title fallback */}}
-    <img src="{{ . | absURL }}" alt="{{ $cxt.Params.cover.alt | default $cxt.Title | plainify }}" loading="lazy">
-  {{ end }}
+  {{- else if (or (hasPrefix $imagePath "http://") (hasPrefix $imagePath "https://")) }}
+    {{/* Genuine external image URL, safe to render directly */}}
+    <div class="entry-cover">
+      <img src="{{ $imagePath }}" alt="{{ $cxt.Params.cover.alt | default $cxt.Title | plainify }}" loading="lazy">
+    </div>
+  {{- end }}
+  {{/* If cover.image is set but neither resolves to a page resource nor a real URL
+       (e.g. the file hasn't been added yet), render nothing instead of a broken
+       image — a 404'd <img> falls back to its alt text, which duplicates the title. */}}
+  {{- end }}
 {{ end }}
