@@ -1,5 +1,5 @@
 baseURL: https://www.omegaatt.com
-languageCode: zh-TW
+locale: zh-TW
 title: omegaatt
 theme: ["PaperMod"]
 copyright: "© Raiven Kao 2020 - 2026"
