@@ -1,0 +1,13 @@
+{{- /*
+  Renders LaTeX to MathML at build time with the KaTeX that ships inside the
+  Hugo extended binary. The output needs no CSS, no JavaScript, and no CDN.
+  Delimiters are set in hugo.yaml under markup.goldmark.extensions.passthrough.
+*/ -}}
+{{- $opts := dict "output" "mathml" "displayMode" (eq .Type "block") -}}
+{{- with try (transform.ToMath .Inner $opts) -}}
+  {{- with .Err }}
+    {{- errorf "KaTeX failed on %q in %s: %s" $.Inner $.Page.File.Path . -}}
+  {{- else }}
+    {{- .Value -}}
+  {{- end -}}
+{{- end -}}

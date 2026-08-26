@@ -7,7 +7,7 @@ tags:
   - golang
   - docker
   - linux
-  - macOS
+  - macos
 cover:
   image: "images/cover.webp"
 ---

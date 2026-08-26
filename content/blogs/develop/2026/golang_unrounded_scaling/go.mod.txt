@@ -1,0 +1,3 @@
+module fpdemo
+
+go 1.27
