@@ -1,0 +1,130 @@
+// 附錄比較表的 benchmark。跟 appendix_demo.go.txt 放同一個目錄執行：
+//
+//	go test -bench=. -benchmem -count=5
+package main
+
+import (
+	"math/big"
+	"strconv"
+	"testing"
+
+	"github.com/shopspring/decimal"
+)
+
+var (
+	fa, fb = 123456.789, 987.654321
+	ia     = big.NewInt(123456789)
+	ib     = big.NewInt(987654321)
+	bfa, _ = new(big.Float).SetPrec(200).SetString("123456.789")
+	bfb, _ = new(big.Float).SetPrec(200).SetString("987.654321")
+	bra, _ = new(big.Rat).SetString("123456.789")
+	brb, _ = new(big.Rat).SetString("987.654321")
+	da     = decimal.RequireFromString("123456.789")
+	db     = decimal.RequireFromString("987.654321")
+
+	sink    any
+	sinkF   float64
+	sinkStr string
+)
+
+func BenchmarkAddFloat64(b *testing.B) {
+	for b.Loop() {
+		sinkF = fa + fb
+	}
+}
+func BenchmarkMulFloat64(b *testing.B) {
+	for b.Loop() {
+		sinkF = fa * fb
+	}
+}
+
+func BenchmarkAddBigInt(b *testing.B) {
+	z := new(big.Int)
+	for b.Loop() {
+		z.Add(ia, ib)
+	}
+	sink = z
+}
+func BenchmarkMulBigInt(b *testing.B) {
+	z := new(big.Int)
+	for b.Loop() {
+		z.Mul(ia, ib)
+	}
+	sink = z
+}
+
+func BenchmarkAddBigFloat(b *testing.B) {
+	z := new(big.Float).SetPrec(200)
+	for b.Loop() {
+		z.Add(bfa, bfb)
+	}
+	sink = z
+}
+func BenchmarkMulBigFloat(b *testing.B) {
+	z := new(big.Float).SetPrec(200)
+	for b.Loop() {
+		z.Mul(bfa, bfb)
+	}
+	sink = z
+}
+
+func BenchmarkAddBigRat(b *testing.B) {
+	z := new(big.Rat)
+	for b.Loop() {
+		z.Add(bra, brb)
+	}
+	sink = z
+}
+func BenchmarkMulBigRat(b *testing.B) {
+	z := new(big.Rat)
+	for b.Loop() {
+		z.Mul(bra, brb)
+	}
+	sink = z
+}
+
+func BenchmarkAddDecimal(b *testing.B) {
+	var z decimal.Decimal
+	for b.Loop() {
+		z = da.Add(db)
+	}
+	sink = z
+}
+func BenchmarkMulDecimal(b *testing.B) {
+	var z decimal.Decimal
+	for b.Loop() {
+		z = da.Mul(db)
+	}
+	sink = z
+}
+func BenchmarkDivDecimal(b *testing.B) {
+	var z decimal.Decimal
+	for b.Loop() {
+		z = da.Div(db)
+	}
+	sink = z
+}
+
+// 三條不同的列印路徑。
+func BenchmarkFormatFloat64(b *testing.B) {
+	for b.Loop() {
+		sinkStr = strconv.FormatFloat(fa, 'f', -1, 64)
+	}
+}
+func BenchmarkFormatBigFloat(b *testing.B) {
+	for b.Loop() {
+		sinkStr = bfa.Text('f', -1)
+	}
+}
+func BenchmarkFormatDecimal(b *testing.B) {
+	for b.Loop() {
+		sinkStr = da.String()
+	}
+}
+
+// float64 → Decimal 走的是 decimal-go.go 裡那份 2009 年的最短列印複製。
+func BenchmarkDecimalNewFromFloat(b *testing.B) {
+	for b.Loop() {
+		sink = decimal.NewFromFloat(fa)
+	}
+}

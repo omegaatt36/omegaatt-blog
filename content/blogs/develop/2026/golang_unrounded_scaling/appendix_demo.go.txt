@@ -1,0 +1,55 @@
+// 附錄「不用 float64 的話，代價是什麼」的範例程式。
+//
+// 這一份需要第三方套件，所以跟 main.go 分開放。執行方式見 README.txt。
+package main
+
+import (
+	"fmt"
+	"math/big"
+	"unsafe"
+
+	"github.com/shopspring/decimal"
+)
+
+func main() {
+	fmt.Println("== 0.1 的真面目 ==")
+	r := new(big.Rat).SetFloat64(0.1)
+	fmt.Println("  float64 的 0.1 =", r.FloatString(55))
+	fmt.Println("               =", r.Num(), "/", r.Denom())
+	d := decimal.RequireFromString("0.1")
+	fmt.Printf("  shopspring 的 0.1：value=%v exp=%v\n", d.Coefficient(), d.Exponent())
+
+	fmt.Println("\n== prec=53 的 big.Float 就是 float64 ==")
+	f, _, _ := big.ParseFloat("0.1", 10, 53, big.ToNearestEven)
+	g, _ := f.Float64()
+	rf := new(big.Rat)
+	f.Rat(rf)
+	fmt.Println("  轉回 float64 後相等 :", g == 0.1)
+	fmt.Println("  精確值完全相同     :", rf.Cmp(new(big.Rat).SetFloat64(0.1)) == 0)
+
+	fmt.Println("\n== decimal 的除法是唯一會捨入的運算 ==")
+	third := decimal.NewFromInt(1).Div(decimal.NewFromInt(3))
+	fmt.Println("  DivisionPrecision =", decimal.DivisionPrecision)
+	fmt.Println("  1/3     =", third)
+	fmt.Println("  (1/3)*3 =", third.Mul(decimal.NewFromInt(3)))
+	rt := big.NewRat(1, 3)
+	fmt.Println("  big.Rat 的 1/3     =", rt.RatString(),
+		" (1/3)*3 =", new(big.Rat).Mul(rt, big.NewRat(3, 1)).RatString())
+
+	fmt.Println("\n== NewFromFloat 的陷阱 ==")
+	fmt.Println("  NewFromFloat(0.1)                  =", decimal.NewFromFloat(0.1))
+	fmt.Println("  NewFromFloatWithExponent(0.1, -30) =", decimal.NewFromFloatWithExponent(0.1, -30))
+	fmt.Println("  NewFromFloat 走的是最短列印，會把 float64 原有的誤差抹掉")
+
+	fmt.Println("\n== struct 大小（amd64） ==")
+	var f64 float64
+	var bi big.Int
+	var bf big.Float
+	var br big.Rat
+	var dd decimal.Decimal
+	fmt.Printf("  float64         %2d bytes\n", unsafe.Sizeof(f64))
+	fmt.Printf("  big.Int         %2d bytes + 堆上的 []Word\n", unsafe.Sizeof(bi))
+	fmt.Printf("  big.Float       %2d bytes + 堆上的 []Word\n", unsafe.Sizeof(bf))
+	fmt.Printf("  big.Rat         %2d bytes + 兩塊堆上的 []Word\n", unsafe.Sizeof(br))
+	fmt.Printf("  decimal.Decimal %2d bytes + 堆上的 big.Int\n", unsafe.Sizeof(dd))
+}

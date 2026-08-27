@@ -20,6 +20,11 @@ func main() {
 	crossCheckUscale()
 	roundTripCheck()
 	fastPathRate()
+	demoGVN1947()
+	demoHexWobble()
+	demoBigFloat()
+	demoRatBlowup()
+	demoMagicConstants()
 }
 
 func demoUnrounded() {
@@ -347,5 +352,150 @@ func fastPathRate() {
 	tot = fastPathHits + slowPathHits
 	fmt.Printf("FixedWidth(6):  共 %d 次 uscale，單次乘法就結束 %d 次 (%.2f%%)\n",
 		tot, fastPathHits, 100*float64(fastPathHits)/float64(tot))
+	fmt.Println()
+}
+
+// gvn1947 重現 Goldstine 與 von Neumann 1947 年的轉換方法：把值壓進 [0.1, 1)，
+// 然後反覆乘 10，每次取整數部分當作下一位十進位數字。muls 回傳做了幾次大數乘除。
+func gvn1947(f float64, n int) (digits []byte, muls int) {
+	r := new(big.Rat).SetFloat64(f)
+	ten := big.NewRat(10, 1)
+	one, tenth := big.NewRat(1, 1), big.NewRat(1, 10)
+	for r.Cmp(one) >= 0 { // 先壓進 [0.1, 1)
+		r.Quo(r, ten)
+		muls++
+	}
+	for r.Cmp(tenth) < 0 {
+		r.Mul(r, ten)
+		muls++
+	}
+	for i := 0; i < n; i++ {
+		r.Mul(r, ten)
+		muls++
+		d := new(big.Int).Quo(r.Num(), r.Denom()) // 取整數部分
+		digits = append(digits, byte('0'+d.Int64()))
+		r.Sub(r, new(big.Rat).SetInt(d)) // modulo 1
+	}
+	return digits, muls
+}
+
+func demoGVN1947() {
+	fmt.Println("1947：Goldstine 與 von Neumann 的做法")
+	for _, f := range []float64{math.Pi, 0.1, 1e300, 1e-300} {
+		d, m := gvn1947(f, 17)
+		fmt.Printf("  %-17v → %s  （做了 %d 次大數乘除法）\n", f, d, m)
+	}
+	fmt.Println()
+}
+
+// demoHexWobble 算出 IBM System/360 短格式（0.f × 16**(e-64)，f 為 24 bit）
+// 在幾個值上的實際有效位數，示範 wobbling precision。
+func demoHexWobble() {
+	fmt.Println("System/360 base-16 浮點數：有效位數在游走")
+	fmt.Println("  值        十六進位尾數   有效 bit 數")
+	for _, v := range []float64{1.0, 1.9, 2.0, 4.0, 8.0, 15.9} {
+		e := 0
+		for x := v; x >= 1; x /= 16 {
+			e++
+		}
+		frac := v / math.Pow(16, float64(e))         // ∈ [1/16, 1)
+		mant := uint64(math.Round(frac * (1 << 24))) // 24 bit
+		fmt.Printf("  %-9g 0x%06X       %d\n", v, mant, bits.Len64(mant))
+	}
+	fmt.Println()
+}
+
+// demoBigFloat 說明 big.Float 的 prec 單位是 bit，而且它沒有解決 0.1 的問題。
+func demoBigFloat() {
+	fmt.Println("big.Float 只是把誤差變小，沒有消滅它")
+	tenth := big.NewRat(1, 10)
+	for _, p := range []uint{53, 100, 200} {
+		f, _, _ := big.ParseFloat("0.1", 10, p, big.ToNearestEven)
+		exact := new(big.Rat)
+		f.Rat(exact)
+		diff, _ := new(big.Float).SetRat(new(big.Rat).Abs(new(big.Rat).Sub(exact, tenth))).Float64()
+		fmt.Printf("  prec=%-4d 十進位有效位數 ≈ %.1f，與 1/10 的差 ≈ %.3e\n",
+			p, float64(p)*math.Log10(2), diff)
+	}
+
+	const prec = 200
+	one := new(big.Float).SetPrec(prec).SetInt64(1)
+	a, _, _ := big.ParseFloat("0.1", 10, prec, big.ToNearestEven)
+	acc := new(big.Float).SetPrec(prec)
+	for range 10 {
+		acc.Add(acc, a)
+	}
+	facc := 0.0
+	for range 10 {
+		facc += 0.1
+	}
+	racc := new(big.Rat)
+	for range 10 {
+		racc.Add(racc, big.NewRat(1, 10))
+	}
+	fmt.Printf("  float64        : 0.1 累加十次 == 1.0 ? %v（差 %s）\n",
+		facc == 1.0, strconv.FormatFloat(facc-1.0, 'e', 5, 64))
+	fmt.Printf("  big.Float(200) : 0.1 累加十次 == 1.0 ? %v（差 %s）\n",
+		acc.Cmp(one) == 0, new(big.Float).SetPrec(prec).Sub(acc, one).Text('e', 5))
+	fmt.Printf("  big.Rat        : 0.1 累加十次 == 1.0 ? %v（%s）\n",
+		racc.Cmp(big.NewRat(1, 1)) == 0, racc.RatString())
+
+	// 0.1+0.2 == 0.3 會隨精度「隨機通過」。
+	fmt.Println("  0.1+0.2 == 0.3 在各精度下：")
+	for _, p := range []uint{53, 60, 64, 100, 200, 500} {
+		x, _, _ := big.ParseFloat("0.1", 10, p, big.ToNearestEven)
+		y, _, _ := big.ParseFloat("0.2", 10, p, big.ToNearestEven)
+		z, _, _ := big.ParseFloat("0.3", 10, p, big.ToNearestEven)
+		fmt.Printf("    prec=%-4d %v\n", p, new(big.Float).SetPrec(p).Add(x, y).Cmp(z) == 0)
+	}
+	fmt.Println()
+}
+
+// demoRatBlowup 示範 big.Rat 精確的代價：分母會爆炸。
+func demoRatBlowup() {
+	fmt.Println("big.Rat 的代價：分母爆炸")
+	h := new(big.Rat)
+	for n := 1; n <= 200; n++ {
+		h.Add(h, new(big.Rat).SetFrac64(1, int64(n)))
+		switch n {
+		case 10, 50, 100, 200:
+			fmt.Printf("  調和級數前 %3d 項：分子 %d bits，分母 %d bits\n",
+				n, h.Num().BitLen(), h.Denom().BitLen())
+		}
+	}
+	fmt.Println()
+}
+
+// q3rsqrt 是 Quake III 的平方根倒數速算法，用來對照 log10Pow2。
+// i = 0x5f3759df - (i>>1) 之所以成立，是因為 IEEE 754 的 bit pattern
+// 當成整數讀時，是 log₂ x 的仿射近似。
+func q3rsqrt(x float32) (guess, oneNewton float32) {
+	i := math.Float32bits(x)
+	i = 0x5f3759df - (i >> 1)
+	y := math.Float32frombits(i)
+	return y, y * (1.5 - 0.5*x*y*y)
+}
+
+// demoMagicConstants 把「圖形學的夠用就好」跟「轉換的完全精確」量在一起。
+func demoMagicConstants() {
+	fmt.Println("魔術常數的兩種態度")
+	var maxGuess, maxNewton float64
+	for range 5_000_000 {
+		x := float32(1 + 3*rand.Float64()) // [1, 4)，指數週期在此重複
+		want := 1 / math.Sqrt(float64(x))
+		g, n := q3rsqrt(x)
+		maxGuess = math.Max(maxGuess, math.Abs(float64(g)-want)/want)
+		maxNewton = math.Max(maxNewton, math.Abs(float64(n)-want)/want)
+	}
+	fmt.Printf("  0x5f3759df 初始猜測   最大相對誤差 %.4f%%\n", maxGuess*100)
+	fmt.Printf("  一次牛頓迭代後         最大相對誤差 %.4f%%\n", maxNewton*100)
+
+	bad := 0
+	for e := -1074; e <= 971; e++ {
+		if log10Pow2(e) != floorLogRatio(e, 2, 10) {
+			bad++
+		}
+	}
+	fmt.Printf("  log10Pow2 在 e ∈ [-1074, 971] 的誤差筆數 %d\n", bad)
 	fmt.Println()
 }
